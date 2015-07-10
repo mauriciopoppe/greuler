@@ -25,6 +25,9 @@ export default function () {
         return 'node ' + (d.class || '');
       })
       .attr('id', function (d) { return utils.ns(d.id); })
+      .attr('transform', function (d) {
+        return utils.transform({ translate: d });
+      })
       .on('mouseover', function (d) {
         var el = d3.select(this);
         if (!el.over) {
@@ -37,15 +40,8 @@ export default function () {
         el.over = false;
         el.style('cursor', null);
       })
-      .attr('transform', function (d) {
-        return utils.transform({ translate: d });
-      })
+      .attr('opacity', 0)
       .call(layout.drag);
-
-    //g.transition()
-    //  .duration(500)
-    //  .attr('opacity', 1);
-      //.attrTween('opacity', d3.interpolateNumber(0, 1));
 
     var dragStart = layout.drag().on('dragstart.d3adaptor');
     var dragEnd = layout.drag().on('dragend.d3adaptor');
@@ -70,7 +66,7 @@ export default function () {
       .attr('fill', 'white')
       .attr('font-size', '12px')
       .attr('text-anchor', 'middle')
-      .attr('y', 5);
+      .attr('y', (d) => d.height / 4);
 
     // text update
     nodes.selectAll('text')
@@ -84,6 +80,7 @@ export default function () {
 
     // update
     utils.conditionalTransition(nodes, !owner.nodeDragging)
+      .attr('opacity', 1)
       .attr('transform', function (d) {
         return utils.transform({
           translate: d

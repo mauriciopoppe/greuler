@@ -71,4 +71,19 @@ var greuler = window.greuler;
     instance.manager.removeNode(1);
     instance.update();
   }, 5000);
+
+  setTimeout(function () {
+    var edge = options.data.links[10];
+    instance.manager.removeEdge(edge.id);
+    instance.update();
+  }, 6000);
+
+  setTimeout(function () {
+    instance.selector.edgesByFn(function (e) {
+      return e.target.id === 7 || e.source.id === 7;
+    })
+      .selectAll('path')
+      .transition('test')
+      .attr('stroke', 'red');
+  }, 6500);
 })();

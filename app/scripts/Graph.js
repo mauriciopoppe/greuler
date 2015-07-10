@@ -1,7 +1,6 @@
 'use strict';
 
 import assert from 'assert';
-import extend from 'extend';
 import util from './utils';
 
 export default class Graph {
@@ -14,7 +13,7 @@ export default class Graph {
   // nodes
   addNode(config) {
     assert(config.id);
-    if (this.getNodeIndex(config.id) !== -1) {
+    if (this.getNode(config.id)) {
       throw Error('node already in store');
     }
     this.nodes.push(
@@ -22,53 +21,88 @@ export default class Graph {
     );
   }
 
-  removeNode(id) {
-    var nodeIndex = this.getNodeIndex(id);
-    if (nodeIndex !== -1) {
-      // remove nodes
-      this.nodes.splice(nodeIndex, 1);
-
-      // remove incident edges
-      this.removeIncidentEdges(id);
-    }
+  getNode(id) {
+    return this.getNodesByFn((v) => v.id === id)[0];
   }
 
-  getNodeIndex(id) {
+  removeNode(id) {
+    return this.removeNodesByFn(function (v) {
+      return v.id === id;
+    });
+  }
+
+  getNodesByFn(fn) {
     var i;
+    var nodes = [];
     for (i = 0; i < this.nodes.length; i += 1) {
-      if (this.nodes[i].id === id) {
-        return i;
+      if (fn(this.nodes[i])) {
+        nodes.push(this.nodes[i]);
       }
     }
-    return -1;
+    return nodes;
   }
 
-  getNode(id) {
-    var index = this.getNodeIndex(id);
-    if (index !== -1) {
-      return this.nodes[index];
+  removeNodesByFn(fn) {
+    var i;
+    for (i = 0; i < this.nodes.length; i += 1) {
+      if (fn(this.nodes[i])) {
+        // remove nodes
+        var node = this.nodes.splice(i, 1);
+
+        // remove incident edges
+        this.removeIncidentEdges(node[0].id);
+        i -= 1;
+      }
     }
   }
 
   // edges
   addEdge(config) {
     assert('source' in config && 'target' in config);
-    var source = this.getNodeIndex(config.source);
-    var target = this.getNodeIndex(config.target);
-    if (source === -1 || target === -1) {
+    var source = this.getNode(config.source);
+    var target = this.getNode(config.target);
+    if (!source || !target) {
       throw Error('edge does not join existing vertices');
     }
-    config.source = this.nodes[source];
-    config.target = this.nodes[target];
+    config.source = source;
+    config.target = target;
     this.edges.push(
       Graph.edgeDefaults(config)
     );
   }
 
-  removeIncidentEdges(id) {
+  getEdge(id) {
+    return this.getEdgesByFn((e) => e.id === id)[0];
+  }
+
+  removeEdge(id) {
     this.removeEdgesByFn(function (e) {
-      return e.source.id === id || e.target.id === id;
+      return e.id === id;
     });
+  }
+
+  getEdgesByFn(fn) {
+    var i;
+    var edges = [];
+    for (i = 0; i < this.edges.length; i += 1) {
+      if (fn(this.edges[i])) {
+        edges.push(this.edges[i]);
+      }
+    }
+    return edges;
+  }
+
+  removeIncidentEdges(nodeId) {
+    this.removeOutgoingEdges(nodeId);
+    this.removeIncomingEdges(nodeId);
+  }
+
+  removeOutgoingEdges(nodeId) {
+    this.removeEdgesByFn((e) => e.source.id === nodeId);
+  }
+
+  removeIncomingEdges(nodeId) {
+    this.removeEdgesByFn((e) => e.target.id === nodeId);
   }
 
   removeEdgesByFn(fn) {
@@ -79,22 +113,6 @@ export default class Graph {
         i -= 1;
       }
     }
-  }
-
-  getEdgesByFn(fn) {
-    var i;
-    var indices = [];
-    for (i = 0; i < this.edges.length; i += 1) {
-      if (fn(this.edges[i])) {
-        indices.push(i);
-      }
-    }
-    return indices;
-  }
-
-  getNodeSelection(id) {
-    return this.owner.nodeGroup
-      .selectAll('#' + util.ns(id));
   }
 
   static nodeDefaults(v) {

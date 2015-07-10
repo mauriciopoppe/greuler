@@ -156,10 +156,10 @@ export default function () {
       .data(function (d) { return [d.path]; });
     paths.enter()
       .append('path')
-      .style('stroke', '#999')
-      .style('fill', 'transparent')
-      .style('opacity', .3)
-      .style('stroke-width', 2);
+      .attr('stroke', '#999')
+      .attr('fill', 'transparent')
+      .attr('opacity', .3)
+      .attr('stroke-width', 2);
 
     // path update
     utils.conditionalTransition(paths, !owner.nodeDragging)
@@ -194,10 +194,9 @@ export default function () {
     // weight enter
     weights.enter()
       .append('text')
-      .attr('opacity', 0)
-      .style('font-size', '10px')
-      .style('dominant-baseline', 'text-after-edge')
-      .style('text-anchor', 'middle')
+      .attr('font-size', '10px')
+      .attr('dominant-baseline', 'text-after-edge')
+      .attr('text-anchor', 'middle')
       .text(function (d) {
         return d.weight || '';
       })

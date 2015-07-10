@@ -7,6 +7,7 @@ import extend from 'extend';
 import node from './elements/node';
 import edge from './elements/edge';
 import GraphManager from './Graph';
+import ElementSelector from './ElementSelector';
 
 export default class Draw {
   constructor(id, options) {
@@ -22,6 +23,7 @@ export default class Draw {
 
     // graph handles the interactions with the drawer
     this.manager = new GraphManager(this, this.options.data);
+    this.selector = new ElementSelector(this);
   }
 
   /**
@@ -79,6 +81,7 @@ export default class Draw {
 
     if (!hasLayout) {
       this.layout = cola.d3adaptor();
+      this.tick();
     }
 
     this.layout
@@ -95,8 +98,6 @@ export default class Draw {
       .groups(options.data.groups);
 
     this.layout.start();
-
-    this.tick();
   }
 
   tick() {
@@ -105,6 +106,9 @@ export default class Draw {
     this.layout.on('tick', function () {
       self.edgeGroup.call(self.edgeDrawer);
       self.nodeGroup.call(self.nodeDrawer);
+    });
+    this.layout.on('end', function () {
+      console.log('layout end');
     });
   }
 
