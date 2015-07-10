@@ -7,7 +7,6 @@ import extend from 'extend';
 import util from './utils';
 import node from './elements/node';
 import edge from './elements/edge';
-import weight from './elements/weight';
 
 class Draw {
   constructor(id) {
@@ -17,7 +16,6 @@ class Draw {
     // sub-elements that draw stuff
     this.nodeDrawer = node().owner(this);
     this.edgeDrawer = edge().owner(this);
-    this.weightDrawer = weight().owner(this);
   }
 
   setOptions(options) {
@@ -124,10 +122,12 @@ class Draw {
       .data([this.options]);
 
     // enter
-    // marker def
     this.root.enter = this.root.enter()
       .append('svg')
-      .attr('class', 'greuler')
+      .attr('class', 'greuler');
+
+    // marker def
+    this.root.enter
       .append('svg:defs')
       .append('svg:marker')
       .attr('id', this.markerId)
@@ -146,6 +146,22 @@ class Draw {
     this.root
       .attr('width', this.options.width)
       .attr('height', this.options.height);
+
+    // wrapper for the edges
+    this.edgeGroup = this.root
+      .selectAll('g.edges')
+      .data(function (d) { return [d.data]; });
+    this.edgeGroup
+      .enter().append('g')
+      .attr('class', 'edges');
+
+    // wrapper for the nodes
+    this.nodeGroup = this.root
+      .selectAll('g.nodes')
+      .data(function (d) { return [d.data]; });
+    this.nodeGroup
+      .enter().append('g')
+      .attr('class', 'nodes');
   }
 
   doLayout() {
@@ -171,10 +187,8 @@ class Draw {
     //layout.start();
 
     this.layout.on('tick', function () {
-      self.root
-        .call(self.edgeDrawer)
-        .call(self.nodeDrawer)
-        .call(self.weightDrawer);
+      self.edgeGroup.call(self.edgeDrawer);
+      self.nodeGroup.call(self.nodeDrawer);
     });
     //this.layout.on('end', function () {
     //});

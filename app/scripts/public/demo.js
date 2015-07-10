@@ -4,7 +4,7 @@ var greuler = window.greuler;
 (function () {
   var options = {
     target: '#hello-world',
-    linkDistance: 50,
+    linkDistance: 100,
     height: 500,
     data: {
       nodes: [
@@ -45,11 +45,23 @@ var greuler = window.greuler;
   };
 
   var first;
-  setInterval(function () {
-    if (first) {
-      options.data.links.push(first[0]);
+  window.intervalId = setInterval(function () {
+    //if (first) {
+    //  options.data.links.push(first[0]);
+    //}
+    //first = options.data.links.splice(0, 1);
+
+    var u = Math.floor(Math.random() * options.data.nodes.length);
+    var v = Math.floor(Math.random() * options.data.nodes.length);
+    if (u !== v) {
+      options.data.links.push({
+        source: u,
+        target: v,
+        directed: true,
+        weight: Math.floor(Math.random() * 100)
+      });
     }
-    first = options.data.links.splice(0, 1);
+
     greuler(options);
   }, 1000);
 })();

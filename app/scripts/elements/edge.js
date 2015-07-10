@@ -107,7 +107,9 @@ export default function () {
 
     current.count += 1;
     current.direction *= -1;
-    d.path = [d.source].concat(innerJoints).concat([d.target]);
+    d.path = [d.source]
+      .concat(innerJoints)
+      .concat([d.target]);
   }
 
   var line = d3.svg.line()
@@ -118,14 +120,14 @@ export default function () {
 
   function inner(selection) {
     // edges
-    var links = selection.selectAll('g.link')
+    var links = selection.selectAll('g.edge')
       .data(function (d) {
-        return d.data.links;
+        return d.links;
       }, function (d) {
         return d.id;
       });
     links.enter().append('g')
-      .attr('class', 'link');
+      .attr('class', 'edge');
 
     // update
     var meta = {
@@ -174,29 +176,37 @@ export default function () {
       );
     });
 
+    function weightPosition(selection) {
+      selection
+        .attr('opacity', 1)
+        .attr('transform', function (d) {
+          var angle = Vector.angleDeg(d.unit);
+          var v = d.path[Math.floor(d.path.length / 2)];
+          return utils.transform({
+            translate: v,
+            rotate: angle
+          });
+        });
+    }
+
     var weights = links.selectAll('text')
       .data(function (d) { return [d]; });
 
     // weight enter
     weights.enter()
       .append('text')
+      .attr('opacity', 0)
       .style('font-size', '10px')
       .style('dominant-baseline', 'text-after-edge')
       .style('text-anchor', 'middle')
       .text(function (d) {
-        return d.hasOwnProperty('value') ? d.value : '';
-      });
+        return d.weight || '';
+      })
+      .call(weightPosition);
 
     // weight update
-    weights
-      .attr('transform', function (d) {
-        var angle = Vector.angle(d.unit);
-        var v = d.path[Math.floor(d.path.length / 2)];
-        return utils.transform({
-          translate: v,
-          rotate: angle
-        });
-      });
+    utils.transition(weights, !_owner.nodeDragging)
+      .call(weightPosition);
 
     // weight exit
     weights.exit()

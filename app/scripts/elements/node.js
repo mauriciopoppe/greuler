@@ -47,7 +47,7 @@ export default function () {
     var nodes = selection
       .selectAll('g.node')
       .data(function (d) {
-        return d.data.nodes;
+        return d.nodes;
       });
 
     var layout = _owner.layout;
