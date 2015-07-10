@@ -8,7 +8,7 @@ import node from './elements/node';
 import edge from './elements/edge';
 import GraphManager from './Graph';
 
-class Draw {
+export default class Draw {
   constructor(id, options) {
     this.markerId = 'marker-' + id;
 
@@ -160,8 +160,5 @@ class Draw {
       .enter().append('g')
       .attr('class', 'nodes');
   }
-  // public
 
 }
-
-export default Draw;

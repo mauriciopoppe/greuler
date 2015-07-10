@@ -56,9 +56,19 @@ var greuler = window.greuler;
   }, 2000);
 
   setTimeout(function () {
-    //var nodeEl = instance.manager.getNodeSelection(1);
-    //nodeEl.selectAll('circle')
-    //  .transition()
-    //  .attr('r', 20);
+    instance.manager.removeNode(1);
+    instance.update();
   }, 3000);
+
+  setTimeout(function () {
+    instance.manager.addNode({ id: 1 });
+    instance.manager.addEdge({ source: 1, target: 10, directed: true, weight: 50 });
+    instance.manager.addEdge({ source: 1, target: 6, directed: true, weight: 100 });
+    instance.update();
+  }, 4000);
+
+  setTimeout(function () {
+    instance.manager.removeNode(1);
+    instance.update();
+  }, 5000);
 })();

@@ -9,39 +9,6 @@ export default function () {
 
   var owner;
 
-  //function highlightEdge(edge, highlight) {
-  //  owner.root.selectAll('.link.' + edge.id)
-  //    .selectAll('path')
-  //    .each(function (d) {
-  //      var parent = d3.select(this.parentNode);
-  //      highlight = highlight || parent.classed('highlight');
-  //      d3.select(this)
-  //        .transition()
-  //        .style('opacity', highlight ? 1 : 0.3)
-  //        .style('stroke', highlight ? color.range()[3] : '#999');
-  //    });
-  //}
-  //
-  //function incoming(d, over) {
-  //  if (data.highlightIncomingEdges) {
-  //    owner.root
-  //      .selectAll('.link.target-' + d.id)
-  //      .each(function (d) {
-  //        highlightEdge(d, over);
-  //      });
-  //  }
-  //}
-  //
-  //function outgoing(d, over) {
-  //  if (data.highlightOutgoingEdges) {
-  //    svg
-  //      .selectAll('.link.source-' + d.id)
-  //      .each(function (d) {
-  //        highlightEdge(d, over);
-  //      });
-  //  }
-  //}
-
   function inner(selection) {
     var nodes = selection
       .selectAll('g.node')
@@ -58,23 +25,27 @@ export default function () {
         return 'node ' + (d.class || '');
       })
       .attr('id', function (d) { return utils.ns(d.id); })
-      //.on('mouseover', function (d) {
-      //  var el = d3.select(this);
-      //  if (!el.over) {
-      //    //incoming(d, true);
-      //    //outgoing(d, true);
-      //    el.style('cursor', 'pointer');
-      //  }
-      //  el.over = true;
-      //})
-      //.on('mouseout', function (d) {
-      //  var el = d3.select(this);
-      //  el.over = false;
-      //  //incoming(d, false);
-      //  //outgoing(d, false);
-      //  el.style('cursor', null);
-      //})
+      .on('mouseover', function (d) {
+        var el = d3.select(this);
+        if (!el.over) {
+          el.style('cursor', 'pointer');
+        }
+        el.over = true;
+      })
+      .on('mouseout', function (d) {
+        var el = d3.select(this);
+        el.over = false;
+        el.style('cursor', null);
+      })
+      .attr('transform', function (d) {
+        return utils.transform({ translate: d });
+      })
       .call(layout.drag);
+
+    //g.transition()
+    //  .duration(500)
+    //  .attr('opacity', 1);
+      //.attrTween('opacity', d3.interpolateNumber(0, 1));
 
     var dragStart = layout.drag().on('dragstart.d3adaptor');
     var dragEnd = layout.drag().on('dragend.d3adaptor');
@@ -111,12 +82,6 @@ export default function () {
         return d.id;
       });
 
-    g.attr('transform', function (d) {
-      return utils.transform({
-        translate: d
-      });
-    });
-
     // update
     utils.conditionalTransition(nodes, !owner.nodeDragging)
       .attr('transform', function (d) {
@@ -127,8 +92,6 @@ export default function () {
 
     // exit
     nodes.exit()
-      .transition()
-      .attr('opacity', 0)
       .remove();
   }
 

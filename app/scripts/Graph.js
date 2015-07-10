@@ -7,7 +7,8 @@ import util from './utils';
 export default class Graph {
   constructor(owner, data) {
     this.owner = owner;
-    this.data = data;
+    this.nodes = data.nodes;
+    this.edges = data.links;
   }
 
   // nodes
@@ -16,7 +17,7 @@ export default class Graph {
     if (this.getNodeIndex(config.id) !== -1) {
       throw Error('node already in store');
     }
-    this.data.nodes.push(
+    this.nodes.push(
       Graph.nodeDefaults(config)
     );
   }
@@ -24,14 +25,18 @@ export default class Graph {
   removeNode(id) {
     var nodeIndex = this.getNodeIndex(id);
     if (nodeIndex !== -1) {
-      this.data.nodes.splice(nodeIndex, 1);
+      // remove nodes
+      this.nodes.splice(nodeIndex, 1);
+
+      // remove incident edges
+      this.removeIncidentEdges(id);
     }
   }
 
   getNodeIndex(id) {
     var i;
-    for (i = 0; i < this.data.nodes.length; i += 1) {
-      if (this.data.nodes[i].id === id) {
+    for (i = 0; i < this.nodes.length; i += 1) {
+      if (this.nodes[i].id === id) {
         return i;
       }
     }
@@ -41,8 +46,50 @@ export default class Graph {
   getNode(id) {
     var index = this.getNodeIndex(id);
     if (index !== -1) {
-      return this.data.nodes[index];
+      return this.nodes[index];
     }
+  }
+
+  // edges
+  addEdge(config) {
+    assert('source' in config && 'target' in config);
+    var source = this.getNodeIndex(config.source);
+    var target = this.getNodeIndex(config.target);
+    if (source === -1 || target === -1) {
+      throw Error('edge does not join existing vertices');
+    }
+    config.source = this.nodes[source];
+    config.target = this.nodes[target];
+    this.edges.push(
+      Graph.edgeDefaults(config)
+    );
+  }
+
+  removeIncidentEdges(id) {
+    this.removeEdgesByFn(function (e) {
+      return e.source.id === id || e.target.id === id;
+    });
+  }
+
+  removeEdgesByFn(fn) {
+    var i;
+    for (i = 0; i < this.edges.length; i += 1) {
+      if (fn(this.edges[i])) {
+        this.edges.splice(i, 1);
+        i -= 1;
+      }
+    }
+  }
+
+  getEdgesByFn(fn) {
+    var i;
+    var indices = [];
+    for (i = 0; i < this.edges.length; i += 1) {
+      if (fn(this.edges[i])) {
+        indices.push(i);
+      }
+    }
+    return indices;
   }
 
   getNodeSelection(id) {
