@@ -6,11 +6,18 @@ var cola = window.cola;
 import extend from 'extend';
 import util from './utils';
 import node from './elements/node';
+import edge from './elements/edge';
+import weight from './elements/weight';
 
 class Draw {
   constructor(id) {
     this.id = id;
     this.markerId = 'marker-' + id;
+
+    // sub-elements that draw stuff
+    this.nodeDrawer = node().owner(this);
+    this.edgeDrawer = edge().owner(this);
+    this.weightDrawer = weight().owner(this);
   }
 
   setOptions(options) {
@@ -51,6 +58,7 @@ class Draw {
 
     if (!hasLayout) {
       this.layout = cola.d3adaptor();
+      //this.layout = d3.force.layout();
     //} else {
     //  this.layout.stop();
     }
@@ -69,10 +77,11 @@ class Draw {
       .groups(options.data.groups);
 
     //if (!hasLayout) {
-      this.layout.start();
+    //  this.layout.start();
     //} else {
     //  this.layout.start();
     //}
+    this.layout.start();
   }
 
   /**
@@ -163,12 +172,16 @@ class Draw {
 
     this.layout.on('tick', function () {
       self.root
-        .call(node().owner(self));
-      //layout.start();
+        .call(self.edgeDrawer)
+        .call(self.nodeDrawer)
+        .call(self.weightDrawer);
     });
     //this.layout.on('end', function () {
     //});
   }
+
+  // public
+
 }
 
 export default Draw;

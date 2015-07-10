@@ -8,6 +8,7 @@ import {color} from '../const';
 export default function () {
 
   var _owner;
+  var _dragging;
 
   //function highlightEdge(edge, highlight) {
   //  _owner.root.selectAll('.link.' + edge.id)
@@ -49,6 +50,8 @@ export default function () {
         return d.data.nodes;
       });
 
+    var layout = _owner.layout;
+
     var g = nodes.enter().append('g')
       .attr('class', function (d) {
         return 'node ' + (d.class || '');
@@ -69,24 +72,19 @@ export default function () {
       //  //outgoing(d, false);
       //  el.style('cursor', null);
       //})
-      .call(_owner.layout.drag);
+      .call(layout.drag);
 
-    //var dragStart = layout.drag().on('dragstart.d3adaptor');
-    //var dragEnd  = layout.drag().on('dragend.d3adaptor');
-    //var dragging = false;
-    //layout.drag()
-    //  .on('dragstart.d3adaptor', function (e) {
-    //    dragging = true;
-    //    if (data.draggable) {
-    //      dragStart.apply(undefined, arguments);
-    //    }
-    //  })
-    //  .on('dragend.d3adaptor', function (e) {
-    //    dragging = false;
-    //    if (data.draggable) {
-    //      dragEnd.apply(undefined, arguments);
-    //    }
-    //  });
+    var dragStart = layout.drag().on('dragstart.d3adaptor');
+    var dragEnd = layout.drag().on('dragend.d3adaptor');
+    layout.drag()
+      .on('dragstart.d3adaptor', function () {
+        _owner.nodeDragging = true;
+        dragStart.apply(undefined, arguments);
+      })
+      .on('dragend.d3adaptor', function () {
+        _owner.nodeDragging = false;
+        dragEnd.apply(undefined, arguments);
+      });
 
     g.append('circle')
       .attr('r', function (d) { return d.radius; })
@@ -115,16 +113,23 @@ export default function () {
         return d.id;
       });
 
-    nodes.exit()
-      .remove();
+    g.attr('transform', function (d) {
+      return utils.transform({
+        translate: d
+      });
+    });
 
     // update
-    nodes
+    utils.transition(nodes, !_owner.nodeDragging)
       .attr('transform', function (d) {
         return utils.transform({
           translate: d
         });
       });
+
+    // exit
+    nodes.exit()
+      .remove();
   }
 
   inner.owner = function (value) {
@@ -132,6 +137,12 @@ export default function () {
       return _owner;
     }
     _owner = value;
+    return inner;
+  };
+
+  inner.dragging = function (value) {
+    if (!arguments.length) { return _dragging; }
+    _dragging = value;
     return inner;
   };
 

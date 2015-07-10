@@ -15,5 +15,14 @@ export default {
       str += ` rotate(${o.rotate})`;
     }
     return str;
+  },
+
+  transition: function (el, doTransition) {
+    if (doTransition) {
+      return el
+        .transition()
+        .ease('linear');
+    }
+    return el;
   }
 };

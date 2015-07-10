@@ -21,8 +21,9 @@ var greuler = window.greuler;
         {id: 10}
       ],
       links: [
-        {source: 0, target: 1},
-        {source: 1, target: 2},
+        {source: 0, target: 1, weight: 50},
+        {source: 0, target: 1, directed: true},
+        {source: 1, target: 2, weight: 30},
         {source: 2, target: 3},
         {source: 3, target: 6},
         {source: 6, target: 7},
@@ -43,8 +44,12 @@ var greuler = window.greuler;
     }
   };
 
+  var first;
   setInterval(function () {
-    //options.data.nodes.push({id: Math.floor(Math.random() * 100) });
+    if (first) {
+      options.data.links.push(first[0]);
+    }
+    first = options.data.links.splice(0, 1);
     greuler(options);
   }, 1000);
 })();
