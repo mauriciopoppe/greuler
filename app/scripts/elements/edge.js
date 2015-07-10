@@ -8,9 +8,9 @@ import utils from '../utils';
 
 export default function () {
 
-  var _owner;
-  var _dragging;
+  var owner;
 
+  // TODO
   function selfLoop(uIndex, meta, margin) {
     var nodes = meta.nodes;
     var adjacent = meta.adjacent[uIndex];
@@ -127,7 +127,8 @@ export default function () {
         return d.id;
       });
     links.enter().append('g')
-      .attr('class', 'edge');
+      .attr('class', 'edge')
+      .attr('id', function (d) { return utils.ns(d.id); });
 
     // update
     var meta = {
@@ -139,9 +140,7 @@ export default function () {
       .each(function (d) {
         var self = d3.select(this);
         var cls = [
-          d.id,
-          d.class,
-          (d.directed || _owner.options.directed) && 'directed',
+          (d.directed || owner.options.directed) && 'directed',
           'source-' + d.source.id,
           'target-' + d.target.id
         ].filter(Boolean).join(' ');
@@ -163,7 +162,7 @@ export default function () {
       .style('stroke-width', 2);
 
     // path update
-    utils.transition(paths, !_owner.nodeDragging)
+    utils.conditionalTransition(paths, !owner.nodeDragging)
       .attr('d', line);
 
     paths.each(function () {
@@ -171,7 +170,7 @@ export default function () {
       var parent = d3.select(this.parentNode);
       path.attr('marker-end',
         parent.classed('directed')
-          ? 'url(#' + _owner.markerId + ')'
+          ? 'url(#' + owner.markerId + ')'
           : null
       );
     });
@@ -205,7 +204,7 @@ export default function () {
       .call(weightPosition);
 
     // weight update
-    utils.transition(weights, !_owner.nodeDragging)
+    utils.conditionalTransition(weights, !owner.nodeDragging)
       .call(weightPosition);
 
     // weight exit
@@ -219,15 +218,9 @@ export default function () {
 
   inner.owner = function (value) {
     if (!arguments.length) {
-      return _owner;
+      return owner;
     }
-    _owner = value;
-    return inner;
-  };
-
-  inner.dragging = function (value) {
-    if (!arguments.length) { return _dragging; }
-    _dragging = value;
+    owner = value;
     return inner;
   };
 

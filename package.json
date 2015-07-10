@@ -12,7 +12,6 @@
     "browserify": "^10.0.0",
     "del": "^1.1.1",
     "eslint": "^0.20.0",
-    "extend": "^3.0.0",
     "gulp": "^3.8.11",
     "gulp-babel": "^5.1.0",
     "gulp-cache": "^0.2.8",
@@ -33,5 +32,9 @@
     "opn": "^1.0.1",
     "vinyl-source-stream": "^1.1.0",
     "wiredep": "^2.2.2"
+  },
+  "dependencies": {
+    "compute-lcg": "^1.0.0",
+    "extend": "^3.0.0"
   }
 }

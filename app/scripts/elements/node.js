@@ -7,11 +7,10 @@ import {color} from '../const';
 
 export default function () {
 
-  var _owner;
-  var _dragging;
+  var owner;
 
   //function highlightEdge(edge, highlight) {
-  //  _owner.root.selectAll('.link.' + edge.id)
+  //  owner.root.selectAll('.link.' + edge.id)
   //    .selectAll('path')
   //    .each(function (d) {
   //      var parent = d3.select(this.parentNode);
@@ -25,7 +24,7 @@ export default function () {
   //
   //function incoming(d, over) {
   //  if (data.highlightIncomingEdges) {
-  //    _owner.root
+  //    owner.root
   //      .selectAll('.link.target-' + d.id)
   //      .each(function (d) {
   //        highlightEdge(d, over);
@@ -48,14 +47,17 @@ export default function () {
       .selectAll('g.node')
       .data(function (d) {
         return d.nodes;
+      }, function (d) {
+        return d.id;
       });
 
-    var layout = _owner.layout;
+    var layout = owner.layout;
 
     var g = nodes.enter().append('g')
       .attr('class', function (d) {
         return 'node ' + (d.class || '');
       })
+      .attr('id', function (d) { return utils.ns(d.id); })
       //.on('mouseover', function (d) {
       //  var el = d3.select(this);
       //  if (!el.over) {
@@ -78,33 +80,29 @@ export default function () {
     var dragEnd = layout.drag().on('dragend.d3adaptor');
     layout.drag()
       .on('dragstart.d3adaptor', function () {
-        _owner.nodeDragging = true;
+        owner.nodeDragging = true;
         dragStart.apply(undefined, arguments);
       })
       .on('dragend.d3adaptor', function () {
-        _owner.nodeDragging = false;
+        owner.nodeDragging = false;
         dragEnd.apply(undefined, arguments);
       });
 
     g.append('circle')
-      .attr('r', function (d) { return d.radius; })
-      .attr('fill', function (d) {
-        return color(0);
-      });
-      //.call(_owner.layout.drag);
-      //.each(function (d) {
-      //  var parent = d3.select(this.parentNode);
-      //  if (parent.classed('highlight')) {
-      //    d3.select(this)
-      //      .attr('stroke-width', 3)
-      //      .attr('stroke', color.range()[1]);
-      //  }
-      //});
+      .attr('fill', function (d) { return color(0); });
+
+    // circle update
+    nodes.selectAll('circle')
+      .attr('r', function (d) { return d.radius; });
+
     g.append('text')
       .attr('fill', 'white')
       .attr('font-size', '12px')
       .attr('text-anchor', 'middle')
-      .attr('y', 5)
+      .attr('y', 5);
+
+    // text update
+    nodes.selectAll('text')
       //.attr('opacity', data.labels ? 1 : 0)
       .text(function (d) {
         if ('label' in d) {
@@ -120,7 +118,7 @@ export default function () {
     });
 
     // update
-    utils.transition(nodes, !_owner.nodeDragging)
+    utils.conditionalTransition(nodes, !owner.nodeDragging)
       .attr('transform', function (d) {
         return utils.transform({
           translate: d
@@ -129,20 +127,16 @@ export default function () {
 
     // exit
     nodes.exit()
+      .transition()
+      .attr('opacity', 0)
       .remove();
   }
 
   inner.owner = function (value) {
     if (!arguments.length) {
-      return _owner;
+      return owner;
     }
-    _owner = value;
-    return inner;
-  };
-
-  inner.dragging = function (value) {
-    if (!arguments.length) { return _dragging; }
-    _dragging = value;
+    owner = value;
     return inner;
   };
 

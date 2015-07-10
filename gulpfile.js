@@ -35,7 +35,7 @@ gulp.task('less', function () {
 
 gulp.task('es6', ['eslint'], function () {
 	browserify({
-		entries: './app/scripts/main.js',
+		entries: './app/scripts/index.js',
 		debug: true,
     standalone: 'greuler'
 	})

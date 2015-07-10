@@ -1,5 +1,8 @@
 'use strict';
 
+import polyfills from './polyfills';
+polyfills();
+
 var d3 = window.d3;
 
 // node
@@ -15,9 +18,9 @@ export default function (options) {
     if (!id) {
       id = utils.id();
       el.attr('greuler-id', id);
-      instances.set(id, new Draw(id));
+      instances.set(id, new Draw(id, options));
     }
-    return instances.get(id).update(options);
+    return instances.get(id);
   }
 
   return factory(options);

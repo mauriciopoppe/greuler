@@ -5,59 +5,61 @@ class Vector {
     this.x = x;
     this.y = y;
   }
-}
 
-// unary
+  // unary
 
-Vector.neg = function (a) {
-  return new Vector(-a.x, -a.y);
-};
+  static neg(a) {
+    return new Vector(-a.x, -a.y);
+  }
 
-Vector.len = function (a) {
-  return Math.sqrt(Vector.lenSq(a));
-};
+  static len(a) {
+    return Math.sqrt(Vector.lenSq(a));
+  }
 
-Vector.lenSq = function (a) {
-  return a.x * a.x + a.y * a.y;
-};
+  static lenSq(a) {
+    return a.x * a.x + a.y * a.y;
+  }
 
-Vector.unit = function (a) {
-  var length = Vector.len(a);
-  return new Vector(a.x / length, a.y / length);
-};
+  static unit(a) {
+    var length = this.len(a);
+    return new Vector(a.x / length, a.y / length);
+  }
 
-Vector.orthogonal = function (a) {
-  return new Vector(-a.y, a.x);
-};
+  static orthogonal(a) {
+    return new Vector(-a.y, a.x);
+  }
 
-Vector.angleDeg = function (a) {
-  return Math.atan2(a.y, a.x) * 180 / Math.PI;
-};
+  static angleDeg(a) {
+    return Math.atan2(a.y, a.x) * 180 / Math.PI;
+  }
 
 // binary
 
-Vector.add = function (a, b) {
-  return new Vector(a.x + b.x, a.y + b.y);
-};
+  static add(a, b) {
+    return new Vector(a.x + b.x, a.y + b.y);
+  }
 
-Vector.sub = function (a, b) {
-  return new Vector(a.x - b.x, a.y - b.y);
-};
+  static sub(a, b) {
+    return new Vector(a.x - b.x, a.y - b.y);
+  }
 
-Vector.dot = function (a, b) {
-  return a.x * b.x + a.y * b.y;
-};
+  static dot(a, b) {
+    return a.x * b.x + a.y * b.y;
+  }
 
-Vector.scale = function (a, n) {
-  return new Vector(a.x * n, a.y * n);
-};
+  static scale(a, n) {
+    return new Vector(a.x * n, a.y * n);
+  }
 
-Vector.mid = function (a, b) {
-  return Vector.scale(Vector.add(a, b), 0.5);
-};
+  static mid(a, b) {
+    return Vector.scale(Vector.add(a, b), 0.5);
+  }
 
-Vector.angleBetween = function (a, b) {
-  return Math.acos(Vector.dot(a, b) / Vector.len(a) - Vector.len(b));
-};
+  static angleBetween(a, b) {
+    return Math.acos(Vector.dot(a, b) / Vector.len(a) - Vector.len(b));
+  }
+
+}
+
 
 export default Vector;

@@ -1,9 +1,14 @@
 'use strict';
 
+import lcg from 'compute-lcg';
+
+var rand = lcg(1);
+
 export default {
   id: function () {
-    var letter = String.fromCharCode(Math.floor(Math.random() * 26) + 97);
-    return letter + Math.random().toString(16).substr(2);
+    var n = rand();
+    var letter = String.fromCharCode(Math.floor(n * 26) + 97);
+    return letter + n.toString(16).substr(2);
   },
 
   transform: function (o) {
@@ -14,15 +19,27 @@ export default {
     if ('rotate' in o) {
       str += ` rotate(${o.rotate})`;
     }
+    if ('scale' in o) {
+      str += ` scale(${o.scale})`;
+    }
     return str;
   },
 
   transition: function (el, doTransition) {
-    if (doTransition) {
-      return el
-        .transition()
-        .ease('linear');
+    return el
+      .transition()
+      .duration(300)
+      .ease('linear');
+  },
+
+  conditionalTransition: function (el, condition) {
+    if (condition) {
+      return this.transition(el);
     }
     return el;
+  },
+
+  ns: function (str) {
+    return 'greuler-' + str;
   }
 };
