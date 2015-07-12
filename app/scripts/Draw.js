@@ -6,8 +6,9 @@ var cola = window.cola;
 import extend from 'extend';
 import node from './elements/node';
 import edge from './elements/edge';
+import {colors} from './const';
 import GraphManager from './Graph';
-import ElementSelector from './ElementSelector';
+import GreulerDefaultTransition from './selector/GreulerDefaultTransition';
 
 export default class Draw {
   constructor(id, options) {
@@ -23,7 +24,7 @@ export default class Draw {
 
     // graph handles the interactions with the drawer
     this.manager = new GraphManager(this, this.options.data);
-    this.selector = new ElementSelector(this);
+    this.selector = new GreulerDefaultTransition(this);
   }
 
   /**
@@ -69,6 +70,7 @@ export default class Draw {
       height: 300,
       linkDistance: 90,
       labels: true,
+      transitionDuration: 1000,
       //treeLayout: false,
       directed: false,
       draggable: true
@@ -107,9 +109,9 @@ export default class Draw {
       self.edgeGroup.call(self.edgeDrawer);
       self.nodeGroup.call(self.nodeDrawer);
     });
-    this.layout.on('end', function () {
-      console.log('layout end');
-    });
+    //this.layout.on('end', function () {
+      //console.log('layout end');
+    //});
   }
 
   update() {
@@ -140,8 +142,8 @@ export default class Draw {
       .append('svg:path')
       .attr('d', 'M0,-4L10,0L0,4L2,0')
       .attr('stroke-width', '0px')
-      .attr('fill-opacity', .8)
-      .attr('fill', 'black');
+      .attr('fill-opacity', 1)
+      .attr('fill', '#777');
 
     // update
     this.root

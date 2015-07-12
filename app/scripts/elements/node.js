@@ -3,7 +3,7 @@
 var d3 = window.d3;
 
 import utils from '../utils';
-import {color} from '../const';
+import {colors} from '../const';
 
 export default function () {
 
@@ -56,7 +56,7 @@ export default function () {
       });
 
     g.append('circle')
-      .attr('fill', function (d) { return color(0); });
+      .attr('fill', function () { return colors.BLUE; });
 
     // circle update
     nodes.selectAll('circle')

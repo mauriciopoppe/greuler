@@ -25,8 +25,8 @@ export default {
     return str;
   },
 
-  transition: function (el, doTransition) {
-    return el
+  transition: function (selection) {
+    return selection
       .transition()
       .duration(300)
       .ease('linear');

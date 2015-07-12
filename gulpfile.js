@@ -151,14 +151,13 @@ gulp.task('serve:test',['produce'], function () {
     port: 9000,
     ui: false,
     server: {
-      baseDir: 'test'
+      baseDir: ['.']
     }
   });
 
   gulp.watch([
-    'test/spec/**/*.js',
+    'test/spec/**/*.js'
   ]).on('change', reload);
-
 });
 
 gulp.task('build', ['package'], function () {

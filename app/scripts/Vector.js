@@ -1,5 +1,7 @@
 'use strict';
 
+import assert from 'assert';
+
 class Vector {
   constructor(x, y) {
     this.x = x;
@@ -22,6 +24,7 @@ class Vector {
 
   static unit(a) {
     var length = this.len(a);
+    assert(this.length >= 0);
     return new Vector(a.x / length, a.y / length);
   }
 

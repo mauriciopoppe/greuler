@@ -11,7 +11,7 @@ import utils from './utils';
 
 var instances = new Map();
 
-export default function (options) {
+function run(options) {
   function factory(options) {
     var el = d3.select(options.target);
     var id = el.attr('greuler-id');
@@ -25,3 +25,11 @@ export default function (options) {
 
   return factory(options);
 }
+
+import Graph from './Graph';
+run.Graph = Graph;
+
+import {colors} from './const';
+run.colors = colors;
+
+export default run;
