@@ -12,19 +12,45 @@ import GreulerDefaultTransition from './selector/GreulerDefaultTransition';
 
 export default class Draw {
   constructor(id, options) {
+    var self = this;
+
     this.markerId = 'marker-' + id;
 
     this.defaultOptions(options);
+
+    // graph handles the interactions with the drawer
+    this.createGraph();
+
+    // selector animates the nodes/edges
+    this.selector = new GreulerDefaultTransition(this);
 
     // sub-elements that draw stuff
     this.nodeDrawer = node().owner(this);
     this.edgeDrawer = edge().owner(this);
 
-    // graph handles the interactions with the drawer
-    this.graph = new GraphManager(this, this.options.data);
-    this.selector = new GreulerDefaultTransition(this);
+    // cola
+    this.layout = cola.d3adaptor();
+    this.layout.on('tick', function () {
+      self.tick();
+    });
+  }
 
-    this.update();
+  createGraph() {
+    var data = this.options.data;
+    var nodes = data.nodes;
+    var links = data.links;
+
+    // empty and re-add
+    data.nodes = [];
+    data.links = [];
+
+    this.graph = new GraphManager(this, data);
+    nodes.forEach(function (node) {
+      this.graph.addNode(node);
+    }, this);
+    links.forEach(function (edge) {
+      this.graph.addEdge(edge);
+    }, this);
   }
 
   /**
@@ -59,12 +85,6 @@ export default class Draw {
       directed: false
     }, options);
 
-    // graph node/edge defaults
-    this.options.data.nodes =
-      this.options.data.nodes.map(GraphManager.appendNodeDefaults, this);
-    this.options.data.links =
-      this.options.data.links.map(GraphManager.appendEdgeDefaults, this);
-
     this.options.data = extend({
       nodes: [],
       links: [],
@@ -78,37 +98,41 @@ export default class Draw {
     }, this.options.data);
   }
 
-  initLayout() {
-    var options = this.options;
-    var hasLayout = !!this.layout;
+  initLayout(updateOptions) {
+    var self = this;
 
-    if (!hasLayout) {
-      this.layout = cola.d3adaptor();
-      this.tick();
+    if (updateOptions.skipLayout) {
+      return;
     }
-    Object.keys(options.data).forEach(function (k) {
-      var v = options.data[k];
-      this.layout[k](v);
+
+    Object.keys(self.options.data).forEach(function (k) {
+      var v = self.options.data[k];
+      self.layout[k](v);
     }, this);
 
-    this.layout.start();
+    //this.layout.start(15, 15, 15);
+    this.layout.start(15, 15, 15);
   }
 
   tick() {
-    var self = this;
-    // event tick is fired async
-    this.layout.on('tick', function () {
-      self.edgeGroup.call(self.edgeDrawer);
-      self.nodeGroup.call(self.nodeDrawer);
-    });
-    //this.layout.on('end', function () {
-      //console.log('layout end');
-    //});
+    this.edgeGroup.call(this.edgeDrawer);
+    this.nodeGroup.call(this.nodeDrawer);
   }
 
-  update() {
-    this.initLayout();
-    this.build();
+  update(updateOptions) {
+    updateOptions = extend({
+      skipLayout: false
+    }, updateOptions);
+
+    this.initLayout(updateOptions);
+    this.build(updateOptions);
+
+    // update inner nodes/edges if layout.tick wasn't run
+    if (updateOptions.skipLayout) {
+      this.tick();
+    }
+
+    return this;
   }
 
   build() {

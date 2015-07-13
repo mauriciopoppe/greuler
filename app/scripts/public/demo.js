@@ -4,14 +4,14 @@ var greuler = window.greuler;
 (function () {
   var options = {
     target: '#hello-world',
-    directed: true,
     height: 500,
+    directed: true,
     animationTime: 500,
 
     data: {
       nodes: [
-        {id: 0},
-        {id: 1},
+        {id: 0, x: 0, y: 0},
+        {id: 1, x: 150, y: 150},
         {id: 2},
         {id: 3},
         {id: 4},
@@ -48,60 +48,7 @@ var greuler = window.greuler;
       ]
     }
   };
-  var instance = greuler(options);
-
-  //window.player = new greuler.player.FixedInterval([
-  //  function () {
-  //    instance.manager.addNode({ id: 11 });
-  //    instance.update();
-  //  },
-  //  function () {
-  //    instance.manager.removeNode(11);
-  //    instance.update();
-  //  },
-  //  function () {
-  //    instance.manager.removeNode(1);
-  //    instance.update();
-  //  },
-  //  function () {
-  //    instance.manager.addNode({ id: 1 });
-  //    instance.manager.addEdge({ source: 1, target: 10, directed: true, weight: 50 });
-  //    instance.manager.addEdge({ source: 1, target: 6, directed: true, weight: 100 });
-  //    instance.update();
-  //  },
-  //  function () {
-  //    instance.manager.removeNode(1);
-  //    instance.update();
-  //  },
-  //  function () {
-  //    var node = instance.manager.getNode(0);
-  //    node.label = 'e';
-  //    instance.selector.highlightNode({ source: 0 });
-  //    instance.selector.highlightIncidentEdges({ source: 0 });
-  //    instance.update();
-  //  },
-  //  function () {
-  //    var edge = options.data.links[10];
-  //    instance.manager.removeEdge(edge.id);
-  //    instance.update();
-  //  },
-  //  function () {
-  //    instance.selector.traverseEdgesBetween({
-  //      source: 7,
-  //      target: 8
-  //    });
-  //    instance.selector.traverseEdgesBetween({
-  //      source: 7,
-  //      target: 6
-  //    });
-  //    instance.selector.traverseIncidentEdges({
-  //      source: 4,
-  //      color: 'orange'
-  //    });
-  //  }
-  //], 1000);
-  //window.player.play();
-
+  var instance = greuler(options).update();
   var gen = new greuler.player.Generator(instance);
 
   setTimeout(function () {
@@ -134,7 +81,7 @@ var greuler = window.greuler;
         }
 
         instance.graph.getNode(u).topRight = '✔';
-        instance.update();
+        instance.update({ skipLayout: true });
         yield {
           type: 'selector',
           op: 'updateNode',

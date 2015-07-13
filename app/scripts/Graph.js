@@ -26,7 +26,7 @@ export default class Graph {
   addNode() {
     for (var i = 0; i < arguments.length; i += 1) {
       var config = arguments[i];
-      assert(config.id);
+      assert(config.hasOwnProperty('id'));
       if (this.getNode(config.id)) {
         throw Error('node already in store');
       }
@@ -135,11 +135,20 @@ export default class Graph {
   addEdge() {
     for (var i = 0; i < arguments.length; i += 1) {
       var config = arguments[i];
-      assert('source' in config && 'target' in config);
-      var source = this.getNode(config.source);
-      var target = this.getNode(config.target);
+      assert(config.hasOwnProperty('source') && config.hasOwnProperty('target'));
+      var source = config.source;
+      var target = config.target;
+
+      if (typeof source !== 'object') {
+        source = this.getNode(config.source);
+      }
+
+      if (typeof target !== 'object') {
+        target = this.getNode(config.target);
+      }
+
       if (!source || !target) {
-        throw Error('edge does not join existing vertices');
+        throw Error('new edge does not join existing vertices');
       }
       config.source = source;
       config.target = target;
