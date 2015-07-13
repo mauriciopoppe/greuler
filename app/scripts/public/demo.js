@@ -5,9 +5,9 @@ var greuler = window.greuler;
   var options = {
     target: '#hello-world',
     directed: true,
-    linkDistance: 70,
     height: 500,
-    animationTime: 1000,
+    animationTime: 500,
+
     data: {
       nodes: [
         {id: 0},
@@ -26,7 +26,6 @@ var greuler = window.greuler;
         {source: 0, target: 0, weight: 50},
         {source: 0, target: 0, weight: 70},
         {source: 0, target: 0, weight: 100},
-
         {source: 0, target: 1, weight: 50},
         {source: 0, target: 1, directed: true},
         {source: 1, target: 2, weight: 30},
@@ -51,90 +50,100 @@ var greuler = window.greuler;
   };
   var instance = greuler(options);
 
-  function play(actions, speed, delay) {
-    var id;
-    var i = 0;
-    function doPlay() {
-      if (i >= actions.length) {
-        return;
+  //window.player = new greuler.player.FixedInterval([
+  //  function () {
+  //    instance.manager.addNode({ id: 11 });
+  //    instance.update();
+  //  },
+  //  function () {
+  //    instance.manager.removeNode(11);
+  //    instance.update();
+  //  },
+  //  function () {
+  //    instance.manager.removeNode(1);
+  //    instance.update();
+  //  },
+  //  function () {
+  //    instance.manager.addNode({ id: 1 });
+  //    instance.manager.addEdge({ source: 1, target: 10, directed: true, weight: 50 });
+  //    instance.manager.addEdge({ source: 1, target: 6, directed: true, weight: 100 });
+  //    instance.update();
+  //  },
+  //  function () {
+  //    instance.manager.removeNode(1);
+  //    instance.update();
+  //  },
+  //  function () {
+  //    var node = instance.manager.getNode(0);
+  //    node.label = 'e';
+  //    instance.selector.highlightNode({ source: 0 });
+  //    instance.selector.highlightIncidentEdges({ source: 0 });
+  //    instance.update();
+  //  },
+  //  function () {
+  //    var edge = options.data.links[10];
+  //    instance.manager.removeEdge(edge.id);
+  //    instance.update();
+  //  },
+  //  function () {
+  //    instance.selector.traverseEdgesBetween({
+  //      source: 7,
+  //      target: 8
+  //    });
+  //    instance.selector.traverseEdgesBetween({
+  //      source: 7,
+  //      target: 6
+  //    });
+  //    instance.selector.traverseIncidentEdges({
+  //      source: 4,
+  //      color: 'orange'
+  //    });
+  //  }
+  //], 1000);
+  //window.player.play();
+
+  var gen = new greuler.player.Generator(instance);
+
+  setTimeout(function () {
+    gen.run(function *algorithm(instance) {
+      var visited = [];
+
+      function *dfs(u) {
+        yield function () {
+          instance.selector.highlightNode({ source: u });
+        };
+        visited[u] = true;
+
+        var adjacent = instance.graph.getSuccessorNodes(u);
+        for (var i = 0; i < adjacent.length; i += 1) {
+          var v = adjacent[i].id;
+          if (!visited[v]) {
+            yield {
+              type: 'selector',
+              op: 'traverseEdgesBetween',
+              args: [{ source: u, target: v}]
+            };
+            yield *dfs(v);
+          } else {
+            yield {
+              type: 'selector',
+              op: 'traverseEdgesBetween',
+              args: [{ source: u, target: v, keepStroke: false }]
+            };
+          }
+        }
+
+        instance.graph.getNode(u).topRight = '✔';
+        instance.update();
+        yield {
+          type: 'selector',
+          op: 'updateNode',
+          args: [{ source: u, fill: 'black' }]
+        };
       }
-      id = setTimeout(function () {
-        actions[i++]();
-        doPlay(i);
-      }, speed);
-    }
 
-    setTimeout(function () {
-      doPlay(i);
-    }, delay || 0);
+      yield *dfs(0);
+    });
+  }, 1000);
 
-    return {
-      pause: function () {
-        clearTimeout(id);
-      },
-      resume: function () {
-        doPlay(i);
-      }
-    };
-  }
-
-  window.player = play([
-    function () {
-      instance.manager.addNode({ id: 11 });
-      instance.update();
-    },
-    function () {
-      instance.manager.removeNode(11);
-      instance.update();
-    },
-    function () {
-      instance.manager.removeNode(1);
-      instance.update();
-    },
-    function () {
-      instance.manager.addNode({ id: 1 });
-      instance.manager.addEdge({ source: 1, target: 10, directed: true, weight: 50 });
-      instance.manager.addEdge({ source: 1, target: 6, directed: true, weight: 100 });
-      instance.update();
-    },
-    function () {
-      instance.manager.removeNode(1);
-      instance.update();
-    },
-    function () {
-      var node = instance.manager.getNode(0);
-      node.label = 'e';
-      instance.update();
-      instance.selector.highlightNode(0);
-      instance.selector.highlightIncidentEdges(0);
-    },
-    function () {
-      var edge = options.data.links[10];
-      instance.manager.removeEdge(edge.id);
-      instance.update();
-    },
-    function () {
-      instance.selector.traverseEdgesBetween(7, 8);
-      instance.selector.traverseEdgesBetween(7, 6);
-      instance.selector.traverseIncidentEdges(4);
-    }
-    //function () {
-    //  instance.selector.incomingEdges(3)
-    //    .selectAll('path')
-    //    .transition('test')
-    //    .attr('stroke', 'red');
-    //},
-    //function () {
-    //  instance.selector.outgoingEdges(3)
-    //    .selectAll('path')
-    //    .transition('test')
-    //    .attr('stroke', 'red');
-    //},
-    //function () {
-    //  instance.selector.outgoingEdges(3)
-    //    .selectAll('path')
-    //    .transition('test')
-    //    .attr('stroke', 'red');
-    //}
-  ], 1000);
 })();

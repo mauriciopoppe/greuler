@@ -1,11 +1,26 @@
 'use strict';
 
 import utils from '../utils';
+import {colors} from '../const';
+import extend from 'extend';
 
 export default class ElementSelector {
   constructor(owner) {
     this.owner = owner;
-    this.graph = owner.manager;
+    this.graph = owner.graph;
+    this.defaultOptions = {
+      duration: this.getAnimationTime(),
+      color: colors.RED,
+      source: -1
+    };
+  }
+
+  getDefaultOptions() {
+    return this.defaultOptions;
+  }
+
+  updateOptions(options) {
+    return extend({}, this.getDefaultOptions(), options);
   }
 
   getAnimationTime() {

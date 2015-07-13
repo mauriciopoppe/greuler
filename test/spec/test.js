@@ -55,7 +55,7 @@
           e.id = i;
         });
 
-        manager = new greuler.Graph(undefined, data);
+        manager = new greuler.Graph({ options: {} }, data);
         nEdges = data.links.length;
         nNodes = data.nodes.length;
       });
@@ -109,6 +109,18 @@
         it('should get adjacent nodes', function () {
           var nodes = manager.getAdjacentNodes(1);
           assert(nodes.length === 4);
+        });
+
+        it('should get successor nodes', function () {
+          assert(manager.getSuccessorNodes(0).length === 2);  // 1, 10
+          assert(manager.getSuccessorNodes(1).length === 3);  // 1, 3, 6
+          assert(manager.getSuccessorNodes(10).length === 0);
+        });
+
+        it('should get predecessor nodes', function () {
+          assert(manager.getPredecessorNodes(0).length === 0);  // empty
+          assert(manager.getPredecessorNodes(1).length === 1);  // 0
+          assert(manager.getPredecessorNodes(10).length === 4); // 7, 0, 8, 9
         });
       });
 

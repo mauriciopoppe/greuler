@@ -12,7 +12,7 @@ export default function () {
   var owner;
 
   function selfLoop(u, margin) {
-    var adjacent = owner.manager.getAdjacentNodes(u.id);
+    var adjacent = owner.graph.getAdjacentNodes(u.id);
     var dir = new Vector(0, 0);
     for (var i = 0; i < adjacent.length; i += 1) {
       var v = adjacent[i];
@@ -101,7 +101,10 @@ export default function () {
       });
     links.enter().append('g')
       .attr('class', 'edge')
-      .attr('id', function (d) { return utils.ns(d.id); });
+      .attr('opacity', 0)
+      .attr('id', function (d) { return utils.ns(d.id); })
+      .transition('enter')
+      .attr('opacity', 1);
 
     // update
     links
@@ -129,7 +132,10 @@ export default function () {
       });
     paths.enter()
       .append('path')
-      .attr('stroke', colors.LIGHT_GRAY)
+      .attr('stroke', function () {
+        var parent = d3.select(this.parentNode).datum();
+        return parent.stroke;
+      })
       .attr('fill', 'transparent')
       .attr('stroke-width', 2)
       .each(function (d, i) {
@@ -139,6 +145,7 @@ export default function () {
           el.classed('base', true);
         }
         if (i === 1) {
+          el.attr('stroke-width', 5);
           el.classed('traversal', true);
         }
       });
@@ -147,14 +154,16 @@ export default function () {
     utils.conditionalTransition(paths, !owner.nodeDragging)
       .attr('d', line);
 
-    paths.each(function () {
+    paths.each(function (d, i) {
       var path = d3.select(this);
       var parent = d3.select(this.parentNode);
-      path.attr('marker-end',
-        parent.classed('directed')
-          ? 'url(#' + owner.markerId + ')'
-          : null
-      );
+      if (i === 0) {
+        path.attr('marker-end',
+          parent.classed('directed')
+            ? 'url(#' + owner.markerId + ')'
+            : null
+        );
+      }
     });
 
     function weightPosition(selection) {

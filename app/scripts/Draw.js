@@ -20,11 +20,11 @@ export default class Draw {
     this.nodeDrawer = node().owner(this);
     this.edgeDrawer = edge().owner(this);
 
-    this.update();
-
     // graph handles the interactions with the drawer
-    this.manager = new GraphManager(this, this.options.data);
+    this.graph = new GraphManager(this, this.options.data);
     this.selector = new GreulerDefaultTransition(this);
+
+    this.update();
   }
 
   /**
@@ -33,48 +33,49 @@ export default class Draw {
    *
    * options
    *   - target {string} selector to the element to hold the graph
+   *   - width {number}
+   *   - height {number}
+   *   - labels=true {boolean} False to hide the vertex labels
+   *   - directed=false {boolean} True to give an orientation to the edges
+   *   have an edge
    *   - data {Object}
+   *     - linkDistance=90 {number} Forced min distance between vertices that
+   *     - constraints {Array[Objects]}
    *     - groups {Array[Objects]}
    *     - nodes {Array[Objects]}
+   *       - r=10 {number} node radius
    *     - links {Array[Objects]}
-   *       - class="" {string} additional class set to the edge
    *       - directed=false {boolean} true to give an orientation to this edge
-   *       - value="" {string} Label of the edge (can be the weight)
-   *     - width {number}
-   *     - height {number}
-   *     - linkDistance=90 {number} Forced min distance between vertices that
-   *     have an edge
-   *     - labels=true {boolean} False to hide the vertex labels
-   *     - draggable=false {boolean} True to enable node drag
-   *     - tree=false {boolean} True to layout the graph as a tree
-   *     - directed=false {boolean} True to give an orientation to the edges
-   *     - highlightIncomingEdges=false {boolean} true to highlight the incoming
-   *     edges of a vertex on mouseover
-   *     - highlightOutgoingEdges=false {boolean} true to highlight the outgoing
-   *     edges of a vertex on mouseover
+   *       - weight="" {string} Label of the edge (can be the weight)
    *
    */
   defaultOptions(options) {
-    options.data = extend({
-      groups: [],
-      constraints: []
-    }, options.data);
-
-    // node/edge defaults
-    options.data.nodes.forEach(GraphManager.nodeDefaults);
-    options.data.links.forEach(GraphManager.edgeDefaults);
-
     // graph defaults
-    this.options = extend({
+    options = this.options = extend({
       width: 700,
       height: 300,
-      linkDistance: 90,
+      animationTime: 1000,
       labels: true,
-      transitionDuration: 1000,
-      //treeLayout: false,
-      directed: false,
-      draggable: true
+      directed: false
     }, options);
+
+    // graph node/edge defaults
+    this.options.data.nodes =
+      this.options.data.nodes.map(GraphManager.appendNodeDefaults, this);
+    this.options.data.links =
+      this.options.data.links.map(GraphManager.appendEdgeDefaults, this);
+
+    this.options.data = extend({
+      nodes: [],
+      links: [],
+      groups: [],
+      constraints: [],
+      avoidOverlaps: true,
+      size: [options.width, options.height],
+      linkDistance: function (d) {
+        return d.linkDistance || 70;
+      }
+    }, this.options.data);
   }
 
   initLayout() {
@@ -85,19 +86,10 @@ export default class Draw {
       this.layout = cola.d3adaptor();
       this.tick();
     }
-
-    this.layout
-      .linkDistance(function (d) {
-        return d.linkDistance || options.linkDistance;
-      })
-      .avoidOverlaps(true)
-      //.handleDisconnected(true)
-      //.convergenceThreshold(0.1)
-      .size([options.width, options.height])
-      .nodes(options.data.nodes)
-      .links(options.data.links)
-      .constraints(options.data.constraints)
-      .groups(options.data.groups);
+    Object.keys(options.data).forEach(function (k) {
+      var v = options.data[k];
+      this.layout[k](v);
+    }, this);
 
     this.layout.start();
   }

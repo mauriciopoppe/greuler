@@ -32,4 +32,7 @@ run.Graph = Graph;
 import {colors} from './const';
 run.colors = colors;
 
+import player from './player/index';
+run.player = player;
+
 export default run;

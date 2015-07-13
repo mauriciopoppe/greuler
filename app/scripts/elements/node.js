@@ -28,20 +28,22 @@ export default function () {
       .attr('transform', function (d) {
         return utils.transform({ translate: d });
       })
-      .on('mouseover', function (d) {
+      .on('mouseover', function () {
         var el = d3.select(this);
         if (!el.over) {
           el.style('cursor', 'pointer');
         }
         el.over = true;
       })
-      .on('mouseout', function (d) {
+      .on('mouseout', function () {
         var el = d3.select(this);
         el.over = false;
         el.style('cursor', null);
       })
-      .attr('opacity', 0)
-      .call(layout.drag);
+      .attr('opacity', 0);
+    g.transition('enter')
+      .attr('opacity', 1);
+    g.call(layout.drag);
 
     var dragStart = layout.drag().on('dragstart.d3adaptor');
     var dragEnd = layout.drag().on('dragend.d3adaptor');
@@ -56,21 +58,20 @@ export default function () {
       });
 
     g.append('circle')
-      .attr('fill', function () { return colors.BLUE; });
+      .attr('fill', (d) => d.fill);
 
     // circle update
     nodes.selectAll('circle')
-      .attr('r', function (d) { return d.radius; });
+      .attr('r', (d) => d.r );
 
+    // inner label
     g.append('text')
+      .classed('label', true)
       .attr('fill', 'white')
       .attr('font-size', '12px')
       .attr('text-anchor', 'middle')
       .attr('y', (d) => d.height / 4);
-
-    // text update
-    nodes.selectAll('text')
-      //.attr('opacity', data.labels ? 1 : 0)
+    nodes.selectAll('text.label')
       .text(function (d) {
         if ('label' in d) {
           return d.label;
@@ -78,9 +79,23 @@ export default function () {
         return d.id;
       });
 
+    // outer label
+    g.append('text')
+      .classed('outer-top-right', true)
+      .attr('fill', colors.BLUE)
+      .attr('font-size', '9px')
+      .attr('text-anchor', 'start')
+      .attr('x', (d) => d.width / 2 - 2)
+      .attr('y', (d) => -d.height / 2 + 3);
+    nodes.selectAll('text.outer-top-right')
+      .text(function (d) {
+        if ('topRight' in d) {
+          return d.topRight;
+        }
+      });
+
     // update
     utils.conditionalTransition(nodes, !owner.nodeDragging)
-      .attr('opacity', 1)
       .attr('transform', function (d) {
         return utils.transform({
           translate: d

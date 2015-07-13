@@ -1,8 +1,19 @@
 'use strict';
 
 import _ from 'lodash';
+import extend from 'extend';
 import assert from 'assert';
 import util from './utils';
+import {colors} from './const';
+
+const NODE_DEFAULT_OPTIONS = {
+  r: 10,
+  fill: colors.BLUE
+};
+
+const EDGE_DEFAULT_OPTIONS = {
+  stroke: colors.LIGHT_GRAY
+};
 
 export default class Graph {
   constructor(owner, data) {
@@ -20,7 +31,7 @@ export default class Graph {
         throw Error('node already in store');
       }
       this.nodes.push(
-        Graph.nodeDefaults(config)
+        Graph.appendNodeDefaults.call(this.owner, config)
       );
     }
   }
@@ -34,31 +45,63 @@ export default class Graph {
   }
 
   getAdjacentNodes(id) {
-    var adjacentNodesIds = [];
+    var adjacentNodes = [];
     var taken = {};
+    var node;
     for (var i = 0; i < this.edges.length; i += 1) {
       var edge = this.edges[i];
-      var nodeId;
+      node = null;
       if (edge.source.id === id) {
-        nodeId = edge.target.id;
+        node = edge.target;
       } else if (edge.target.id === id) {
-        nodeId = edge.source.id;
+        node = edge.source;
       }
 
-      if (!taken[nodeId]) {
-        taken[nodeId] = true;
-        adjacentNodesIds.push(nodeId);
+      if (node && !taken[node.id]) {
+        taken[node.id] = true;
+        adjacentNodes.push(node);
       }
     }
 
-    // sort the adjacent nodes
-    adjacentNodesIds.sort(function (a, b) {
-      return a - b;
-    });
+    return adjacentNodes;
+  }
 
-    return this.getNodesByFn(function (v) {
-      return _.indexOf(adjacentNodesIds, v.id, true) !== -1;
-    });
+  getSuccessorNodes(id) {
+    var successor = [];
+    var taken = {};
+    var node;
+    for (var i = 0; i < this.edges.length; i += 1) {
+      var edge = this.edges[i];
+      node = null;
+      if (edge.source.id === id) {
+        node = edge.target;
+      }
+      if (node && !taken[node.id]) {
+        taken[node.id] = true;
+        successor.push(node);
+      }
+    }
+
+    return successor;
+  }
+
+  getPredecessorNodes(id) {
+    var predecessor = [];
+    var taken = {};
+    var node;
+    for (var i = 0; i < this.edges.length; i += 1) {
+      var edge = this.edges[i];
+      node = null;
+      if (edge.target.id === id) {
+        node = edge.source;
+      }
+      if (node && !taken[node.id]) {
+        taken[node.id] = true;
+        predecessor.push(node);
+      }
+    }
+
+    return predecessor;
   }
 
   removeNode(id) {
@@ -101,7 +144,7 @@ export default class Graph {
       config.source = source;
       config.target = target;
       this.edges.push(
-        Graph.edgeDefaults(config)
+        Graph.appendEdgeDefaults.call(this.owner, config)
       );
     }
   }
@@ -164,20 +207,44 @@ export default class Graph {
     }
   }
 
-  static nodeDefaults(v) {
+  static appendNodeDefaults(v) {
     if (!v.hasOwnProperty('id')) {
       v.id = util.id();
     }
-    v.radius = v.radius || 10;
-    v.width = v.width || 2 * v.radius;
-    v.height = v.height || 2 * v.radius;
+
+    v = extend(
+      {},
+      // predefined defaults
+      NODE_DEFAULT_OPTIONS,
+      // instance defaults
+      this.options.nodeDefaults,
+      // node
+      v
+    );
+
+    if (!v.hasOwnProperty('width')) {
+      v.width = 2 * v.r;
+    }
+    if (!v.hasOwnProperty('height')) {
+      v.height = 2 * v.r;
+    }
     return v;
   }
 
-  static edgeDefaults(e) {
+  static appendEdgeDefaults(e) {
     if (!e.hasOwnProperty('id')) {
       e.id = util.id();
     }
+    e = extend(
+      {},
+      // predefined defaults
+      EDGE_DEFAULT_OPTIONS,
+      // instance defaults
+      this.options.edgeDefaults,
+      // edge
+      e
+    );
     return e;
   }
 }
+
