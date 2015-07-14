@@ -102,6 +102,15 @@ gulp.task('wiredep', function () {
     .pipe(gulp.dest('app'));
 });
 
+gulp.task('jade', function() {
+  var YOUR_LOCALS = {};
+  gulp.src('app/templates/*.jade')
+    .pipe($.jade({
+      locals: YOUR_LOCALS
+    }))
+    .pipe(gulp.dest('app'));
+});
+
 gulp.task('preflight',['eslint']);
 
 gulp.task('produce',['preflight','wiredep','es6','less','images','fonts']);
@@ -128,7 +137,8 @@ gulp.task('serve', ['produce'], function () {
     '.tmp/fonts/**/*'
   ]).on('change', reload);
 
-  gulp.watch('app/styles/**/*.less', ['styles']);
+  gulp.watch('app/templates/**/*.jade', ['jade']);
+  gulp.watch('app/styles/**/*.less', ['less']);
   gulp.watch('app/fonts/**/*', ['fonts']);
   gulp.watch('bower.json', ['wiredep', 'fonts']);
   gulp.watch('app/scripts/**/*.js', ['es6']);

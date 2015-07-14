@@ -8,15 +8,15 @@ export default class ElementSelector {
   constructor(owner) {
     this.owner = owner;
     this.graph = owner.graph;
-    this.defaultOptions = {
-      duration: this.getAnimationTime(),
-      color: colors.RED,
-      source: -1
-    };
+    this.defaultOptions = {};
   }
 
   getDefaultOptions() {
-    return this.defaultOptions;
+    return extend({
+      duration: this.getAnimationTime(),
+      stroke: colors.RED,
+      source: -1
+    }, this.defaultOptions);
   }
 
   updateOptions(options) {

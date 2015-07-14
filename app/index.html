@@ -1,44 +1,8 @@
-<!doctype html>
-<html lang="">
-  <head>
-    <meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>greuler</title>
-
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <!-- Place favicon.ico in the root directory -->
-
-    <!-- build:css styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="../bower_components/skeleton/css/skeleton.css" />
-    <!-- endbower -->
-    <!-- endbuild -->
-
-    <!-- build:css styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
-  </head>
-  <body>
-
-    <div class="container">
-      <div id="hello-world"></div>
-    </div>
-
-
-    <script src="private/d3.js"></script>
-    <script src="private/cola.v3.js"></script>
-
-
-    <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
-    <!-- endbower -->
-    <!-- endbuild -->
-
-    <!-- build:js app.js -->
-    <script src="app.js"></script>
-    <script src="scripts/public/demo.js"></script>
-    <!-- endbuild -->
-
-</body>
-</html>
+<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><title>greuler</title><link rel="apple-touch-icon" href="apple-touch-icon.png"><!-- Place favicon.ico in the root directory--><!-- build:css styles/vendor.css--><!-- bower:css--><link rel="stylesheet" href="../bower_components/skeleton/css/normalize.css"><link rel="stylesheet" href="../bower_components/skeleton/css/skeleton.css"><!-- endbower--><!-- endbuild--><!-- build:css styles/main.css--><link rel="stylesheet" href="styles/main.css"><!-- endbuild--><script src="private/d3.js"></script><script src="private/cola.v3.js"></script><script src="app.js"></script><!-- build:js scripts/vendor.js--><!-- bower:js--><script src="../bower_components/vivus/dist/vivus.js"></script><!-- endbower--><!-- endbuild--></head><body><div class="container text-animation"><div width="300px" class="row center"><div id="banner-svg"></div></div></div><script>new Vivus('banner-svg', {type: 'oneByOne', duration: 200, file: '../svg/banner.svg'});</script><div class="container"><p style="width: 500px" class="center"><b>greuler</b> is graph theory visualization tool which allows the creation of
+interactive graphs with a simple api, unlike other libraries like
+<a href="http://js.cytoscape.org/">Cytoscape.js</a> which allows graph analysis and visualization
+this project is more oriented to create rich visualizations only
+</p><hr><p id="intro-description" style="width: 500px; height: 50px" class="center"></p><div id="intro"></div><script src="examples/intro.js"></script><hr><div class="container text-animation"><div width="300px"><div id="features-svg"></div></div></div><script>new Vivus('features-svg', {type: 'oneByOne', duration: 200, file: '../svg/features.svg'});</script></div><div class="container text-animation"><div width="300px"><div id="examples-svg"></div></div></div><script>new Vivus('examples-svg', {type: 'oneByOne', duration: 200, file: '../svg/examples.svg'});
+</script><script>// namespace for the examples
+window.examples = {};
+</script><div class="container"><div id="dfs"></div><script src="examples/dfs.js"></script><div id="bfs"></div></div><!-- build:js app.js--><!-- endbuild--><div class="container"></div></body></html>

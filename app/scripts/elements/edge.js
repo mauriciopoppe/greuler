@@ -148,6 +148,10 @@ export default function () {
           el.attr('stroke-width', 5);
           el.classed('traversal', true);
         }
+      })
+      .attr('d', function () {
+        var parent = d3.select(this.parentNode).datum();
+        return line([parent.source]);
       });
 
     // path update
@@ -168,7 +172,6 @@ export default function () {
 
     function weightPosition(selection) {
       selection
-        .attr('opacity', 1)
         .attr('transform', function (d) {
           var angle = Vector.angleDeg(d.unit);
           var v = d.path[Math.floor(d.path.length / 2)];
@@ -185,16 +188,14 @@ export default function () {
     // weight enter
     weights.enter()
       .append('text')
-      .attr('font-size', '10px')
+      .attr('font-size', '9px')
       .attr('dominant-baseline', 'text-after-edge')
       .attr('text-anchor', 'middle')
-      .text(function (d) {
-        return d.weight || '';
-      })
       .call(weightPosition);
 
     // weight update
     utils.conditionalTransition(weights, !owner.nodeDragging)
+      .text((d) => d.weight)
       .call(weightPosition);
 
     // weight exit

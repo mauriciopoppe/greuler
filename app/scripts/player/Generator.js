@@ -30,10 +30,17 @@ export default class Generator {
     var self = this;
     var next = this.fn.next(value);
     if (!next.done) {
-      this.runAnimation(next.value);
+      var delay = this.speed;
+      var runAnimationValue = this.runAnimation(next.value);
+      if (runAnimationValue && typeof runAnimationValue === 'object') {
+        if (typeof runAnimationValue.delay === 'number') {
+          delay = runAnimationValue.delay;
+        }
+      }
+
       this.timer = setTimeout(function () {
         self.play(next.value);
-      }, this.speed);
+      }, delay);
     }
   }
 

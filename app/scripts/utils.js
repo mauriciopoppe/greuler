@@ -27,7 +27,7 @@ export default {
 
   transition: function (selection) {
     return selection
-      .transition()
+      .transition('layout')
       .duration(300)
       .ease('linear');
   },

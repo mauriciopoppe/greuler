@@ -189,6 +189,16 @@ export default class Graph {
     });
   }
 
+  removeEdgesByFn(fn) {
+    var i;
+    for (i = 0; i < this.edges.length; i += 1) {
+      if (fn(this.edges[i])) {
+        this.edges.splice(i, 1);
+        i -= 1;
+      }
+    }
+  }
+
   getEdgesByFn(fn) {
     return this.edges.filter(fn);
   }
@@ -204,16 +214,6 @@ export default class Graph {
   getIncidentEdges(nodeId) {
     return this.getOutgoingEdges(nodeId)
       .concat(this.getIncomingEdges(nodeId));
-  }
-
-  removeEdgesByFn(fn) {
-    var i;
-    for (i = 0; i < this.edges.length; i += 1) {
-      if (fn(this.edges[i])) {
-        this.edges.splice(i, 1);
-        i -= 1;
-      }
-    }
   }
 
   static appendNodeDefaults(v) {
@@ -254,6 +254,51 @@ export default class Graph {
       e
     );
     return e;
+  }
+
+  static random(options) {
+    options = extend({
+      order: 5,
+      size: 10,
+      multiGraph: false,
+      pseudoGraph: false
+    }, options);
+
+    var i;
+    var nodes = [];
+    for (i = 0; i < options.order; i += 1) {
+      nodes.push({ id: i });
+    }
+
+    var adjacencyList = [];
+    function add(u, v) {
+      adjacencyList[u] = adjacencyList[u] || [];
+      adjacencyList[v] = adjacencyList[v] || [];
+      adjacencyList[u][v] = adjacencyList[v][u] = true;
+    }
+
+    var edges = [];
+    for (i = 0; i < options.size; i += 1) {
+      var u = Math.floor(Math.random() * options.order);
+      var v = Math.floor(Math.random() * options.order);
+
+      if (u === v && !options.pseudoGraph) {
+        i -= 1;
+      } else if (adjacencyList[u][v] && !options.multiGraph) {
+        i -= 1;
+      } else {
+        add(u, v);
+        edges.push({
+          source: nodes[Math.floor(Math.random() * options.order)],
+          target: nodes[Math.floor(Math.random() * options.order)]
+        });
+      }
+    }
+
+    return {
+      nodes: nodes,
+      edges: edges
+    };
   }
 }
 

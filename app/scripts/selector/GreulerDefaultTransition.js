@@ -10,9 +10,30 @@ var HIGHLIGHT = 'highlight';
 
 export default class GreulerDefaultTransition extends Graph {
 
-  doTemporalHighlightNode(selection, options) {
+  innerEdgeSelector(selection) {
     return selection
-      .selectAll('circle')
+      .selectAll('path.base');
+  }
+
+  innerNodeSelector(selection) {
+    return selection
+      .selectAll('circle');
+  }
+
+  getEdges() {
+    return this.innerEdgeSelector(
+      this.select(this.graph.edges)
+    );
+  }
+
+  getNodes() {
+    return this.innerNodeSelector(
+      this.select(this.graph.nodes)
+    );
+  }
+
+  doTemporalHighlightNode(selection, options) {
+    return this.innerNodeSelector(selection)
       .each(function (d) {
         d.$radius = d3.select(this).attr('r');
       })
@@ -28,8 +49,7 @@ export default class GreulerDefaultTransition extends Graph {
   }
 
   doTemporalHighlightEdges(selection, options) {
-    return selection
-      .selectAll('path.base')
+    return this.innerEdgeSelector(selection)
       .each(function (d) {
         d.$stroke = d3.select(this).attr('stroke');
       })
@@ -51,7 +71,7 @@ export default class GreulerDefaultTransition extends Graph {
         var el = d3.select(this);
         var l = this.getTotalLength();
         el
-          .attr('stroke', options.color)
+          .attr('stroke', options.stroke)
           .attr('stroke-dasharray', `${l} ${l}`)
           .attr('stroke-dashoffset', l)
           .attr('opacity', 1);
@@ -60,14 +80,20 @@ export default class GreulerDefaultTransition extends Graph {
       .duration(options.duration)
       .attr('stroke-dashoffset', function () {
         var parentDatum = d3.select(this.parentNode).datum();
-        var l = this.getTotalLength();
+        var length = this.getTotalLength();
+        var twiceLength = length * 2;
+        var lengthToMove = 0;
         if (options.source !== -1) {
-          // reverse animation
           if (parentDatum.target.id === options.source) {
-            return l * 2;
+            lengthToMove = twiceLength;
           }
         }
-        return 0;
+
+        if (options.reverse) {
+          lengthToMove = twiceLength - lengthToMove;
+        }
+
+        return lengthToMove;
       })
       .attr('opacity', 0)
       .each('end', function () {
@@ -78,34 +104,19 @@ export default class GreulerDefaultTransition extends Graph {
       });
   }
 
-  updateEdges(selection, options) {
-    var transition = selection
-      .selectAll('path.base')
-      .transition('update')
-      .duration(options.duration);
-    options.color && transition.attr('stroke', options.color);
-    return transition;
-  }
-
-  updateNodes(selection, options) {
-    var transition = selection
-      .selectAll('circle')
-      .transition('update')
-      .duration(options.duration);
-    options.fill && transition.attr('fill', options.fill);
-    options.r && transition.attr('r', options.r);
-    return transition;
-  }
-
   traverseEdges(selection, options) {
     options = this.updateOptions(options);
     options = extend({
-      keepStroke: true
+      keepStroke: true,
+      reverse: false
     }, options);
 
     selection.call(this.traverseEdgeWithDirection, options);
     if (options.keepStroke) {
-      selection.call(this.updateEdges, options);
+      this.innerEdgeSelector(selection)
+        .transition('update')
+        .duration(options.duration)
+        .attr('stroke', options.stroke);
     }
     return selection;
   }
@@ -115,9 +126,8 @@ export default class GreulerDefaultTransition extends Graph {
 
   updateNode(options) {
     options = this.updateOptions(options);
-    return this.updateNodes(
-      this.select(this.graph.getNode(options.source)),
-      options
+    return this.innerNodeSelector(
+      this.select(this.graph.getNode(options.source))
     );
   }
 

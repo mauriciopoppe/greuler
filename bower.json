@@ -2,6 +2,7 @@
   "name": "greuler",
   "private": true,
   "dependencies": {
-    "skeleton": "~2.0.4"
+    "skeleton": "~2.0.4",
+    "vivus": "~0.2.2"
   }
 }

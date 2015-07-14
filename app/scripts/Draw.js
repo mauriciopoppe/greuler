@@ -93,7 +93,7 @@ export default class Draw {
       avoidOverlaps: true,
       size: [options.width, options.height],
       linkDistance: function (d) {
-        return d.linkDistance || 70;
+        return d.linkDistance || 80;
       }
     }, this.options.data);
   }
@@ -111,7 +111,7 @@ export default class Draw {
     }, this);
 
     //this.layout.start(15, 15, 15);
-    this.layout.start(15, 15, 15);
+    this.layout.start();
   }
 
   tick() {

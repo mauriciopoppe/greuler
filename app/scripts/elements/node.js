@@ -58,10 +58,7 @@ export default function () {
       });
 
     g.append('circle')
-      .attr('fill', (d) => d.fill);
-
-    // circle update
-    nodes.selectAll('circle')
+      .attr('fill', (d) => d.fill)
       .attr('r', (d) => d.r );
 
     // inner label
