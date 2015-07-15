@@ -9,4 +9,8 @@ colorLiterals.forEach(function (c, i) {
   colors['LIGHT_' + c] = color.range()[2 * i + 1];
 });
 
+colors.randomFromPalette = function () {
+  return color.range()[Math.floor(Math.random() * 20)];
+};
+
 export {colors};

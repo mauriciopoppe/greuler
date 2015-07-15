@@ -86,8 +86,8 @@ export default function () {
       .attr('y', (d) => -d.height / 2 + 3);
     nodes.selectAll('text.outer-top-right')
       .text(function (d) {
-        if ('topRight' in d) {
-          return d.topRight;
+        if ('topRightLabel' in d) {
+          return d.topRightLabel;
         }
       });
 

@@ -74,9 +74,9 @@
         });
 
         it('should get nodes by id', function () {
-          assert(manager.getNode(0));
-          assert(manager.getNode(10));
-          assert(!manager.getNode(11));
+          assert(manager.getNode({ id: 0 }));
+          assert(manager.getNode({ id: 10 }));
+          assert(!manager.getNode({ id: 11 }));
         });
 
         it('should get nodes by fn', function () {
@@ -90,12 +90,12 @@
         });
 
         it('should remove a single node', function () {
-          manager.removeNode(1);
-          manager.removeNode(2);
+          manager.removeNode({ id: 1 });
+          manager.removeNode({ id: 2 });
           assert(manager.nodes.length === 9);
-          manager.removeNode(1);
+          manager.removeNode({ id: 1 });
           assert(manager.nodes.length === 9);
-          manager.removeNode(3);
+          manager.removeNode({ id: 3 });
           assert(manager.nodes.length === 8);
         });
 
@@ -107,20 +107,20 @@
         });
 
         it('should get adjacent nodes', function () {
-          var nodes = manager.getAdjacentNodes(1);
+          var nodes = manager.getAdjacentNodes({ id: 1 });
           assert(nodes.length === 4);
         });
 
         it('should get successor nodes', function () {
-          assert(manager.getSuccessorNodes(0).length === 2);  // 1, 10
-          assert(manager.getSuccessorNodes(1).length === 3);  // 1, 3, 6
-          assert(manager.getSuccessorNodes(10).length === 0);
+          assert(manager.getSuccessorNodes({ id: 0 }).length === 2);  // 1, 10
+          assert(manager.getSuccessorNodes({ id: 1 }).length === 3);  // 1, 3, 6
+          assert(manager.getSuccessorNodes({ id: 10 }).length === 0);
         });
 
         it('should get predecessor nodes', function () {
-          assert(manager.getPredecessorNodes(0).length === 0);  // empty
-          assert(manager.getPredecessorNodes(1).length === 1);  // 0
-          assert(manager.getPredecessorNodes(10).length === 4); // 7, 0, 8, 9
+          assert(manager.getPredecessorNodes({ id: 0 }).length === 0);  // empty
+          assert(manager.getPredecessorNodes({ id: 1 }).length === 1);  // 0
+          assert(manager.getPredecessorNodes({ id: 10 }).length === 4); // 7, 0, 8, 9
         });
       });
 
@@ -134,7 +134,7 @@
         });
 
         it('should get a single edge', function () {
-          assert(manager.getEdge(0));
+          assert(manager.getEdge({ id: 0 }));
         });
 
         it('should get multiple edges', function () {
@@ -151,45 +151,45 @@
         });
 
         it('should get outgoing edges', function () {
-          assert(manager.getOutgoingEdges(0).length === 3);
-          assert(manager.getOutgoingEdges(1).length === 3);
+          assert(manager.getOutgoingEdges({ id: 0 }).length === 3);
+          assert(manager.getOutgoingEdges({ id: 1 }).length === 3);
         });
 
         it('should get incoming edges', function () {
-          assert(manager.getIncomingEdges(0).length === 0);
-          assert(manager.getIncomingEdges(1).length === 2);
+          assert(manager.getIncomingEdges({ id: 0 }).length === 0);
+          assert(manager.getIncomingEdges({ id: 1 }).length === 2);
         });
 
         it('should get incident edges', function () {
-          assert(manager.getIncidentEdges(0).length === 3);
-          assert(manager.getIncidentEdges(1).length === 5);
+          assert(manager.getIncidentEdges({ id: 0 }).length === 3);
+          assert(manager.getIncidentEdges({ id: 1 }).length === 5);
         });
 
         it('should get edges between two vertices', function () {
-          assert(manager.getEdgesBetween(0, 1).length === 2);
-          assert(manager.getEdgesBetween(2, 3).length === 1);
-          assert(manager.getEdgesBetween(3, 6).length === 1);
+          assert(manager.getEdgesBetween({ source: 0, target: 1 }).length === 2);
+          assert(manager.getEdgesBetween({ source: 2, target: 3 }).length === 1);
+          assert(manager.getEdgesBetween({ source: 3, target: 6 }).length === 1);
 
-          assert(manager.getEdgesBetween(1, 0).length === 0);
-          assert(manager.getEdgesBetween(3, 2).length === 0);
-          assert(manager.getEdgesBetween(6, 3).length === 0);
+          assert(manager.getEdgesBetween({ source: 1, target: 0 }).length === 0);
+          assert(manager.getEdgesBetween({ source: 3, target: 2 }).length === 0);
+          assert(manager.getEdgesBetween({ source: 6, target: 3 }).length === 0);
         });
 
         it('should get all edges between two vertices', function () {
-          assert(manager.getAllEdgesBetween(0, 1).length === 2);
-          assert(manager.getAllEdgesBetween(3, 6).length === 1);
+          assert(manager.getAllEdgesBetween({ source: 0, target: 1 }).length === 2);
+          assert(manager.getAllEdgesBetween({ source: 3, target: 6 }).length === 1);
 
-          assert(manager.getAllEdgesBetween(1, 0).length === 2);
-          assert(manager.getAllEdgesBetween(6, 3).length === 1);
+          assert(manager.getAllEdgesBetween({ source: 1, target: 0 }).length === 2);
+          assert(manager.getAllEdgesBetween({ source: 6, target: 3 }).length === 1);
         });
 
         it('should remove a single edge', function () {
-          manager.removeEdge(0);
+          manager.removeEdge({ id: 0 });
           assert(manager.edges.length === nEdges - 1);
         });
 
         it('should remove multiple edges', function () {
-          var edges = manager.getIncidentEdges(1);
+          var edges = manager.getIncidentEdges({ id: 1 });
           manager.removeEdges(edges);
           assert(manager.edges.length === nEdges - 5);
         });
@@ -197,9 +197,9 @@
 
       describe('operations', function () {
         it('should remove edges on single node removals', function () {
-          manager.removeNode(1);
+          manager.removeNode({ id: 1 });
           assert(manager.edges.length === nEdges - 5);
-          manager.removeNode(5);
+          manager.removeNode({ id: 5 });
           assert(manager.edges.length === nEdges - 9);
         });
 

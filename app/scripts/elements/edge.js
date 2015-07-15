@@ -12,7 +12,7 @@ export default function () {
   var owner;
 
   function selfLoop(u, margin) {
-    var adjacent = owner.graph.getAdjacentNodes(u.id);
+    var adjacent = owner.graph.getAdjacentNodes(u);
     var dir = new Vector(0, 0);
     for (var i = 0; i < adjacent.length; i += 1) {
       var v = adjacent[i];
@@ -23,6 +23,12 @@ export default function () {
         ));
       }
     }
+
+    // no adjacent vertices
+    if (dir.x === 0 && dir.y === 0) {
+      dir = Vector.unit(new Vector(0, -1));
+    }
+
     var k = 0.8;
     var up = Vector.add(u, Vector.scale(dir, margin * k));
     var mid = Vector.mid(u, up);
@@ -128,14 +134,11 @@ export default function () {
       .data(function (d) {
         // 1. real path
         // 2. stroke-dasharray helper
-        return [d.path, d.path];
+        return [d, d];
       });
     paths.enter()
       .append('path')
-      .attr('stroke', function () {
-        var parent = d3.select(this.parentNode).datum();
-        return parent.stroke;
-      })
+      .attr('stroke', d => d.stroke)
       .attr('fill', 'transparent')
       .attr('stroke-width', 2)
       .each(function (d, i) {
@@ -148,15 +151,15 @@ export default function () {
           el.attr('stroke-width', 5);
           el.classed('traversal', true);
         }
-      })
-      .attr('d', function () {
-        var parent = d3.select(this.parentNode).datum();
-        return line([parent.source]);
       });
+      //.attr('d', function () {
+      //  var parent = d3.select(this.parentNode).datum();
+      //  return line([parent.source]);
+      //});
 
     // path update
     utils.conditionalTransition(paths, !owner.nodeDragging)
-      .attr('d', line);
+      .attr('d', d => line(d.path));
 
     paths.each(function (d, i) {
       var path = d3.select(this);
@@ -195,7 +198,7 @@ export default function () {
 
     // weight update
     utils.conditionalTransition(weights, !owner.nodeDragging)
-      .text((d) => d.weight)
+      .text(d => d.weight)
       .call(weightPosition);
 
     // weight exit

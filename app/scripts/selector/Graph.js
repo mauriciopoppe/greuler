@@ -8,19 +8,18 @@ export default class ElementSelector {
   constructor(owner) {
     this.owner = owner;
     this.graph = owner.graph;
-    this.defaultOptions = {};
+    this.defaultStyleOptions = {};
   }
 
-  getDefaultOptions() {
+  getDefaultStyleOptions() {
     return extend({
       duration: this.getAnimationTime(),
-      stroke: colors.RED,
-      source: -1
-    }, this.defaultOptions);
+      stroke: '#E74C3C'
+    }, this.defaultStyleOptions);
   }
 
-  updateOptions(options) {
-    return extend({}, this.getDefaultOptions(), options);
+  getStyleOptions(options) {
+    return extend({}, this.getDefaultStyleOptions(), options);
   }
 
   getAnimationTime() {

@@ -1,19 +1,25 @@
 'use strict';
 
-import _ from 'lodash';
 import extend from 'extend';
-import assert from 'assert';
 import util from './utils';
 import {colors} from './const';
 
 const NODE_DEFAULT_OPTIONS = {
   r: 10,
-  fill: colors.BLUE
+  fill: '#2980B9'
 };
 
 const EDGE_DEFAULT_OPTIONS = {
   stroke: colors.LIGHT_GRAY
 };
+
+function includes(arr, id) {
+  for (var i = 0; i < arr.length; i += 1) {
+    if (arr[i].id === id) {
+      return true;
+    }
+  }
+}
 
 export default class Graph {
   constructor(owner, data) {
@@ -22,12 +28,32 @@ export default class Graph {
     this.edges = data.links;
   }
 
-  // nodes
+  /**
+   * Adds a node to the graph, each of the arguments must
+   * be an object with the following required properties
+   *
+   * - id {Number|string}
+   *
+   * Optional properties
+   *
+   * - x {number} The x coordinate of this node in the graph (only if fixed = true)
+   * - y {number} The y coordinate of this node in the graph (only if fixed = true)
+   * - fixed {boolean} `true` to make this node not to participate in the layout process
+   * - fill {string} The fill of the circle that represents the node
+   * - r {number} The radius of the circle that represents the node
+   * - label {string} The text inside the node (if it's not present it's equal to the `id`)
+   * - topRightLabel {string] the text shown on the top right side of the node, useful
+   * to represent additional annotations
+   *
+   * NOTE: this function receives any number of arguments
+   */
   addNode() {
     for (var i = 0; i < arguments.length; i += 1) {
       var config = arguments[i];
-      assert(config.hasOwnProperty('id'));
-      if (this.getNode(config.id)) {
+      if (!config.hasOwnProperty('id')) {
+        throw Error('the object must have the property `id`');
+      }
+      if (this.getNode(config)) {
         throw Error('node already in store');
       }
       this.nodes.push(
@@ -36,115 +62,190 @@ export default class Graph {
     }
   }
 
-  getNode(id) {
-    return _.where(this.nodes, { id: id })[0];
+  /**
+   * Gets a node by id
+   *
+   * @param {Object} node
+   * @param {number|string} node.id The id of the node
+   * @returns {Object|undefined}
+   */
+  getNode(node) {
+    return this.getNodesByFn(v => v.id === node.id)[0];
   }
 
+  /**
+   * Returns all the nodes that satisfy the parameter `fn`,
+   * alias for `this.nodes.filter(fn)`
+   *
+   * @param {Function} fn
+   * @returns {Object[]}
+   */
   getNodesByFn(fn) {
     return this.nodes.filter(fn);
   }
 
-  getAdjacentNodes(id) {
+  /**
+   * Gets all the adjacent nodes of the node identified by `id`
+   *
+   * @param {Object} node
+   * @param {number|string} node.id The id of the node
+   * @returns {Object[]}
+   */
+  getAdjacentNodes(node) {
     var adjacentNodes = [];
     var taken = {};
-    var node;
+    var next;
     for (var i = 0; i < this.edges.length; i += 1) {
       var edge = this.edges[i];
-      node = null;
-      if (edge.source.id === id) {
-        node = edge.target;
-      } else if (edge.target.id === id) {
-        node = edge.source;
+      next = null;
+      if (edge.source.id === node.id) {
+        next = edge.target;
+      } else if (edge.target.id === node.id) {
+        next = edge.source;
       }
 
-      if (node && !taken[node.id]) {
-        taken[node.id] = true;
-        adjacentNodes.push(node);
+      if (next && !taken[next.id]) {
+        taken[next.id] = true;
+        adjacentNodes.push(next);
       }
     }
 
     return adjacentNodes;
   }
 
-  getSuccessorNodes(id) {
+  /**
+   * Gets all the successor nodes of the node identified by `id`
+   *
+   * @param {Object} node
+   * @param {number|string} node.id The id of the node
+   * @returns {Object[]}
+   */
+  getSuccessorNodes(node) {
     var successor = [];
     var taken = {};
-    var node;
+    var next;
     for (var i = 0; i < this.edges.length; i += 1) {
       var edge = this.edges[i];
-      node = null;
-      if (edge.source.id === id) {
-        node = edge.target;
+      next = null;
+      if (edge.source.id === node.id) {
+        next = edge.target;
       }
-      if (node && !taken[node.id]) {
-        taken[node.id] = true;
-        successor.push(node);
+      if (next && !taken[next.id]) {
+        taken[next.id] = true;
+        successor.push(next);
       }
     }
 
     return successor;
   }
 
-  getPredecessorNodes(id) {
+  /**
+   * Gets all the predecessor nodes of the node identified by `id`
+   *
+   * @param {Object} node
+   * @param {number|string} node.id The id of the node
+   * @returns {Object[]}
+   */
+  getPredecessorNodes(node) {
     var predecessor = [];
     var taken = {};
-    var node;
+    var next;
     for (var i = 0; i < this.edges.length; i += 1) {
       var edge = this.edges[i];
-      node = null;
-      if (edge.target.id === id) {
-        node = edge.source;
+      next = null;
+      if (edge.target.id === node.id) {
+        next = edge.source;
       }
-      if (node && !taken[node.id]) {
-        taken[node.id] = true;
-        predecessor.push(node);
+      if (next && !taken[next.id]) {
+        taken[next.id] = true;
+        predecessor.push(next);
       }
     }
 
     return predecessor;
   }
 
-  removeNode(id) {
-    return this.removeNodesByFn(function (v) {
-      return v.id === id;
-    });
-  }
-
-  removeNodes(nodes) {
+  /**
+   * Removes a node identified by `id`
+   *
+   * @param {Object} node
+   * @param {number|string} node.id The id of the node
+   */
+  removeNode(node) {
     this.removeNodesByFn(function (v) {
-      return _.find(nodes, {id: v.id});
+      return v.id === node.id;
     });
   }
 
+  /**
+   * Removes all the nodes stored in `nodes`,
+   * each object must have the property `id`
+   *
+   * @param {Object[]} nodes
+   */
+  removeNodes(nodes) {
+    // TODO: improve n^2 removal
+    this.removeNodesByFn(function (v) {
+      return includes(nodes, v.id);
+    });
+  }
+
+  /**
+   * Removes all the nodes that satisfy the predicate
+   * `fn`
+   *
+   * @param {Function} fn
+   */
   removeNodesByFn(fn) {
     var i;
     for (i = 0; i < this.nodes.length; i += 1) {
-      if (fn(this.nodes[i])) {
+      if (fn(this.nodes[i], i)) {
         // remove nodes
         var node = this.nodes.splice(i, 1);
         // remove incident edges
         this.removeEdges(
-          this.getIncidentEdges(node[0].id)
+          this.getIncidentEdges(node[0])
         );
         i -= 1;
       }
     }
   }
 
-  // edges
+  /**
+   * Adds an edge to the graph, each of the arguments must
+   * be an object with the following properties
+   *
+   * Required properties
+   *
+   * - source {number|Object} The id of the source node or the source node itself
+   * - target {number|Object} The id of the target node or the target node itself
+   *
+   * Optional properties
+   *
+   * - id {string|Object} If an id is not provided an auto generated string will be assigned
+   * to this edge
+   * - stroke {string} The stroke of the path that represents the edge
+   * - weight {string} The weight of the edge
+   * - directed {boolean} If set to true an additional arrow is added at the end of the edge
+   *
+   * NOTE: this function receives any number of arguments
+   */
   addEdge() {
     for (var i = 0; i < arguments.length; i += 1) {
       var config = arguments[i];
-      assert(config.hasOwnProperty('source') && config.hasOwnProperty('target'));
+
+      if (!config.hasOwnProperty('source') || !config.hasOwnProperty('target')) {
+        throw Error('the edge must have the properties `source` and `target`');
+      }
       var source = config.source;
       var target = config.target;
 
       if (typeof source !== 'object') {
-        source = this.getNode(config.source);
+        source = this.getNode({ id: config.source });
       }
 
       if (typeof target !== 'object') {
-        target = this.getNode(config.target);
+        target = this.getNode({ id: config.target });
       }
 
       if (!source || !target) {
@@ -158,62 +259,129 @@ export default class Graph {
     }
   }
 
-  getEdge(id) {
-    return this.getEdgesByFn((e) => e.id === id)[0];
+  /**
+   * Gets an edge by `id`
+   *
+   * @param {Object} edge
+   * @param {number|string} edge.id The id of the edge
+   * @returns {Object}
+   */
+  getEdge(edge) {
+    return this.getEdgesByFn(e => e.id === edge.id)[0];
   }
 
-  getEdgesBetween(u, v) {
-    var incidentEdges = this.getIncidentEdges(u);
-    return incidentEdges.filter(function (e) {
-      return e.target.id === v;
+  /**
+   * Gets all the directed edges from the node whose id is
+   * `options.source` and to the node whose id is `options.target`
+   *
+   * @param {Object} options
+   * @param {number|string} options.source The id of the source node
+   * @param {number|string} options.target The id of the target node
+   * @returns {Object[]}
+   */
+  getEdgesBetween(options) {
+    return this.getEdgesByFn(function (e) {
+      return e.source.id === options.source && e.target.id === options.target;
     });
   }
 
-  getAllEdgesBetween(u, v) {
-    var incidentEdges = this.getIncidentEdges(u);
-    return incidentEdges.filter(function (e) {
-      return e.source.id === v || e.target.id === v;
+  /**
+   * Gets all the edges from `options.source` to `options.target`
+   * or `options.target` to `options.source`
+   *
+   * @param {Object} options
+   * @param {number|string} options.source The id of the source node
+   * @param {number|string} options.target The id of the target node
+   * @returns {Object[]}
+   */
+  getAllEdgesBetween(options) {
+    return this.getEdgesByFn(function (e) {
+      return (e.source.id === options.source && e.target.id === options.target) ||
+        (e.source.id === options.target && e.target.id === options.source);
     });
   }
 
-  removeEdge(id) {
-    this.removeEdgesByFn(function (e) {
-      return e.id === id;
-    });
+  /**
+   * Removes an edge identified by id
+   *
+   * @param {Object} edge
+   * @param {number|string} edge.id The id of the edge
+   */
+  removeEdge(edge) {
+    this.removeEdgesByFn(e => e.id === edge.id);
   }
 
+  /**
+   * Removes all the edges stored in `edges`,
+   * each object must have the property `id`
+   *
+   * @param {Object[]} edges
+   */
   removeEdges(edges) {
     // TODO: improve n^2 removal
     this.removeEdgesByFn(function (e) {
-      return _.find(edges, {id: e.id});
+      return includes(edges, e.id);
     });
   }
 
+  /**
+   * Removes all the edges that return true for the predicate
+   * `fn`
+   *
+   * @param {function} fn
+   */
   removeEdgesByFn(fn) {
     var i;
     for (i = 0; i < this.edges.length; i += 1) {
-      if (fn(this.edges[i])) {
+      if (fn(this.edges[i], i)) {
         this.edges.splice(i, 1);
         i -= 1;
       }
     }
   }
 
+  /**
+   * Gets all the edges that return true for the predicate `fn`
+   *
+   * @param {Function} fn
+   * @returns {Object[]}
+   */
   getEdgesByFn(fn) {
     return this.edges.filter(fn);
   }
 
-  getOutgoingEdges(nodeId) {
-    return this.getEdgesByFn((e) => e.source.id === nodeId);
+  /**
+   * Gets all the outgoing edges of the node `id`
+   *
+   * @param {Object} node
+   * @param {number|string} node.id The id of the node
+   * @returns {Object[]}
+   */
+  getOutgoingEdges(node) {
+    return this.getEdgesByFn((e) => e.source.id === node.id);
   }
 
-  getIncomingEdges(nodeId) {
-    return this.getEdgesByFn((e) => e.target.id === nodeId);
+  /**
+   * Gets all the incoming edges of the node `id`
+   *
+   * @param {Object} node
+   * @param {number|string} node.id The id of the node
+   * @returns {Object[]}
+   */
+  getIncomingEdges(node) {
+    return this.getEdgesByFn((e) => e.target.id === node.id);
   }
 
-  getIncidentEdges(nodeId) {
-    return this.getOutgoingEdges(nodeId)
-      .concat(this.getIncomingEdges(nodeId));
+  /**
+   * Gets all the incident edges of the node `id`
+   *
+   * @param {Object} node
+   * @param {number|string} node.id The id of the node
+   * @returns {Object[]}
+   */
+  getIncidentEdges(node) {
+    return this.getOutgoingEdges(node)
+      .concat(this.getIncomingEdges(node));
   }
 
   static appendNodeDefaults(v) {
@@ -256,31 +424,58 @@ export default class Graph {
     return e;
   }
 
+  /**
+   * Creates a random graph with the following defaults options overridden by `options`:
+   *
+   * - options.order=10 {number} The number of nodes in the graph
+   * - options.size=15 {number} The number of edges in the graph
+   * - options.connected=false {boolean} True to make the graph connected,
+   * it's guaranteed to have at least `options.order - 1` edges
+   * - options.multiGraph=false {boolean} True to allow the creation of parallel edges
+   * - options.pseudoGraph=false {boolean} True to allow the creation of loop edges
+   *
+   * @param {Object} options
+   * @returns {{nodes: Array, links: Array}}
+   */
   static random(options) {
     options = extend({
-      order: 5,
-      size: 10,
+      order: 10,
+      size: 15,
+      connected: false,
       multiGraph: false,
       pseudoGraph: false
     }, options);
 
-    var i;
+    var i, u, v;
     var nodes = [];
+    var adjacencyList = [];
     for (i = 0; i < options.order; i += 1) {
+      adjacencyList[i] = [];
       nodes.push({ id: i });
     }
 
-    var adjacencyList = [];
     function add(u, v) {
-      adjacencyList[u] = adjacencyList[u] || [];
-      adjacencyList[v] = adjacencyList[v] || [];
       adjacencyList[u][v] = adjacencyList[v][u] = true;
     }
 
     var edges = [];
-    for (i = 0; i < options.size; i += 1) {
-      var u = Math.floor(Math.random() * options.order);
-      var v = Math.floor(Math.random() * options.order);
+    i = 0;
+
+    if (options.connected) {
+      for (i = 1; i < options.order; i += 1) {
+        v = Math.floor(Math.random() * i);
+        add(i, v);
+        edges.push({
+          source: i,
+          target: v
+        });
+      }
+      i -= 1;
+    }
+
+    for (; i < options.size; i += 1) {
+      u = Math.floor(Math.random() * options.order);
+      v = Math.floor(Math.random() * options.order);
 
       if (u === v && !options.pseudoGraph) {
         i -= 1;
@@ -289,15 +484,15 @@ export default class Graph {
       } else {
         add(u, v);
         edges.push({
-          source: nodes[Math.floor(Math.random() * options.order)],
-          target: nodes[Math.floor(Math.random() * options.order)]
+          source: u,
+          target: v
         });
       }
     }
 
     return {
       nodes: nodes,
-      edges: edges
+      links: edges
     };
   }
 }
