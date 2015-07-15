@@ -103,11 +103,6 @@ gulp.task('jade', function () {
     .pipe(gulp.dest('public'));
 });
 
-gulp.task('svg', function () {
-  gulp.src('public/svg/*')
-    .pipe(gulp.dest('dist/svg'));
-});
-
 gulp.task('copy-from-tmp', function () {
   gulp.src('.tmp/**/*')
     .pipe(gulp.dest('dist/'));
@@ -122,7 +117,7 @@ gulp.task('preflight',['eslint']);
 
 gulp.task('produce',['preflight','wiredep','es6','less','images','fonts','jade']);
 
-gulp.task('package',['produce', 'svg'], function () {
+gulp.task('package',['produce'], function () {
   gulp.start('copy-from-tmp');
   gulp.start('copy-examples');
   gulp.start('html');
