@@ -1,7 +1,8 @@
 .container
-  #usage-svg.center
+  .center
+    include ../../svg/usage.svg
   script.
-    new Vivus('usage-svg', {type: 'oneByOne', duration: 200, file: '../svg/usage.svg'});
+    new Vivus('usage-svg', {type: 'oneByOne', duration: 200});
 
   :markdown
     The hello world program requires calling `greuler` with an object having the following properties

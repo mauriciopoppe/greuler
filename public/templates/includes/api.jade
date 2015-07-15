@@ -1,15 +1,17 @@
 .container
-  #api-svg.center
+  .center
+    include ../../svg/api.svg
   script.
-    new Vivus('api-svg', {type: 'oneByOne', duration: 200, file: '../svg/api.svg'});
+    new Vivus('api-svg', {type: 'oneByOne', duration: 200});
 
   :markdown
     Assuming that `instance = greuler(options).update()` is called there are two ways to interact
     with the graph
 
-  #graph-svg.center
-    script.
-      new Vivus('graph-svg', {type: 'oneByOne', duration: 200, file: '../svg/graph.svg'});
+  .center
+    include ../../svg/graph.svg
+  script.
+    new Vivus('graph-svg', {type: 'oneByOne', duration: 200});
 
   :markdown
     `instance.graph` holds utility methods to manipulate the graph like adding/removing
@@ -36,9 +38,10 @@
 
   hr
 
-  #selector-svg.center
+  .center
+    include ../../svg/selector.svg
   script.
-    new Vivus('selector-svg', {type: 'oneByOne', duration: 200, file: '../svg/selector.svg'});
+    new Vivus('selector-svg', {type: 'oneByOne', duration: 200});
 
   :markdown
     `instance.selector` holds utility methods to animate existing nodes/edges of the graph,

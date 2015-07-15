@@ -1,7 +1,8 @@
 .container(style="max-width: 1200px")
-  #examples-svg.center
+  .center
+    include ../../svg/examples.svg
   script.
-    new Vivus('examples-svg', {type: 'oneByOne', duration: 200, file: '../svg/examples.svg'});
+    new Vivus('examples-svg', {type: 'oneByOne', duration: 200});
 
   // namespace for the examples
   script.

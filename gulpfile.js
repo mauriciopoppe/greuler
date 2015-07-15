@@ -181,11 +181,6 @@ gulp.task('serve:test',['produce'], function () {
   ]).on('change', reload);
 });
 
-gulp.task('deploy', function () {
-  return gulp.src('./dist/**/*')
-    .pipe($.ghPages());
-});
-
 gulp.task('build', ['package'], function () {
   return gulp.src('dist/**/*')
     .pipe($.size({title: 'build', gzip: true}));
@@ -194,3 +189,9 @@ gulp.task('build', ['package'], function () {
 gulp.task('default', ['clean'], function () {
   gulp.start('build');
 });
+
+gulp.task('deploy', ['default'], function () {
+  return gulp.src('./dist/**/*')
+    .pipe($.ghPages());
+});
+
