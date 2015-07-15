@@ -1,21 +1,12 @@
 .container
-  p.center(style="width: 500px").
-    <b>greuler</b> is graph theory visualization tool which allows the creation of
-    interactive graphs with a simple api, unlike other libraries like
-    <a href="http://js.cytoscape.org/">Cytoscape.js</a> which allows graph analysis and visualization
-    this project is more oriented to create rich visualizations only
-
+  p.center.description.
+    <b>greuler</b> is graph theory visualization tool powered by <a href="http://d3js.org/">d3</a>
+    and on top of <a href="http://marvl.infotech.monash.edu/webcola/">WebCola</a>
+    which allows the creation and manipulation of graphs with a simple api
   hr
 
-  p.center#intro-description(style="width: 500px; height: 50px")
-  #intro
-  script(src='examples/intro.js')
-
-  hr
-
-  .container.text-animation
-    div(width='300px')
-      #features-svg
-  script.
-    new Vivus('features-svg', {type: 'oneByOne', duration: 200, file: '../svg/features.svg'});
-
+  #intro-wrapper(style="overflow: hidden")
+    p.center#intro-description(style="width: 500px; height: 50px")
+    #intro
+    script(src='examples/intro.js')
+    hr

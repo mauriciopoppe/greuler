@@ -2,8 +2,18 @@ extends layout/base
 
 block content
   include includes/intro
+  include includes/installation
+  include includes/usage
+  include includes/api
+  //include includes/lyfecycle
   include includes/examples
 
 block scripts
+  script.
+    d3.selectAll('pre code')
+      .each(function () {
+        hljs.highlightBlock(this);
+      });
+
   // build:js app.js
   // endbuild

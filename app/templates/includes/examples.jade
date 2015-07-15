@@ -1,15 +1,19 @@
-.container.text-animation
-  div(width='300px')
-    #examples-svg
-script.
-  new Vivus('examples-svg', {type: 'oneByOne', duration: 200, file: '../svg/examples.svg'});
+.container(style="max-width: 1200px")
+  #examples-svg
+  script.
+    new Vivus('examples-svg', {type: 'oneByOne', duration: 200, file: '../svg/examples.svg'});
 
-script.
   // namespace for the examples
-  window.examples = {};
+  script.
+    window.examples = {};
 
-.container
-  #dfs
-  script(src='examples/dfs.js')
+  .example.row
+    .six.columns
+      pre
+        code.javascript
+          include ../../examples/dfs.js
+    .six.columns
+      #dfs
+      script(src='examples/dfs.js')
 
   #bfs
