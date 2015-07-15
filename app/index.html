@@ -6,7 +6,7 @@ which allows the creation and manipulation of graphs with a simple api</p><hr><d
 <pre><code class="lang-html">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;http://marvl.infotech.monash.edu/webcola/cola.v3.min.js&quot;&gt;&lt;/script&gt;
 </code></pre>
-<p>And then you can include <strong>greuler</strong> with bower</p>
+<p>Install <strong>greuler</strong> with bower</p>
 <pre><code class="lang-sh">bower install greuler
 </code></pre>
 <p>And then include it in your webpage</p>
@@ -74,9 +74,9 @@ single parameter</p>
 under the hood it uses <code>instance.graph</code> and wraps the returning values inside d3 selections
 Just like <code>instance.graph</code> the first method will always be an object describing a node / edge,
 the second parameter is an override of the styles predefined to be used during the animation</p>
-<!-- selector example--><div class="row"><div class="six columns"><div id="selector-example"></div></div><div class="six columns"><pre><code id="selector-example-description" class="javascript"></code></pre></div></div><div class="row noselect"><div id="selector-example-numbers" class="example-numbers center"></div></div><script src="examples/hello-world/selector-example.js"></script><hr></div><!--include includes/lyfecycle--><div style="max-width: 1200px" class="container"><div id="examples-svg"></div><script>new Vivus('examples-svg', {type: 'oneByOne', duration: 200, file: '../svg/examples.svg'});
+<!-- selector example--><div class="row"><div class="six columns"><div id="selector-example"></div></div><div class="six columns"><pre><code id="selector-example-description" class="javascript"></code></pre></div></div><div class="row noselect"><div id="selector-example-numbers" class="example-numbers center"></div></div><script src="examples/hello-world/selector-example.js"></script><hr></div><!--include includes/lyfecycle--><div style="max-width: 1200px" class="container"><div id="examples-svg" class="center"></div><script>new Vivus('examples-svg', {type: 'oneByOne', duration: 200, file: '../svg/examples.svg'});
 </script><!-- namespace for the examples--><script>window.examples = {};
-</script><div class="example row"><div class="six columns"><pre><code class="javascript">'use strict';
+</script><h4>Depth first search</h4><div class="example row"><div class="six columns"><pre><code class="javascript">'use strict';
 
 (function () {
   var greuler = window.greuler;
@@ -99,7 +99,7 @@ the second parameter is an override of the styles predefined to be used during t
         };
         visited[u] = true;
 
-        var adjacent = instance.graph.getAdjacentNodes(u);
+        var adjacent = instance.graph.getAdjacentNodes({ id: u });
         for (var i = 0; i < adjacent.length; i += 1) {
           var v = adjacent[i].id;
 
@@ -107,18 +107,17 @@ the second parameter is an override of the styles predefined to be used during t
 
           if (!visited[v]) {
             yield function () {
-              instance.selector.traverseEdgesBetween({
-                source: u,
-                target: v
-              });
+              instance.selector.traverseAllEdgesBetween({ source: u, target: v });
             };
             yield *dfs(v, u);
           } else {
             yield function () {
-              instance.selector.traverseEdgesBetween({
-                source: u,
-                target: v
-              }, {keepStroke: false}).transition().attr('opacity', 0.4);
+              instance.selector.traverseAllEdgesBetween(
+                { source: u, target: v },
+                { keepStroke: false }
+              )
+                .transition()
+                .attr('opacity', 0.3);
             };
           }
         }
@@ -134,7 +133,91 @@ the second parameter is an override of the styles predefined to be used during t
     });
   };
 })();
-</code></pre></div><div class="six columns"><div id="dfs"></div><script src="examples/dfs.js"></script></div></div><div id="bfs"></div></div><script>d3.selectAll('pre code')
+</code></pre></div><div class="six columns"><div id="dfs"></div><script src="examples/dfs.js"></script><button data-example="dfs" class="runner center">run</button></div></div><hr><h4>Breadth first search</h4><div class="example row"><div class="six columns"><pre><code class="javascript">'use strict';
+
+(function () {
+  var greuler = window.greuler;
+
+  var instance = greuler({
+    target: '#bfs',
+    height: 600,
+    animationTime: 500,
+    data: greuler.Graph.random({ connected: true })
+  }).update();
+
+  window.examples.bfs = function () {
+    var player = new greuler.player.Generator(instance);
+    player.run(function *algorithm(instance) {
+
+      function *bfs(source) {
+        // queue
+        var distance = [];
+        var q = [];
+        var parent = [];
+
+        function highlight(id, visit) {
+          return function () {
+            var node = instance.graph.getNode({ id: id });
+            node.topRightLabel = distance[id];
+            instance.selector.highlightNode({ id: id });
+            if (visit) {
+              instance.selector.getNode({ id: id })
+                .transition()
+                .attr('fill', 'black');
+            }
+            instance.update({skipLayout: true});
+          };
+        }
+
+        distance[source] = 0;
+        q.push(source);
+
+
+        while (q.length) {
+          var top = q.shift();
+          var adjacent = instance.graph.getAdjacentNodes({ id: top });
+          yield highlight(top, true);
+
+          for (var i = 0; i < adjacent.length; i += 1) {
+            var next = adjacent[i].id;
+
+            if (next === parent[top]) { continue; }
+
+            if (typeof distance[next] === 'undefined') {
+              distance[next] = distance[top] + 1;
+              parent[next] = top;
+              q.push(next);
+
+              yield function () {
+                instance.selector.traverseAllEdgesBetween({ source: top, target: next });
+              };
+              yield highlight(next);
+            } else {
+              yield function () {
+                instance.selector.traverseAllEdgesBetween(
+                  { source: top, target: next },
+                  { keepStroke: false }
+                )
+                  .transition()
+                  .attr('opacity', 0.3);
+              };
+            }
+          }
+        }
+      }
+
+      yield *bfs(0);
+    });
+  };
+})();
+</code></pre></div><div class="six columns"><div id="bfs"></div><script src="examples/bfs.js"></script><button data-example="bfs" class="runner center">run</button></div></div><script>d3.selectAll('[data-example]')
+  .on('click', function (d) {
+    var el = d3.select(this);
+    var example = el.attr('data-example');
+    if (el.attr('disabled')) { return; }
+    window.examples[example]();
+    el.attr('disabled', 'true');
+  });</script></div><script>d3.selectAll('pre code')
   .each(function () {
     hljs.highlightBlock(this);
   });

@@ -1,8 +1,11 @@
+@main: #2980B9;
 
 // overrides
 body {
+  margin: 50px 0;
   font-family: 'Handlee', cursive;
   font-size: 2em;
+  background: #fff;
 }
 
 svg {
@@ -20,6 +23,11 @@ code {
   font-size: 12px;
   background: transparent;
   border: 1px solid #ECECEC;
+}
+
+button {
+  border: 1px solid @main;
+  color: @main;
 }
 
 // utilities
@@ -80,7 +88,7 @@ div {
   min-width: 1px;
 
   span {
-    border: 1px solid #2980B9;
+    border: 1px solid @main;
     margin: 5px 10px;
     width: @selector-example;
     height: @selector-example;
@@ -93,4 +101,8 @@ div {
       cursor: pointer;
     }
   }
+}
+
+.runner {
+  display: block;
 }

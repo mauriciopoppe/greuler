@@ -21,7 +21,7 @@
         };
         visited[u] = true;
 
-        var adjacent = instance.graph.getAdjacentNodes(u);
+        var adjacent = instance.graph.getAdjacentNodes({ id: u });
         for (var i = 0; i < adjacent.length; i += 1) {
           var v = adjacent[i].id;
 
@@ -29,18 +29,17 @@
 
           if (!visited[v]) {
             yield function () {
-              instance.selector.traverseEdgesBetween({
-                source: u,
-                target: v
-              });
+              instance.selector.traverseAllEdgesBetween({ source: u, target: v });
             };
             yield *dfs(v, u);
           } else {
             yield function () {
-              instance.selector.traverseEdgesBetween({
-                source: u,
-                target: v
-              }, {keepStroke: false}).transition().attr('opacity', 0.4);
+              instance.selector.traverseAllEdgesBetween(
+                { source: u, target: v },
+                { keepStroke: false }
+              )
+                .transition()
+                .attr('opacity', 0.3);
             };
           }
         }
