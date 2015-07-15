@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1fa36ae9-5991-4dea-baa9-bdc030928559" name="Default" comment="intro example updated according to the new api">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/Graph.js" afterPath="$PROJECT_DIR$/app/scripts/Graph.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/selector/Graph.js" afterPath="$PROJECT_DIR$/app/scripts/selector/Graph.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/selector/GreulerDefaultTransition.js" afterPath="$PROJECT_DIR$/app/scripts/selector/GreulerDefaultTransition.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/const.js" afterPath="$PROJECT_DIR$/app/scripts/const.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/elements/edge.js" afterPath="$PROJECT_DIR$/app/scripts/elements/edge.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/index.html" afterPath="$PROJECT_DIR$/app/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/styles/main.less" afterPath="$PROJECT_DIR$/app/styles/main.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/elements/node.js" afterPath="$PROJECT_DIR$/app/scripts/elements/node.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/spec/test.js" afterPath="$PROJECT_DIR$/test/spec/test.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="greuler.iws" />
@@ -181,8 +172,8 @@
               <file leaf-file-name="graph-example.js" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/app/examples/hello-world/graph-example.js">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.3403909">
-                      <caret line="138" column="0" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
+                    <state vertical-scroll-proportion="0.21824104">
+                      <caret line="133" column="20" selection-start-line="133" selection-start-column="20" selection-end-line="133" selection-end-column="20" />
                       <folding />
                     </state>
                   </provider>
@@ -868,7 +859,13 @@
       <option name="project" value="LOCAL" />
       <updated>1436941374693</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="instance.graph/instance.selector api updated">
+      <created>1436941410526</created>
+      <option name="number" value="00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1436941410526</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -944,7 +941,8 @@
     <MESSAGE value="added basic usage" />
     <MESSAGE value="graph/selector examples" />
     <MESSAGE value="intro example updated according to the new api" />
-    <option name="LAST_COMMIT_MESSAGE" value="intro example updated according to the new api" />
+    <MESSAGE value="instance.graph/instance.selector api updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="instance.graph/instance.selector api updated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1364,8 +1362,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/examples/hello-world/graph-example.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3403909">
-          <caret line="138" column="0" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.21824104">
+          <caret line="133" column="20" selection-start-line="133" selection-start-column="20" selection-end-line="133" selection-end-column="20" />
           <folding />
         </state>
       </provider>

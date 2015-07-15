@@ -1,8 +1,141 @@
-<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><title>greuler</title><link rel="apple-touch-icon" href="apple-touch-icon.png"><!-- Place favicon.ico in the root directory--><!-- build:css styles/vendor.css--><!-- bower:css--><link rel="stylesheet" href="../bower_components/skeleton/css/normalize.css"><link rel="stylesheet" href="../bower_components/skeleton/css/skeleton.css"><!-- endbower--><!-- endbuild--><!-- build:css styles/main.css--><link rel="stylesheet" href="styles/main.css"><!-- endbuild--><script src="private/d3.js"></script><script src="private/cola.v3.js"></script><script src="app.js"></script><!-- build:js scripts/vendor.js--><!-- bower:js--><script src="../bower_components/vivus/dist/vivus.js"></script><!-- endbower--><!-- endbuild--></head><body><div class="container text-animation"><div width="300px" class="row center"><div id="banner-svg"></div></div></div><script>new Vivus('banner-svg', {type: 'oneByOne', duration: 200, file: '../svg/banner.svg'});</script><div class="container"><p style="width: 500px" class="center"><b>greuler</b> is graph theory visualization tool which allows the creation of
-interactive graphs with a simple api, unlike other libraries like
-<a href="http://js.cytoscape.org/">Cytoscape.js</a> which allows graph analysis and visualization
-this project is more oriented to create rich visualizations only
-</p><hr><p id="intro-description" style="width: 500px; height: 50px" class="center"></p><div id="intro"></div><script src="examples/intro.js"></script><hr><div class="container text-animation"><div width="300px"><div id="features-svg"></div></div></div><script>new Vivus('features-svg', {type: 'oneByOne', duration: 200, file: '../svg/features.svg'});</script></div><div class="container text-animation"><div width="300px"><div id="examples-svg"></div></div></div><script>new Vivus('examples-svg', {type: 'oneByOne', duration: 200, file: '../svg/examples.svg'});
-</script><script>// namespace for the examples
-window.examples = {};
-</script><div class="container"><div id="dfs"></div><script src="examples/dfs.js"></script><div id="bfs"></div></div><!-- build:js app.js--><!-- endbuild--><div class="container"></div></body></html>
+<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><title>greuler</title><link rel="apple-touch-icon" href="apple-touch-icon.png"><link href="http://fonts.googleapis.com/css?family=Handlee" rel="stylesheet" type="text/css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/github.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script><!-- Place favicon.ico in the root directory--><!-- build:css styles/vendor.css--><!-- bower:css--><link rel="stylesheet" href="../bower_components/skeleton/css/normalize.css"><link rel="stylesheet" href="../bower_components/skeleton/css/skeleton.css"><!-- endbower--><!-- endbuild--><!-- build:css styles/main.css--><link rel="stylesheet" href="styles/main.css"><!-- endbuild--><script src="private/d3.js"></script><script src="private/cola.v3.js"></script><script src="app.js"></script><!-- build:js scripts/vendor.js--><!-- bower:js--><script src="../bower_components/vivus/dist/vivus.js"></script><!-- endbower--><!-- endbuild--></head><body><div class="container"><div id="banner-svg" class="center"></div><script>new Vivus('banner-svg', {type: 'oneByOne', duration: 200, file: '../svg/banner.svg'});</script></div><div class="container"><p class="center description"><b>greuler</b> is graph theory visualization tool powered by <a href="http://d3js.org/">d3</a>
+and on top of <a href="http://marvl.infotech.monash.edu/webcola/">WebCola</a>
+which allows the creation and manipulation of graphs with a simple api</p><hr><div id="intro-wrapper" style="overflow: hidden"><p id="intro-description" style="width: 500px; height: 50px" class="center"></p><div id="intro"></div><script src="examples/intro.js"></script><hr></div></div><div class="container"><div id="installation-svg" class="center"></div><script>new Vivus('installation-svg', {type: 'oneByOne', duration: 200, file: '../svg/installation.svg'});
+
+</script><p><strong>greuler</strong> works on top of d3.js and WebCola so include those first</p>
+<pre><code class="lang-html">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;http://marvl.infotech.monash.edu/webcola/cola.v3.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>And then you can include <strong>greuler</strong> with bower</p>
+<pre><code class="lang-sh">bower install greuler
+</code></pre>
+<p>And then include it in your webpage</p>
+<pre><code class="lang-html">&lt;script src=&quot;bower_components/greuler/dist/greuler.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<hr></div><div class="container"><div id="usage-svg" class="center"></div><script>new Vivus('usage-svg', {type: 'oneByOne', duration: 200, file: '../svg/usage.svg'});
+</script><p>The hello world program requires calling <code>greuler</code> with an object having the following properties</p>
+<ul>
+<li><code>target</code> A selector to the container to hold the graph</li>
+<li><code>data</code> An object describing the properties of the graph<ul>
+<li><code>data.nodes</code> The nodes of the graph, they need to have an <code>id</code></li>
+<li><code>data.edges</code> The edges of the graph, they join two nodes by <code>id</code></li>
+</ul>
+</li>
+</ul>
+<p>A full description of the properties can be found in the <a href="">documentation</a></p>
+<p>After the instance is created it&#39;s needed to call <code>instance.update()</code> to create the initial
+layout</p>
+<div class="row"><div class="six columns"><pre><code class="javascript">'use strict';
+greuler({
+  target: '#hello-world',
+  width: 480,
+  data: {
+    nodes: [
+      {id: 0},
+      {id: 1},
+      {id: 2},
+      {id: 3},
+      {id: 4}
+    ],
+    links: [
+      {source: 0, target: 1},
+      {source: 1, target: 2},
+      {source: 2, target: 0},
+      {source: 3, target: 4}
+    ]
+  }
+}).update();
+</code></pre></div><div class="six columns"><div id="hello-world"></div><script src="examples/hello-world/initialization.js"></script></div></div><p>You can also generate a graph by calling <code>greuler.Graph.random(options)</code></p>
+<div class="row"><div class="six columns"><pre><code class="javascript">'use strict';
+greuler({
+  target: '#random',
+  width: 480,
+  height: 200,
+  data: greuler.Graph.random({
+    order: 5,
+    size: 5,
+    connected: true
+  })
+}).update();
+</code></pre></div><div class="six columns"><div id="random"></div><script src="examples/hello-world/random.js"></script></div></div><hr></div><div class="container"><div id="api-svg" class="center"></div><script>new Vivus('api-svg', {type: 'oneByOne', duration: 200, file: '../svg/api.svg'});
+</script><p>Assuming that <code>instance = greuler(options).update()</code> is called there are two ways to interact
+with the graph</p>
+<div id="graph-svg" class="center"><script>new Vivus('graph-svg', {type: 'oneByOne', duration: 200, file: '../svg/graph.svg'});
+</script></div><p><code>instance.graph</code> holds utility methods to manipulate the graph like adding/removing
+nodes and edges and other utility methods like querying the adjacent nodes of some node, etc.</p>
+<p>The convention I used for the project is to <strong>always use objects as the first parameter to
+describe a node or edge</strong> (an array/function is needed in some cases of some methods of
+<code>instance.graph</code> but they describe multiple nodes/edges),
+also all the methods of <code>instance.graph</code> (but the ones who add nodes and edges) receive a
+single parameter</p>
+<p>The full documentations of the methods of <code>instance.graph</code> can be found <a href="">here</a></p>
+<!-- graph example--><div style="min-height: 360px;" class="row"><div class="six columns"><div id="graph-example"></div></div><div class="six columns"><pre><code id="graph-example-description" class="javascript"></code></pre></div></div><div class="row noselect"><div id="graph-example-numbers" class="example-numbers center"></div></div><script src="examples/hello-world/graph-example.js"></script><hr><div id="selector-svg" class="center"></div><script>new Vivus('selector-svg', {type: 'oneByOne', duration: 200, file: '../svg/selector.svg'});
+</script><p><code>instance.selector</code> holds utility methods to animate existing nodes/edges of the graph,
+under the hood it uses <code>instance.graph</code> and wraps the returning values inside d3 selections
+Just like <code>instance.graph</code> the first method will always be an object describing a node / edge,
+the second parameter is an override of the styles predefined to be used during the animation</p>
+<!-- selector example--><div class="row"><div class="six columns"><div id="selector-example"></div></div><div class="six columns"><pre><code id="selector-example-description" class="javascript"></code></pre></div></div><div class="row noselect"><div id="selector-example-numbers" class="example-numbers center"></div></div><script src="examples/hello-world/selector-example.js"></script><hr></div><!--include includes/lyfecycle--><div style="max-width: 1200px" class="container"><div id="examples-svg"></div><script>new Vivus('examples-svg', {type: 'oneByOne', duration: 200, file: '../svg/examples.svg'});
+</script><!-- namespace for the examples--><script>window.examples = {};
+</script><div class="example row"><div class="six columns"><pre><code class="javascript">'use strict';
+
+(function () {
+  var greuler = window.greuler;
+
+  var instance = greuler({
+    target: '#dfs',
+    height: 500,
+    animationTime: 500,
+    data: greuler.Graph.random({ connected: true })
+  }).update();
+
+  window.examples.dfs = function () {
+    var player = new greuler.player.Generator(instance);
+    player.run(function *algorithm(instance) {
+      var visited = [];
+
+      function *dfs(u, p) {
+        yield function () {
+          instance.selector.highlightNode({ id: u });
+        };
+        visited[u] = true;
+
+        var adjacent = instance.graph.getAdjacentNodes(u);
+        for (var i = 0; i < adjacent.length; i += 1) {
+          var v = adjacent[i].id;
+
+          if (v === p) { continue; }
+
+          if (!visited[v]) {
+            yield function () {
+              instance.selector.traverseEdgesBetween({
+                source: u,
+                target: v
+              });
+            };
+            yield *dfs(v, u);
+          } else {
+            yield function () {
+              instance.selector.traverseEdgesBetween({
+                source: u,
+                target: v
+              }, {keepStroke: false}).transition().attr('opacity', 0.4);
+            };
+          }
+        }
+
+        yield function () {
+          instance.selector.getNode({ id: u })
+            .transition()
+            .attr('fill', 'black');
+        };
+      }
+
+      yield *dfs(0, -1);
+    });
+  };
+})();
+</code></pre></div><div class="six columns"><div id="dfs"></div><script src="examples/dfs.js"></script></div></div><div id="bfs"></div></div><script>d3.selectAll('pre code')
+  .each(function () {
+    hljs.highlightBlock(this);
+  });
+</script><!-- build:js app.js--><!-- endbuild--><div class="container"></div></body></html>
