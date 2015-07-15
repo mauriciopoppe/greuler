@@ -35,15 +35,14 @@ gulp.task('less', function () {
 
 gulp.task('es6', ['eslint'], function () {
 	browserify({
-		entries: './app/index.js',
+		entries: './src/index.js',
 		//debug: true,
     standalone: 'greuler'
 	})
 	.transform(babelify)
 	.bundle()
 	.pipe(source('app.js'))
-	.pipe(gulp.dest('./.tmp'))
-	.pipe(gulp.dest('./dist'));
+	.pipe(gulp.dest('./.tmp'));
 });
 
 
@@ -104,12 +103,12 @@ gulp.task('jade', function () {
 });
 
 gulp.task('copy-from-tmp', function () {
-  gulp.src('.tmp/**/*')
+  return gulp.src('.tmp/**/*')
     .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('copy-examples', function () {
-  gulp.src('public/scripts/examples/**')
+  return gulp.src('public/scripts/examples/**')
     .pipe(gulp.dest('dist/scripts/examples/'));
 });
 
@@ -182,10 +181,10 @@ gulp.task('build', ['package'], function () {
 });
 
 gulp.task('default', ['clean'], function () {
-  gulp.start('build');
+  return gulp.start('build');
 });
 
-gulp.task('deploy', ['default'], function () {
+gulp.task('deploy', function () {
   return gulp.src('./dist/**/*')
     .pipe($.ghPages());
 });
