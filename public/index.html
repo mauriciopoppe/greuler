@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>greuler</title>
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link href="http://fonts.googleapis.com/css?family=Handlee" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+    <!-- Place favicon.ico in the root directory-->
+    <!-- build:css styles/vendor.css-->
+    <!-- bower:css-->
+    <link rel="stylesheet" href="../bower_components/skeleton/css/skeleton.css" />
+    <!-- endbower-->
+    <!-- endbuild-->
+    <!-- build:css styles/main.css-->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.js"></script>
+    <script src="http://marvl.infotech.monash.edu/webcola/cola.v3.min.js"></script>
+    <script src="app.js"></script>
+    <!-- build:js scripts/vendor.js-->
+    <!-- bower:js-->
+    <script src="../bower_components/vivus/dist/vivus.js"></script>
+    <!-- endbower-->
+    <!-- endbuild-->
+    <!-- build:js scripts/site.js-->
+    <script src="scripts/site/site.js"></script>
+    <script src="scripts/site/graph-example.js"></script>
+    <script src="scripts/site/selector-example.js"></script>
+    <!-- endbuild-->
+  </head>
+  <body>
+    <div class="container">
+      <div id="banner-svg" class="center"></div>
+      <script>new Vivus('banner-svg', {type: 'oneByOne', duration: 200, file: '../svg/banner.svg'});</script>
+    </div>
+    <div class="container">
+      <p class="center description">
+        <b>greuler</b> is graph theory visualization tool powered by <a href="http://d3js.org/">d3</a>
+        and on top of <a href="http://marvl.infotech.monash.edu/webcola/">WebCola</a>
+        which allows the creation and manipulation of graphs with a simple api
+      </p>
+      <hr>
+      <div id="intro-wrapper" style="overflow: hidden">
+        <p id="intro-description" style="width: 500px; height: 50px" class="center"></p>
+        <div id="intro"></div>
+        <script src="scripts/examples/site/intro.js"></script>
+      </div>
+      <hr>
+    </div>
+    <div class="container">
+      <div id="installation-svg" class="center"></div>
+      <script>
+        new Vivus('installation-svg', {type: 'oneByOne', duration: 200, file: '../svg/installation.svg'});
+        
+        
+      </script><p><strong>greuler</strong> works on top of d3.js and WebCola so include those first</p>
+<pre><code class="lang-html">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;http://marvl.infotech.monash.edu/webcola/cola.v3.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>Install <strong>greuler</strong> with bower</p>
+<pre><code class="lang-sh">bower install greuler
+</code></pre>
+<p>And then include it in your webpage</p>
+<pre><code class="lang-html">&lt;script src=&quot;bower_components/greuler/dist/greuler.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+
+      <hr>
+    </div>
+    <div class="container">
+      <div id="usage-svg" class="center"></div>
+      <script>
+        new Vivus('usage-svg', {type: 'oneByOne', duration: 200, file: '../svg/usage.svg'});
+        
+      </script><p>The hello world program requires calling <code>greuler</code> with an object having the following properties</p>
+<ul>
+<li><code>target</code> A selector to the container to hold the graph</li>
+<li><code>data</code> An object describing the properties of the graph<ul>
+<li><code>data.nodes</code> The nodes of the graph, they need to have an <code>id</code></li>
+<li><code>data.edges</code> The edges of the graph, they join two nodes by <code>id</code></li>
+</ul>
+</li>
+</ul>
+<p>A full description of the properties can be found in the <a href="">documentation</a></p>
+<p>After the instance is created it&#39;s needed to call <code>instance.update()</code> to create the initial
+layout</p>
+
+      <div class="row">
+        <div class="six columns">
+          <pre><code class="javascript">'use strict';
+greuler({
+  target: '#hello-world',
+  width: 480,
+  data: {
+    nodes: [
+      {id: 0},
+      {id: 1},
+      {id: 2},
+      {id: 3},
+      {id: 4}
+    ],
+    links: [
+      {source: 0, target: 1},
+      {source: 1, target: 2},
+      {source: 2, target: 0},
+      {source: 3, target: 4}
+    ]
+  }
+}).update();
+</code></pre>
+        </div>
+        <div class="six columns">
+          <div id="hello-world"></div>
+          <script src="scripts/examples/site/initialization.js"></script>
+        </div>
+      </div><p>You can also generate a graph by calling <code>greuler.Graph.random(options)</code></p>
+
+      <div class="row">
+        <div class="six columns">
+          <pre><code class="javascript">'use strict';
+greuler({
+  target: '#random',
+  width: 480,
+  height: 200,
+  data: greuler.Graph.random({
+    order: 5,
+    size: 5,
+    connected: true
+  })
+}).update();
+</code></pre>
+        </div>
+        <div class="six columns">
+          <div id="random"></div>
+          <script src="scripts/examples/site/random.js"></script>
+        </div>
+      </div>
+      <hr>
+    </div>
+    <div class="container">
+      <div id="api-svg" class="center"></div>
+      <script>
+        new Vivus('api-svg', {type: 'oneByOne', duration: 200, file: '../svg/api.svg'});
+        
+      </script><p>Assuming that <code>instance = greuler(options).update()</code> is called there are two ways to interact
+with the graph</p>
+
+      <div id="graph-svg" class="center">
+        <script>
+          new Vivus('graph-svg', {type: 'oneByOne', duration: 200, file: '../svg/graph.svg'});
+          
+        </script>
+      </div><p><code>instance.graph</code> holds utility methods to manipulate the graph like adding/removing
+nodes and edges and other utility methods like querying the adjacent nodes of some node, etc.</p>
+<p>The convention I used for the project is to <strong>always use objects as the first parameter to
+describe a node or edge</strong> (an array/function is needed in some cases of some methods of
+<code>instance.graph</code> but they describe multiple nodes/edges),
+also all the methods of <code>instance.graph</code> (but the ones who add nodes and edges) receive a
+single parameter</p>
+<p>Please take a look at all the methods of <code>instance.graph</code> which can be found <a href="">here</a></p>
+
+      <!-- graph example-->
+      <div style="min-height: 360px;" class="row">
+        <div class="six columns">
+          <div id="graph-example"></div>
+        </div>
+        <div class="six columns">
+          <pre><code id="graph-example-description" class="javascript"></code></pre>
+        </div>
+      </div>
+      <div class="row noselect">
+        <div id="graph-example-title" style="min-height: 50px" class="center"></div>
+        <div id="graph-example-numbers" class="example-numbers center"></div>
+      </div>
+      <hr>
+      <div id="selector-svg" class="center"></div>
+      <script>
+        new Vivus('selector-svg', {type: 'oneByOne', duration: 200, file: '../svg/selector.svg'});
+        
+      </script><p><code>instance.selector</code> holds utility methods to animate existing nodes/edges of the graph,
+under the hood it uses <code>instance.graph</code> and wraps the returning values inside d3 selections
+Just like <code>instance.graph</code> the first method will always be an object describing a node / edge,
+the second parameter is an override of the styles predefined to be used during the animation</p>
+
+      <!-- selector example-->
+      <div class="row">
+        <div class="six columns">
+          <div id="selector-example"></div>
+        </div>
+        <div class="six columns">
+          <pre><code id="selector-example-description" class="javascript"></code></pre>
+        </div>
+      </div>
+      <div class="row noselect">
+        <div id="selector-example-title" style="min-height: 50px" class="center"></div>
+        <div id="selector-example-numbers" class="example-numbers center"></div>
+      </div>
+      <hr>
+    </div>
+    <!--include includes/lyfecycle-->
+    <div style="max-width: 1200px" class="container">
+      <div id="examples-svg" class="center"></div>
+      <script>
+        new Vivus('examples-svg', {type: 'oneByOne', duration: 200, file: '../svg/examples.svg'});
+        
+      </script>
+      <!-- namespace for the examples-->
+      <script>
+        window.examples = {};
+        
+      </script>
+      <h4>Depth first search</h4>
+      <div class="example row">
+        <div class="six columns">
+          <pre><code class="javascript">'use strict';
+
+(function () {
+  var greuler = window.greuler;
+
+  var instance = greuler({
+    target: '#dfs',
+    height: 500,
+    animationTime: 500,
+    data: greuler.Graph.random({ connected: true })
+  }).update();
+
+  window.examples.dfs = function () {
+    var player = new greuler.player.Generator(instance);
+    player.run(function *algorithm(instance) {
+      var visited = [];
+
+      function *dfs(u, p) {
+        yield function () {
+          instance.selector.highlightNode({ id: u });
+        };
+        visited[u] = true;
+
+        var adjacent = instance.graph.getAdjacentNodes({ id: u });
+        for (var i = 0; i < adjacent.length; i += 1) {
+          var v = adjacent[i].id;
+
+          if (v === p) { continue; }
+
+          if (!visited[v]) {
+            yield function () {
+              instance.selector.traverseAllEdgesBetween({ source: u, target: v });
+            };
+            yield *dfs(v, u);
+          } else {
+            yield function () {
+              instance.selector.traverseAllEdgesBetween(
+                { source: u, target: v },
+                { keepStroke: false }
+              )
+                .transition()
+                .attr('opacity', 0.3);
+            };
+          }
+        }
+
+        yield function () {
+          instance.selector.getNode({ id: u })
+            .transition()
+            .attr('fill', 'black');
+        };
+      }
+
+      yield *dfs(0, -1);
+    });
+  };
+})();
+</code></pre>
+        </div>
+        <div class="six columns">
+          <div id="dfs"></div>
+          <script src="scripts/examples/dfs.js"></script>
+          <button data-example="dfs" class="runner center">run</button>
+        </div>
+      </div>
+      <hr>
+      <h4>Breadth first search</h4>
+      <div class="example row">
+        <div class="six columns">
+          <pre><code class="javascript">'use strict';
+
+(function () {
+  var greuler = window.greuler;
+
+  var instance = greuler({
+    target: '#bfs',
+    height: 600,
+    animationTime: 500,
+    data: greuler.Graph.random({ connected: true })
+  }).update();
+
+  window.examples.bfs = function () {
+    var player = new greuler.player.Generator(instance);
+    player.run(function *algorithm(instance) {
+
+      function *bfs(source) {
+        // queue
+        var distance = [];
+        var q = [];
+        var parent = [];
+
+        function highlight(id, visit) {
+          return function () {
+            var node = instance.graph.getNode({ id: id });
+            node.topRightLabel = distance[id];
+            instance.selector.highlightNode({ id: id });
+            if (visit) {
+              instance.selector.getNode({ id: id })
+                .transition()
+                .attr('fill', 'black');
+            }
+            instance.update({skipLayout: true});
+          };
+        }
+
+        distance[source] = 0;
+        q.push(source);
+
+        while (q.length) {
+          var top = q.shift();
+          var adjacent = instance.graph.getAdjacentNodes({ id: top });
+          yield highlight(top, true);
+
+          for (var i = 0; i < adjacent.length; i += 1) {
+            var next = adjacent[i].id;
+
+            if (next === parent[top]) { continue; }
+
+            if (typeof distance[next] === 'undefined') {
+              distance[next] = distance[top] + 1;
+              parent[next] = top;
+              q.push(next);
+
+              yield function () {
+                instance.selector.traverseAllEdgesBetween(
+                  { source: top, target: next }
+                );
+              };
+              yield highlight(next);
+            } else {
+              yield function () {
+                instance.selector.traverseAllEdgesBetween(
+                  { source: top, target: next },
+                  { keepStroke: false }
+                )
+                  .transition()
+                  .attr('opacity', 0.3);
+              };
+            }
+          }
+        }
+      }
+
+      yield *bfs(0);
+    });
+  };
+})();
+</code></pre>
+        </div>
+        <div class="six columns">
+          <div id="bfs"></div>
+          <script src="scripts/examples/bfs.js"></script>
+          <button data-example="bfs" class="runner center">run</button>
+        </div>
+      </div>
+      <script>
+        d3.selectAll('[data-example]')
+          .on('click', function (d) {
+            var el = d3.select(this);
+            var example = el.attr('data-example');
+            if (el.attr('disabled')) { return; }
+            window.examples[example]();
+            el.attr('disabled', 'true');
+          });
+      </script>
+    </div>
+    <div class="container"></div>
+  </body>
+</html>;
+      </script>
+    </div>
+    <div class="container"></div>
+  </body>
+</html>

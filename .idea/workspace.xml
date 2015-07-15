@@ -1,13 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1fa36ae9-5991-4dea-baa9-bdc030928559" name="Default" comment="landing page updated">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/examples/bfs.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/examples/dfs.js" afterPath="$PROJECT_DIR$/app/examples/dfs.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/includes/examples.jade" afterPath="$PROJECT_DIR$/app/templates/includes/examples.jade" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/index.html" afterPath="$PROJECT_DIR$/app/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/includes/installation.jade" afterPath="$PROJECT_DIR$/app/templates/includes/installation.jade" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/styles/main.less" afterPath="$PROJECT_DIR$/app/styles/main.less" />
+    <list default="true" id="1fa36ae9-5991-4dea-baa9-bdc030928559" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/scripts/site/graph-example.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/scripts/site/selector-example.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/scripts/site/site.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/examples/hello-world/graph-example.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/examples/hello-world/selector-example.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bower.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/apple-touch-icon.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/favicon.ico" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/robots.txt" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/apple-touch-icon.png" afterPath="$PROJECT_DIR$/public/apple-touch-icon.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/examples/bfs.js" afterPath="$PROJECT_DIR$/public/scripts/examples/bfs.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/examples/dfs.js" afterPath="$PROJECT_DIR$/public/scripts/examples/dfs.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/examples/hello-world/initialization.js" afterPath="$PROJECT_DIR$/public/scripts/examples/site/initialization.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/examples/hello-world/random.js" afterPath="$PROJECT_DIR$/public/scripts/examples/site/random.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/examples/intro.js" afterPath="$PROJECT_DIR$/public/scripts/examples/site/intro.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/favicon.ico" afterPath="$PROJECT_DIR$/public/favicon.ico" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/private/cola.v3.js" afterPath="$PROJECT_DIR$/public/private/cola.v3.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/private/d3.js" afterPath="$PROJECT_DIR$/public/private/d3.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/robots.txt" afterPath="$PROJECT_DIR$/public/robots.txt" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/Draw.js" afterPath="$PROJECT_DIR$/app/Draw.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/Graph.js" afterPath="$PROJECT_DIR$/app/Graph.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/Vector.js" afterPath="$PROJECT_DIR$/app/Vector.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/const.js" afterPath="$PROJECT_DIR$/app/const.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/elements/edge.js" afterPath="$PROJECT_DIR$/app/elements/edge.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/elements/node.js" afterPath="$PROJECT_DIR$/app/elements/node.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/index.js" afterPath="$PROJECT_DIR$/app/index.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/player/Fixed.js" afterPath="$PROJECT_DIR$/app/player/Fixed.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/player/Generator.js" afterPath="$PROJECT_DIR$/app/player/Generator.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/player/index.js" afterPath="$PROJECT_DIR$/app/player/index.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/polyfills.js" afterPath="$PROJECT_DIR$/app/polyfills.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/selector/Graph.js" afterPath="$PROJECT_DIR$/app/selector/Graph.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/selector/GreulerDefaultTransition.js" afterPath="$PROJECT_DIR$/app/selector/GreulerDefaultTransition.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/utils.js" afterPath="$PROJECT_DIR$/app/utils.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/styles/main.less" afterPath="$PROJECT_DIR$/public/styles/main.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/templates/includes/api.jade" afterPath="$PROJECT_DIR$/public/templates/includes/api.jade" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/templates/includes/examples.jade" afterPath="$PROJECT_DIR$/public/templates/includes/examples.jade" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/templates/includes/installation.jade" afterPath="$PROJECT_DIR$/public/templates/includes/installation.jade" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/templates/includes/intro.jade" afterPath="$PROJECT_DIR$/public/templates/includes/intro.jade" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/templates/includes/lyfecycle.jade" afterPath="$PROJECT_DIR$/public/templates/includes/lyfecycle.jade" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/templates/includes/usage.jade" afterPath="$PROJECT_DIR$/public/templates/includes/usage.jade" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/templates/index.jade" afterPath="$PROJECT_DIR$/public/templates/index.jade" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/templates/layout/base.jade" afterPath="$PROJECT_DIR$/public/templates/layout/base.jade" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/templates/layout/footer.jade" afterPath="$PROJECT_DIR$/public/templates/layout/footer.jade" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/templates/layout/header.jade" afterPath="$PROJECT_DIR$/public/templates/layout/header.jade" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/app.js" afterPath="$PROJECT_DIR$/dist/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/index.html" afterPath="$PROJECT_DIR$/dist/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/styles/main.css" afterPath="$PROJECT_DIR$/dist/styles/main.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/styles/vendor.css" afterPath="$PROJECT_DIR$/dist/styles/vendor.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="greuler.iws" />
@@ -30,90 +75,81 @@
   <component name="FileEditorManager">
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
-        <splitter split-orientation="vertical" split-proportion="0.41485506">
+        <splitter split-orientation="vertical" split-proportion="0.6132246">
           <split-first>
             <leaf>
-              <file leaf-file-name="base.jade" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/app/templates/layout/base.jade">
+              <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/app/index.js">
                   <provider selected="true" editor-type-id="text-editor">
                     <state vertical-scroll-proportion="0.0">
-                      <caret line="29" column="15" selection-start-line="29" selection-start-column="15" selection-end-line="29" selection-end-column="15" />
+                      <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="base.jade" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/public/templates/layout/base.jade">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state vertical-scroll-proportion="0.0">
+                      <caret line="32" column="15" selection-start-line="32" selection-start-column="15" selection-end-line="32" selection-end-column="15" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="site.js" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/public/scripts/site/site.js">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state vertical-scroll-proportion="0.0">
+                      <caret line="32" column="8" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
               <file leaf-file-name="const.js" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/app/scripts/const.js">
+                <entry file="file://$PROJECT_DIR$/app/const.js">
                   <provider selected="true" editor-type-id="text-editor">
                     <state vertical-scroll-proportion="0.0">
-                      <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+                      <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="index.jade" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/app/templates/index.jade">
+              <file leaf-file-name="Draw.js" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/app/Draw.js">
                   <provider selected="true" editor-type-id="text-editor">
                     <state vertical-scroll-proportion="0.0">
-                      <caret line="14" column="34" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
+                      <caret line="19" column="33" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="33" />
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="api.jade" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/app/templates/includes/api.jade">
+              <file leaf-file-name="examples.jade" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/public/templates/includes/examples.jade">
                   <provider selected="true" editor-type-id="text-editor">
                     <state vertical-scroll-proportion="0.0">
-                      <caret line="59" column="4" selection-start-line="59" selection-start-column="4" selection-end-line="59" selection-end-column="4" />
-                      <folding>
-                        <marker date="1436939989000" expanded="true" signature="10:2132" placeholder="..." />
-                        <marker date="1436939989000" expanded="true" signature="37:124" placeholder="..." />
-                        <marker date="1436939989000" expanded="true" signature="285:378" placeholder="..." />
-                        <marker date="1436939989000" expanded="true" signature="1147:1197" placeholder="..." />
-                        <marker date="1436939989000" expanded="true" signature="1356:1453" placeholder="..." />
-                        <marker date="1436939989000" expanded="true" signature="1947:2000" placeholder="..." />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="installation.jade" pinned="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/app/templates/includes/installation.jade">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.70422536">
-                      <caret line="20" column="39" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
-                      <folding>
-                        <marker date="1436941532000" expanded="true" signature="46:152" placeholder="..." />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="selector-example.js" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/app/examples/hello-world/selector-example.js">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.0">
-                      <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
+                      <caret line="43" column="9" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="random.js" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/app/examples/hello-world/random.js">
+              <file leaf-file-name="usage.jade" pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/public/templates/includes/usage.jade">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.0">
-                      <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+                    <state vertical-scroll-proportion="0.67651635">
+                      <caret line="30" column="6" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
               <file leaf-file-name="lyfecycle.jade" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/app/templates/includes/lyfecycle.jade">
+                <entry file="file://$PROJECT_DIR$/public/templates/includes/lyfecycle.jade">
                   <provider selected="true" editor-type-id="text-editor">
                     <state vertical-scroll-proportion="0.0">
                       <caret line="10" column="81" selection-start-line="10" selection-start-column="81" selection-end-line="10" selection-end-column="81" />
@@ -126,97 +162,78 @@
           </split-first>
           <split-second>
             <leaf>
-              <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/README.md">
-                  <provider editor-type-id="MarkdownPreviewEditor">
-                    <state />
-                  </provider>
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="-4.137931">
-                      <caret line="8" column="49" selection-start-line="8" selection-start-column="49" selection-end-line="8" selection-end-column="49" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="main.less" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/app/styles/main.less">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="-2.5">
-                      <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="examples.jade" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/app/templates/includes/examples.jade">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.0">
-                      <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="bfs.js" pinned="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/app/examples/bfs.js">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.12214984">
-                      <caret line="5" column="26" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="dfs.js" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/app/examples/dfs.js">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.0">
-                      <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
               <file leaf-file-name="intro.js" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/app/examples/intro.js">
+                <entry file="file://$PROJECT_DIR$/public/scripts/examples/site/intro.js">
                   <provider selected="true" editor-type-id="text-editor">
                     <state vertical-scroll-proportion="0.0">
-                      <caret line="285" column="26" selection-start-line="285" selection-start-column="26" selection-end-line="285" selection-end-column="26" />
+                      <caret line="283" column="8" selection-start-line="283" selection-start-column="8" selection-end-line="283" selection-end-column="8" />
                       <folding>
-                        <marker date="1436940372000" expanded="true" signature="6090:6101" placeholder="..." />
-                        <marker date="1436940372000" expanded="true" signature="6143:6153" placeholder="..." />
+                        <marker date="1436993663000" expanded="true" signature="6090:6101" placeholder="..." />
+                        <marker date="1436993663000" expanded="true" signature="6143:6153" placeholder="..." />
                       </folding>
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="initialization.js" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/app/examples/hello-world/initialization.js">
+              <file leaf-file-name="random.js" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/public/scripts/examples/site/random.js">
                   <provider selected="true" editor-type-id="text-editor">
                     <state vertical-scroll-proportion="0.0">
-                      <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
+                      <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="GreulerDefaultTransition.js" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/app/scripts/selector/GreulerDefaultTransition.js">
+              <file leaf-file-name="bfs.js" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/public/scripts/examples/bfs.js">
                   <provider selected="true" editor-type-id="text-editor">
                     <state vertical-scroll-proportion="0.0">
-                      <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+                      <caret line="56" column="47" selection-start-line="56" selection-start-column="47" selection-end-line="56" selection-end-column="47" />
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="graph-example.js" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/app/examples/hello-world/graph-example.js">
+              <file leaf-file-name="gulpfile.js" pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/gulpfile.js">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state vertical-scroll-proportion="0.47103274">
+                      <caret line="183" column="29" selection-start-line="183" selection-start-column="29" selection-end-line="183" selection-end-column="29" />
+                      <folding>
+                        <element signature="n#!!doc" expanded="true" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="intro.jade" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/public/templates/includes/intro.jade">
                   <provider selected="true" editor-type-id="text-editor">
                     <state vertical-scroll-proportion="0.0">
-                      <caret line="134" column="16" selection-start-line="134" selection-start-column="16" selection-end-line="134" selection-end-column="16" />
+                      <caret line="10" column="38" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
+                      <folding>
+                        <marker date="1436999142000" expanded="true" signature="14:290" placeholder="..." />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="selector-example.js" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/public/scripts/site/selector-example.js">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state vertical-scroll-proportion="0.0">
+                      <caret line="164" column="20" selection-start-line="164" selection-start-column="20" selection-end-line="164" selection-end-column="20" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="bower.json" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/bower.json">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state vertical-scroll-proportion="-6.9166665">
+                      <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
                       <folding />
                     </state>
                   </provider>
@@ -230,28 +247,28 @@
         <splitter split-orientation="vertical" split-proportion="0.50634056">
           <split-first>
             <leaf>
-              <file leaf-file-name="node.js" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/app/scripts/elements/node.js">
+              <file leaf-file-name="node.js" pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/app/elements/node.js">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.0">
-                      <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+                    <state vertical-scroll-proportion="0.57224333">
+                      <caret line="94" column="20" selection-start-line="94" selection-start-column="20" selection-end-line="94" selection-end-column="20" />
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
               <file leaf-file-name="edge.js" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/app/scripts/elements/edge.js">
+                <entry file="file://$PROJECT_DIR$/app/elements/edge.js">
                   <provider selected="true" editor-type-id="text-editor">
                     <state vertical-scroll-proportion="0.0">
-                      <caret line="28" column="39" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
+                      <caret line="167" column="31" selection-start-line="167" selection-start-column="31" selection-end-line="167" selection-end-column="31" />
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
               <file leaf-file-name="Vector.js" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/app/scripts/Vector.js">
+                <entry file="file://$PROJECT_DIR$/app/Vector.js">
                   <provider selected="true" editor-type-id="text-editor">
                     <state vertical-scroll-proportion="0.0">
                       <caret line="27" column="50" selection-start-line="27" selection-start-column="50" selection-end-line="27" selection-end-column="50" />
@@ -260,18 +277,18 @@
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="Graph.js" pinned="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/app/scripts/Graph.js">
+              <file leaf-file-name="Graph.js" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/app/Graph.js">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="1.9676806">
-                      <caret line="69" column="13" selection-start-line="69" selection-start-column="13" selection-end-line="69" selection-end-column="13" />
+                    <state vertical-scroll-proportion="0.0">
+                      <caret line="398" column="25" selection-start-line="398" selection-start-column="25" selection-end-line="398" selection-end-column="25" />
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
               <file leaf-file-name="utils.js" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/app/scripts/utils.js">
+                <entry file="file://$PROJECT_DIR$/app/utils.js">
                   <provider selected="true" editor-type-id="text-editor">
                     <state vertical-scroll-proportion="0.0">
                       <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
@@ -307,10 +324,10 @@
                 </entry>
               </file>
               <file leaf-file-name="Graph.js" pinned="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/app/scripts/selector/Graph.js">
+                <entry file="file://$PROJECT_DIR$/app/selector/Graph.js">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.32101166">
-                      <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
+                    <state vertical-scroll-proportion="0.4085603">
+                      <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
                       <folding />
                     </state>
                   </provider>
@@ -320,11 +337,11 @@
                 <entry file="file://$PROJECT_DIR$/package.json">
                   <provider selected="true" editor-type-id="text-editor">
                     <state vertical-scroll-proportion="-15.416667">
-                      <caret line="41" column="3" selection-start-line="41" selection-start-column="3" selection-end-line="41" selection-end-column="3" />
+                      <caret line="43" column="1" selection-start-line="43" selection-start-column="1" selection-end-line="43" selection-end-column="1" />
                       <folding>
-                        <marker date="1436921403000" expanded="true" signature="0:1049" placeholder="{&quot;private&quot;: true...}" />
-                        <marker date="1436921403000" expanded="true" signature="85:970" placeholder="{&quot;autoprefixer-core&quot;: &quot;^5.1.8&quot;...}" />
-                        <marker date="1436921403000" expanded="true" signature="990:1047" placeholder="{&quot;compute-lcg&quot;: &quot;^1.0.0&quot;...}" />
+                        <marker date="1437000776000" expanded="true" signature="0:1080" placeholder="{&quot;private&quot;: true...}" />
+                        <marker date="1437000776000" expanded="true" signature="85:1001" placeholder="{&quot;autoprefixer-core&quot;: &quot;^5.1.8&quot;...}" />
+                        <marker date="1437000776000" expanded="true" signature="1021:1078" placeholder="{&quot;compute-lcg&quot;: &quot;^1.0.0&quot;...}" />
                       </folding>
                     </state>
                   </provider>
@@ -350,30 +367,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/scripts/Vector.js" />
-        <option value="$PROJECT_DIR$/app/scripts/ElementSelector.js" />
-        <option value="$PROJECT_DIR$/app/scripts/selector/ElementSelector.js" />
-        <option value="$PROJECT_DIR$/app/private/cola.v3.js" />
-        <option value="$PROJECT_DIR$/app/scripts/Player.js" />
-        <option value="$PROJECT_DIR$/app/scripts/player/Fixed.js" />
-        <option value="$PROJECT_DIR$/app/scripts/index.js" />
-        <option value="$PROJECT_DIR$/app/scripts/player/index.js" />
-        <option value="$PROJECT_DIR$/app/scripts/algorithms/dfs.js" />
-        <option value="$PROJECT_DIR$/app/svg/genFont.js" />
-        <option value="$PROJECT_DIR$/.tmp/styles/main.css" />
-        <option value="$PROJECT_DIR$/app/svg/greuler.svg" />
-        <option value="$PROJECT_DIR$/app/scripts/public/demo.js" />
-        <option value="$PROJECT_DIR$/app/index.html" />
-        <option value="$PROJECT_DIR$/app/templates/main.jade" />
-        <option value="$PROJECT_DIR$/app/templates/examples.jade" />
         <option value="$PROJECT_DIR$/app/templates/intro.jade" />
         <option value="$PROJECT_DIR$/app/templates/includes/header.jade" />
-        <option value="$PROJECT_DIR$/gulpfile.js" />
-        <option value="$PROJECT_DIR$/app/scripts/Draw.js" />
         <option value="$PROJECT_DIR$/app/scripts/utils.js" />
         <option value="$PROJECT_DIR$/app/scripts/player/Generator.js" />
         <option value="$PROJECT_DIR$/app/templates/layout/footer.jade" />
-        <option value="$PROJECT_DIR$/app/templates/layout/base.jade" />
         <option value="$PROJECT_DIR$/app/templates/layout/header.jade" />
         <option value="$PROJECT_DIR$/app/templates/includes/lyfecycle.jade" />
         <option value="$PROJECT_DIR$/app/scripts/elements/node.js" />
@@ -381,26 +379,45 @@
         <option value="$PROJECT_DIR$/app/templates/includes/core.jade" />
         <option value="$PROJECT_DIR$/app/templates/includes/installation-usage.jade" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/app/templates/includes/usage.jade" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/app/templates/includes/intro.jade" />
         <option value="$PROJECT_DIR$/app/templates/index.jade" />
         <option value="$PROJECT_DIR$/app/examples/hello-world/random.js" />
         <option value="$PROJECT_DIR$/test/spec/test.js" />
         <option value="$PROJECT_DIR$/app/scripts/selector/Graph.js" />
-        <option value="$PROJECT_DIR$/app/scripts/Graph.js" />
         <option value="$PROJECT_DIR$/app/scripts/const.js" />
         <option value="$PROJECT_DIR$/app/scripts/selector/GreulerDefaultTransition.js" />
         <option value="$PROJECT_DIR$/app/scripts/elements/edge.js" />
-        <option value="$PROJECT_DIR$/app/templates/includes/api.jade" />
-        <option value="$PROJECT_DIR$/app/examples/hello-world/selector-example.js" />
         <option value="$PROJECT_DIR$/app/examples/intro.js" />
-        <option value="$PROJECT_DIR$/app/examples/hello-world/graph-example.js" />
         <option value="$PROJECT_DIR$/app/templates/includes/installation.jade" />
         <option value="$PROJECT_DIR$/app/examples/dfs.js" />
         <option value="$PROJECT_DIR$/app/styles/main.less" />
+        <option value="$PROJECT_DIR$/app/scripts/Draw.js" />
         <option value="$PROJECT_DIR$/app/examples/bfs.js" />
+        <option value="$PROJECT_DIR$/app/scripts/Graph.js" />
+        <option value="$PROJECT_DIR$/app/examples/hello-world/graph-example.js" />
+        <option value="$PROJECT_DIR$/app/examples/hello-world/selector-example.js" />
+        <option value="$PROJECT_DIR$/app/examples/hello-world/fn-showcase.js" />
+        <option value="$PROJECT_DIR$/app/scripts/public/site.js" />
+        <option value="$PROJECT_DIR$/app/scripts/public/selector-example.js" />
+        <option value="$PROJECT_DIR$/app/scripts/public/graph-example.js" />
+        <option value="$PROJECT_DIR$/app/templates/layout/base.jade" />
+        <option value="$PROJECT_DIR$/app/templates/includes/api.jade" />
+        <option value="$PROJECT_DIR$/app/templates/includes/intro.jade" />
+        <option value="$PROJECT_DIR$/app/templates/includes/usage.jade" />
         <option value="$PROJECT_DIR$/app/templates/includes/examples.jade" />
+        <option value="$PROJECT_DIR$/app/index.js" />
+        <option value="$PROJECT_DIR$/public/templates/index.jade" />
+        <option value="$PROJECT_DIR$/public/scripts/examples/intro.js" />
+        <option value="$PROJECT_DIR$/public/scripts/site/site.js" />
+        <option value="$PROJECT_DIR$/app/elements/node.js" />
+        <option value="$PROJECT_DIR$/public/scripts/site/graph-example.js" />
+        <option value="$PROJECT_DIR$/public/templates/includes/api.jade" />
+        <option value="$PROJECT_DIR$/public/scripts/site/selector-example.js" />
+        <option value="$PROJECT_DIR$/bower.json" />
+        <option value="$PROJECT_DIR$/public/templates/layout/base.jade" />
+        <option value="$PROJECT_DIR$/public/templates/includes/usage.jade" />
+        <option value="$PROJECT_DIR$/public/templates/includes/intro.jade" />
+        <option value="$PROJECT_DIR$/gulpfile.js" />
       </list>
     </option>
   </component>
@@ -474,7 +491,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="bower_components" />
+              <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -488,11 +505,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="bower_components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="skeleton" />
+              <option name="myItemId" value="dist" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -506,211 +519,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greuler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greuler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greuler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greuler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greuler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greuler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="includes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greuler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greuler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="styles" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greuler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greuler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greuler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greuler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="selector" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greuler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greuler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="player" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greuler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greuler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="elements" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greuler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greuler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greuler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="greuler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hello-world" />
+              <option name="myItemId" value=".tmp" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -737,9 +546,11 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/templates/layout" />
-      <recent name="$PROJECT_DIR$/app/templates/includes" />
-      <recent name="$PROJECT_DIR$/app/scripts/selector" />
+      <recent name="$PROJECT_DIR$/public/scripts/examples/hello-world" />
+      <recent name="$PROJECT_DIR$/app" />
+      <recent name="$PROJECT_DIR$/public" />
+      <recent name="$PROJECT_DIR$/app/scripts/public" />
+      <recent name="$PROJECT_DIR$/app/scripts/examples" />
     </key>
   </component>
   <component name="RunManager">
@@ -864,7 +675,13 @@
       <option name="project" value="LOCAL" />
       <updated>1436941432282</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="added bfs example">
+      <created>1436945726350</created>
+      <option name="number" value="00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1436945726350</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -942,7 +759,8 @@
     <MESSAGE value="intro example updated according to the new api" />
     <MESSAGE value="instance.graph/instance.selector api updated" />
     <MESSAGE value="landing page updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="landing page updated" />
+    <MESSAGE value="added bfs example" />
+    <option name="LAST_COMMIT_MESSAGE" value="added bfs example" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -951,24 +769,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/private/cola.v3.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4051" column="53" selection-start-line="4051" selection-start-column="53" selection-end-line="4051" selection-end-column="53" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/polyfills.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -977,7 +777,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/player/index.js">
+    <entry file="file://$PROJECT_DIR$/app/player/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.32374102">
           <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
@@ -985,41 +785,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dist/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="67" selection-start-line="0" selection-start-column="67" selection-end-line="0" selection-end-column="67" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dist/styles/vendor.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.68345326">
-          <caret line="0" column="1525" selection-start-line="0" selection-start-column="1525" selection-end-line="0" selection-end-column="1525" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dist/styles/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/favicon.ico">
+    <entry file="file://$PROJECT_DIR$/public/favicon.ico">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/apple-touch-icon.png">
+    <entry file="file://$PROJECT_DIR$/public/apple-touch-icon.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/player/Fixed.js">
+    <entry file="file://$PROJECT_DIR$/app/player/Fixed.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
@@ -1027,31 +803,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2027027">
-          <caret line="0" column="1037" selection-start-line="0" selection-start-column="1037" selection-end-line="0" selection-end-column="1037" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.tmp/styles/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12529834">
-          <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dist/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="83" selection-start-line="0" selection-start-column="83" selection-end-line="0" selection-end-column="83" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/svg/greuler.svg">
+    <entry file="file://$PROJECT_DIR$/public/svg/greuler.svg">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="351" column="110" selection-start-line="351" selection-start-column="110" selection-end-line="351" selection-end-column="110" />
@@ -1059,25 +811,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="26" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gulpfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="155" column="0" selection-start-line="155" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/player/Generator.js">
+    <entry file="file://$PROJECT_DIR$/app/player/Generator.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="15" column="27" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
@@ -1093,14 +827,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/layout/footer.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bower_components/skeleton/css/skeleton.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1109,7 +835,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/layout/header.jade">
+    <entry file="file://$PROJECT_DIR$/public/templates/layout/header.jade">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="1" column="20" selection-start-line="1" selection-start-column="20" selection-end-line="1" selection-end-column="20" />
@@ -1117,23 +843,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/Draw.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20992367">
-          <caret line="83" column="6" selection-start-line="82" selection-start-column="6" selection-end-line="83" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.bowerrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.087890625">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/svg/graph.svg">
+    <entry file="file://$PROJECT_DIR$/public/svg/graph.svg">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.703125">
           <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
@@ -1141,34 +851,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.137931">
-          <caret line="8" column="49" selection-start-line="8" selection-start-column="49" selection-end-line="8" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/includes/intro.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1171875">
-          <caret line="4" column="33" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/includes/usage.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0839844">
-          <caret line="37" column="50" selection-start-line="37" selection-start-column="50" selection-end-line="37" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/Vector.js">
+    <entry file="file://$PROJECT_DIR$/app/Vector.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="50" selection-start-line="27" selection-start-column="50" selection-end-line="27" selection-end-column="50" />
@@ -1176,15 +859,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/elements/node.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/utils.js">
+    <entry file="file://$PROJECT_DIR$/app/utils.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
@@ -1192,31 +867,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/layout/base.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="15" selection-start-line="29" selection-start-column="15" selection-end-line="29" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-15.416667">
-          <caret line="41" column="3" selection-start-line="41" selection-start-column="3" selection-end-line="41" selection-end-column="3" />
+          <caret line="43" column="1" selection-start-line="43" selection-start-column="1" selection-end-line="43" selection-end-column="1" />
           <folding>
-            <marker date="1436921403000" expanded="true" signature="0:1049" placeholder="{&quot;private&quot;: true...}" />
-            <marker date="1436921403000" expanded="true" signature="85:970" placeholder="{&quot;autoprefixer-core&quot;: &quot;^5.1.8&quot;...}" />
-            <marker date="1436921403000" expanded="true" signature="990:1047" placeholder="{&quot;compute-lcg&quot;: &quot;^1.0.0&quot;...}" />
+            <marker date="1437000776000" expanded="true" signature="0:1080" placeholder="{&quot;private&quot;: true...}" />
+            <marker date="1437000776000" expanded="true" signature="85:1001" placeholder="{&quot;autoprefixer-core&quot;: &quot;^5.1.8&quot;...}" />
+            <marker date="1437000776000" expanded="true" signature="1021:1078" placeholder="{&quot;compute-lcg&quot;: &quot;^1.0.0&quot;...}" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/index.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="34" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1230,88 +889,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/selector/Graph.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32101166">
-          <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/const.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/examples/hello-world/random.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/elements/edge.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="39" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/examples/hello-world/selector-example.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/includes/lyfecycle.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="81" selection-start-line="10" selection-start-column="81" selection-end-line="10" selection-end-column="81" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/examples/hello-world/graph-example.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="134" column="16" selection-start-line="134" selection-start-column="16" selection-end-line="134" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/includes/api.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="59" column="4" selection-start-line="59" selection-start-column="4" selection-end-line="59" selection-end-column="4" />
-          <folding>
-            <marker date="1436939989000" expanded="true" signature="10:2132" placeholder="..." />
-            <marker date="1436939989000" expanded="true" signature="37:124" placeholder="..." />
-            <marker date="1436939989000" expanded="true" signature="285:378" placeholder="..." />
-            <marker date="1436939989000" expanded="true" signature="1147:1197" placeholder="..." />
-            <marker date="1436939989000" expanded="true" signature="1356:1453" placeholder="..." />
-            <marker date="1436939989000" expanded="true" signature="1947:2000" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/includes/installation.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.70422536">
-          <caret line="20" column="39" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
-          <folding>
-            <marker date="1436941532000" expanded="true" signature="46:152" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/selector/GreulerDefaultTransition.js">
+    <entry file="file://$PROJECT_DIR$/app/selector/GreulerDefaultTransition.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
@@ -1319,7 +897,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/styles/main.less">
+    <entry file="file://$PROJECT_DIR$/public/styles/main.less">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.5">
           <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
@@ -1327,26 +905,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/examples/hello-world/initialization.js">
+    <entry file="file://$PROJECT_DIR$/app/selector/Graph.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.4085603">
+          <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/examples/intro.js">
+    <entry file="file://$PROJECT_DIR$/app/Graph.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="285" column="26" selection-start-line="285" selection-start-column="26" selection-end-line="285" selection-end-column="26" />
-          <folding>
-            <marker date="1436940372000" expanded="true" signature="6090:6101" placeholder="..." />
-            <marker date="1436940372000" expanded="true" signature="6143:6153" placeholder="..." />
-          </folding>
+          <caret line="398" column="25" selection-start-line="398" selection-start-column="25" selection-end-line="398" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/examples/dfs.js">
+    <entry file="file://$PROJECT_DIR$/public/scripts/examples/dfs.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
@@ -1354,27 +929,237 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/includes/examples.jade">
+    <entry file="file://$PROJECT_DIR$/public/templates/layout/footer.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.03521127">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/elements/edge.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <caret line="167" column="31" selection-start-line="167" selection-start-column="31" selection-end-line="167" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/Graph.js">
+    <entry file="file://$PROJECT_DIR$/app/elements/node.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.9676806">
-          <caret line="69" column="13" selection-start-line="69" selection-start-column="13" selection-end-line="69" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.57224333">
+          <caret line="94" column="20" selection-start-line="94" selection-start-column="20" selection-end-line="94" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/examples/bfs.js">
+    <entry file="file://$PROJECT_DIR$/public/scripts/site/graph-example.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12214984">
-          <caret line="5" column="26" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="173" column="19" selection-start-line="173" selection-start-column="19" selection-end-line="173" selection-end-column="19" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/scripts/site/selector-example.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="164" column="20" selection-start-line="164" selection-start-column="20" selection-end-line="164" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.bowerrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12676056">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bower.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.9166665">
+          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/scripts/site/site.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="8" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/const.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/templates/includes/lyfecycle.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="81" selection-start-line="10" selection-start-column="81" selection-end-line="10" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/templates/index.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24691358">
+          <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.28301886">
+          <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/scripts/examples/site/intro.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="283" column="8" selection-start-line="283" selection-start-column="8" selection-end-line="283" selection-end-column="8" />
+          <folding>
+            <marker date="1436993663000" expanded="true" signature="6090:6101" placeholder="..." />
+            <marker date="1436993663000" expanded="true" signature="6143:6153" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/scripts/examples/site/random.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/templates/layout/base.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="15" selection-start-line="32" selection-start-column="15" selection-end-line="32" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/templates/includes/api.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5598756">
+          <caret line="50" column="16" selection-start-line="50" selection-start-column="16" selection-end-line="50" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/templates/includes/installation.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2332815">
+          <caret line="10" column="27" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Draw.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="33" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/scripts/examples/site/initialization.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18891688">
+          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/scripts/examples/bfs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="56" column="47" selection-start-line="56" selection-start-column="47" selection-end-line="56" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/templates/includes/examples.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="43" column="9" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/templates/includes/intro.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="38" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
+          <folding>
+            <marker date="1436999142000" expanded="true" signature="14:290" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/scripts/site.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.453401">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/scripts/examples/bfs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3668478">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/templates/includes/usage.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.67651635">
+          <caret line="30" column="6" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gulpfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.47103274">
+          <caret line="183" column="29" selection-start-line="183" selection-start-column="29" selection-end-line="183" selection-end-column="29" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -1,6 +1,33 @@
 {
   "name": "greuler",
-  "private": true,
+  "version": "0.1.0",
+  "authors": [
+    "Mauricio Poppe <me@maurizzzio.com>"
+  ],
+  "description": "graph theory visualizations",
+  "main": "dist/app.js",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "graph-theory",
+    "visualization",
+    "graph"
+  ],
+  "license": "MIT",
+  "homepage": "maurizzzio.github.io/greuler",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "!dist/app.js",
+    "dist/*",
+    "!README"
+  ],
   "dependencies": {
     "skeleton": "~2.0.4",
     "vivus": "~0.2.2"
