@@ -6,8 +6,10 @@ node_js:
   - '0.12'
 
 install:
+  - bower install
   - npm install
 
 script:
   - gulp
+  - ./test/bower install
   - npm test

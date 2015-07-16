@@ -46,5 +46,26 @@
   },
   "scripts": {
     "test": "./node_modules/karma/bin/karma start"
-  }
+  },
+  "name": "greuler",
+  "description": "graph theory visualizations powered by d3",
+  "main": "src/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maurizzzio/greuler.git"
+  },
+  "keywords": [
+    "graph",
+    "visualizations",
+    "graph-theory"
+  ],
+  "author": "Mauricio Poppe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maurizzzio/greuler/issues"
+  },
+  "homepage": "https://github.com/maurizzzio/greuler#readme"
 }
