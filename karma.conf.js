@@ -17,7 +17,7 @@ module.exports = function(config) {
     files: [
       'public/private/d3.js',
       'public/private/cola.v3.js',
-      'dist/app.js',
+      'dist/greuler.js',
       'test/bower_components/mocha/mocha.js',
       'test/bower_components/chai/chai.js',
       'test/spec/test.js'
