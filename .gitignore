@@ -33,3 +33,4 @@ node_modules
 .sass-cache
 bower_components
 test/bower_components
+.publish/
