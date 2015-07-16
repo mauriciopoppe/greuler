@@ -4,8 +4,6 @@
 
 [![NPM][npm-image]][npm-url]
 
-> graph theory visualizations
-
 <b>greuler</b> is graph theory visualization tool powered by <a href="http://d3js.org/">d3</a>
 and on top of <a href="http://marvl.infotech.monash.edu/webcola/">WebCola</a>
 which allows the creation and manipulation of graphs with a simple api
@@ -17,6 +15,7 @@ which allows the creation and manipulation of graphs with a simple api
 With npm:
 
 ```sh
+// ES6
 $ npm install --save greuler
 ```
 
