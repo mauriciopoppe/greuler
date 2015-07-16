@@ -47,7 +47,7 @@
 
   var gen = new greuler.player.Generator(instance);
 
-  setTimeout(function () {
+  window.requestTimeout(function () {
     gen.run(function *algorithm(instance) {
       yield function () {
         updateText('here a simple graph G');
@@ -205,7 +205,7 @@
       };
 
       yield function () {
-        updateText('now let\'s do something fun <br/> let\'s find the number of cycles in an undirected graph!');
+        updateText('now let\'s do something simple and fun <br/> let\'s find the number of backedges in an undirected graph!');
       };
 
       yield function () {
@@ -213,10 +213,9 @@
       };
 
       function *innerDfs(source) {
-        updateText('a cycle ' +
-        'is identified by verifying if an edge is a back edge, in the visualization an edge colored as ' +
+        updateText('in the visualization an edge colored as ' +
         '<span style="color: cyan">cyan</span> first and then <span style="color: red">red</span> ' +
-        'is a back edge');
+        'is a back edge, it\'s found by checking if the both end vertices of a non traversed edge were visited before');
 
         instance.options.animationTime = 1000;
         gen.speed = 1000;
@@ -224,7 +223,6 @@
         var timeSpent = 0;
         var timeIn = [];
         var low = [];
-        var total = 0;
 
         instance.graph.nodes.forEach(function (n) {
           timeIn[n.id] = -1;
@@ -236,6 +234,9 @@
           yield function () {
             //instance.graph.getNode({ id: u }).topRightLabel = timeIn[u] + '/' + low[u];
             instance.selector.highlightNode({ id: u });
+            instance.selector.getNode({ id: u })
+              .transition()
+              .attr('fill', 'black');
             //instance.update({ skipLayout: true });
           };
 
@@ -280,7 +281,7 @@
       yield *innerDfs(0);
 
       yield function () {
-        updateText('there are 4 cycles in the graph! <br /> that\'s it! thanks for watching :)');
+        updateText('there are 4 backedges in the graph! <br /> that\'s it! thanks for watching :)');
       };
     });
   }, 3000);

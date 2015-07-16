@@ -2,7 +2,7 @@
   .center
     include ../../svg/api.svg
   script.
-    new Vivus('api-svg', {type: 'oneByOne', duration: 200});
+    new Vivus('api-svg', window.site.vivusDefault);
 
   :markdown
     Assuming that `instance = greuler(options).update()` is called there are two ways to interact
@@ -11,7 +11,7 @@
   .center
     include ../../svg/graph.svg
   script.
-    new Vivus('graph-svg', {type: 'oneByOne', duration: 200});
+    new Vivus('graph-svg', window.site.vivusDefault);
 
   :markdown
     `instance.graph` holds utility methods to manipulate the graph like adding/removing
@@ -24,7 +24,7 @@
     single parameter
 
     Please take a look at all the methods of `instance.graph` which can be found
-    [here](https://github.com/maurizzzio/greuler/blob/master/app/Graph.js)
+    [here](https://github.com/maurizzzio/greuler/blob/master/src/Graph.js)
 
   // graph example
   .row(style="min-height: 360px;")
@@ -42,7 +42,7 @@
   .center
     include ../../svg/selector.svg
   script.
-    new Vivus('selector-svg', {type: 'oneByOne', duration: 200});
+    new Vivus('selector-svg', window.site.vivusDefault);
 
   :markdown
     `instance.selector` holds utility methods to animate existing nodes/edges of the graph,

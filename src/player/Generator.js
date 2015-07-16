@@ -38,13 +38,13 @@ export default class Generator {
         }
       }
 
-      this.timer = setTimeout(function () {
+      this.timer = window.requestTimeout(function () {
         self.play(next.value);
       }, delay);
     }
   }
 
   pause() {
-    clearTimeout(this.timer);
+    window.clearRequestTimeout(this.timer);
   }
 }

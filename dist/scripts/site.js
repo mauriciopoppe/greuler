@@ -1,8 +1,12 @@
 'use strict';
-document.addEventListener('DOMContentLoaded', function () {
-  var d3 = window.d3;
-  var hljs = window.hljs;
+(function () {
   var site = window.site = {};
+  var d3 = window.d3;
+
+  site.vivusDefault = {
+    type: 'oneByOne',
+    duration: 50
+  };
 
   site.fnShowcase = function (fns, ns) {
     var description = d3.select('#' + ns + '-description');
@@ -38,13 +42,15 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   };
 
-  // code highligh
-  d3.selectAll('pre code')
-    .each(function () {
-      hljs.highlightBlock(this);
-    });
-
-});
+  document.addEventListener('DOMContentLoaded', function () {
+    var hljs = window.hljs;
+    // code highligh
+    d3.selectAll('pre code')
+      .each(function () {
+        hljs.highlightBlock(this);
+      });
+  });
+})();
 
 'use strict';
 document.addEventListener('DOMContentLoaded', function () {

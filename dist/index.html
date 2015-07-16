@@ -1083,7 +1083,7 @@
 
       </div>
       <script>
-        new Vivus('installation-svg', {type: 'oneByOne', duration: 200});
+        new Vivus('installation-svg', window.site.vivusDefault);
         
         
       </script><p><strong>greuler</strong> works on top of d3.js and WebCola so include those first</p>
@@ -1237,7 +1237,7 @@
 
       </div>
       <script>
-        new Vivus('usage-svg', {type: 'oneByOne', duration: 200});
+        new Vivus('usage-svg', window.site.vivusDefault);
         
       </script><p>The hello world program requires calling <code>greuler</code> with an object having the following properties</p>
 <ul>
@@ -1395,7 +1395,7 @@ greuler({
 
       </div>
       <script>
-        new Vivus('api-svg', {type: 'oneByOne', duration: 200});
+        new Vivus('api-svg', window.site.vivusDefault);
         
       </script><p>Assuming that <code>instance = greuler(options).update()</code> is called there are two ways to interact
 with the graph</p>
@@ -1551,7 +1551,7 @@ with the graph</p>
 
       </div>
       <script>
-        new Vivus('graph-svg', {type: 'oneByOne', duration: 200});
+        new Vivus('graph-svg', window.site.vivusDefault);
         
       </script><p><code>instance.graph</code> holds utility methods to manipulate the graph like adding/removing
 nodes and edges and other utility methods like querying the adjacent nodes of some node, etc.</p>
@@ -1561,7 +1561,7 @@ describe a node or edge</strong> (an array/function is needed in some cases of s
 also all the methods of <code>instance.graph</code> (but the ones who add nodes and edges) receive a
 single parameter</p>
 <p>Please take a look at all the methods of <code>instance.graph</code> which can be found
-<a href="https://github.com/maurizzzio/greuler/blob/master/app/Graph.js">here</a></p>
+<a href="https://github.com/maurizzzio/greuler/blob/master/src/Graph.js">here</a></p>
 
       <!-- graph example-->
       <div style="min-height: 360px;" class="row">
@@ -1751,7 +1751,7 @@ single parameter</p>
 
       </div>
       <script>
-        new Vivus('selector-svg', {type: 'oneByOne', duration: 200});
+        new Vivus('selector-svg', window.site.vivusDefault);
         
       </script><p><code>instance.selector</code> holds utility methods to animate existing nodes/edges of the graph,
 under the hood it uses <code>instance.graph</code> and wraps the returning values inside d3 selections
@@ -1985,7 +1985,7 @@ the second parameter is an override of the styles predefined to be used during t
 
       </div>
       <script>
-        new Vivus('examples-svg', {type: 'oneByOne', duration: 200});
+        new Vivus('examples-svg', window.site.vivusDefault);
         
       </script>
       <!-- namespace for the examples-->

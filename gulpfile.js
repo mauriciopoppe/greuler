@@ -82,17 +82,6 @@ gulp.task('fonts', function () {
 
 gulp.task('clean', require('del').bind(null, ['.tmp', 'dist']));
 
-// inject bower components
-gulp.task('wiredep', function () {
-  var wiredep = require('wiredep').stream;
-
-	gulp.src('public/*.html')
-    .pipe(wiredep({
-//      ignorePath: /^(\.\.\/)*\.\./
-    }))
-    .pipe(gulp.dest('public'));
-});
-
 gulp.task('jade', function () {
   var YOUR_LOCALS = {};
   return gulp.src('public/templates/*.jade')
@@ -120,7 +109,7 @@ gulp.task('copy-cola', function () {
 
 gulp.task('preflight',['eslint']);
 
-gulp.task('produce',['preflight','wiredep','es6','less','images','fonts','jade']);
+gulp.task('produce',['preflight','es6','less','images','fonts', 'jade']);
 
 gulp.task('copy', ['copy-examples', 'copy-from-tmp', 'copy-cola'], function () {
   return gulp.start('html');
