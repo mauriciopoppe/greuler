@@ -12,7 +12,7 @@ var source = require('vinyl-source-stream');
 
 
 gulp.task('eslint', function () {
-  return gulp.src(['public/scripts/**/*.js', 'src/**/*.js'])
+  return gulp.src(['src/**/*.js'])
     .pipe($.eslint())
     .pipe(reload({stream: true, once: true}))
     /* Outputs hinting to console */

@@ -6,7 +6,6 @@ var cola = window.cola;
 import extend from 'extend';
 import node from './elements/node';
 import edge from './elements/edge';
-import {colors} from './const';
 import GraphManager from './Graph';
 import GreulerDefaultTransition from './selector/GreulerDefaultTransition';
 

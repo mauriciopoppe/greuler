@@ -1,7 +1,6 @@
 'use strict';
 
 import utils from '../utils';
-import {colors} from '../const';
 import extend from 'extend';
 
 export default class ElementSelector {

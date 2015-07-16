@@ -2,7 +2,6 @@
 
 const d3 = window.d3;
 
-import {colors} from '../const';
 import extend from 'extend';
 import Graph from './Graph';
 
