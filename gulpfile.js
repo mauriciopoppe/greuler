@@ -11,7 +11,7 @@ var source = require('vinyl-source-stream');
 
 
 
-gulp.task('eslint', function() {
+gulp.task('eslint', function () {
   return gulp.src(['public/scripts/**/*.js', 'src/**/*.js'])
     .pipe($.eslint())
     .pipe(reload({stream: true, once: true}))
@@ -41,7 +41,7 @@ gulp.task('es6', ['eslint'], function () {
 	})
 	.transform(babelify)
 	.bundle()
-	.pipe(source('app.js'))
+	.pipe(source('greuler.js'))
 	.pipe(gulp.dest('./.tmp'))
 	.pipe(gulp.dest('dist'));
 });
