@@ -113,14 +113,19 @@ gulp.task('copy-examples', function () {
     .pipe(gulp.dest('dist/scripts/examples/'));
 });
 
+gulp.task('copy-cola', function () {
+  return gulp.src('public/private/cola.v3.js')
+    .pipe(gulp.dest('dist/private/'));
+});
+
 gulp.task('preflight',['eslint']);
 
 gulp.task('produce',['preflight','wiredep','es6','less','images','fonts','jade']);
 
+gulp.task('copy', ['html', 'copy-examples', 'copy-from-tmp', 'copy-cola']);
+
 gulp.task('package',['produce'], function () {
-  gulp.start('copy-from-tmp');
-  gulp.start('copy-examples');
-  gulp.start('html');
+  return gulp.start('copy');
 });
 
 gulp.task('serve', ['produce'], function () {
