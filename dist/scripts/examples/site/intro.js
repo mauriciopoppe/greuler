@@ -234,9 +234,9 @@
           timeIn[u] = low[u] = ++timeSpent;
 
           yield function () {
-            instance.graph.getNode({ id: u }).topRightLabel = timeIn[u] + '/' + low[u];
+            //instance.graph.getNode({ id: u }).topRightLabel = timeIn[u] + '/' + low[u];
             instance.selector.highlightNode({ id: u });
-            instance.update({ skipLayout: true });
+            //instance.update({ skipLayout: true });
           };
 
           var adjacent = instance.graph.getAdjacentNodes({ id: u });
@@ -253,7 +253,7 @@
               low[u] = Math.min(low[u], low[v]);
             } else if (timeIn[v] < timeIn[u]) {
               // back edge
-              console.log(++total);
+              //console.log(++total);
 
               yield function () {
                 instance.selector.traverseAllEdgesBetween({ source: u, target: v }, {stroke: 'cyan'});
@@ -265,9 +265,9 @@
               low[u] = Math.min(low[u], timeIn[v]);
 
               yield function () {
-                instance.graph.getNode({ id: u }).topRightLabel = timeIn[u] + '/' + low[u];
+                //instance.graph.getNode({ id: u }).topRightLabel = timeIn[u] + '/' + low[u];
                 instance.selector.highlightNode({ id: u });
-                instance.update({ skipLayout: true });
+                //instance.update({ skipLayout: true });
               };
             }
           }
