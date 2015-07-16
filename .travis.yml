@@ -12,5 +12,5 @@ install:
 
 script:
   - gulp
-  - ./test/bower install
+  - cd test && bower install
   - npm test
