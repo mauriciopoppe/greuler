@@ -1,6 +1,6 @@
 # greuler 
 
-[![Build Status][travis-image]][travis-url]
+[![Build Status][travis-image]][travis-url] <img src="//benschwarz.github.io/bower-badges/badge@2x.png" width="130" height="30">
 
 [![NPM][npm-image]][npm-url]
 

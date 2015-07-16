@@ -36,15 +36,10 @@ window.d3.json('scripts/examples/data/eulerian-graph.json', function (error, dat
       // node traversal is given by trail
       for (var i = 0; i < trail.length; i += 1) {
         yield function () {
-          instance.selector.highlightNode({ id: trail[i] });
+          instance.selector.traverseAllEdgesBetween(
+            { source: trail[i], target: trail[i + 1] }
+          );
         };
-        if (i + 1 < trail.length) {
-          yield function () {
-            instance.selector.traverseAllEdgesBetween(
-              { source: trail[i], target: trail[i + 1] }
-            );
-          };
-        }
       }
     });
   };
