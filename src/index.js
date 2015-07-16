@@ -9,7 +9,7 @@ var d3 = window.d3;
 import Draw from './Draw';
 import utils from './utils';
 
-var instances = new Map();
+var instances = [];
 
 function run(options) {
   function factory(options) {
@@ -18,9 +18,9 @@ function run(options) {
     if (!id) {
       id = utils.id();
       el.attr('greuler-id', id);
-      instances.set(id, new Draw(id, options));
+      instances[id] = new Draw(id, options);
     }
-    return instances.get(id);
+    return instances[id];
   }
 
   return factory(options);

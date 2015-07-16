@@ -231,7 +231,7 @@
         });
 
         function *dfs(u, p) {
-          timeIn[u] = low[u] = timeSpent++;
+          timeIn[u] = low[u] = ++timeSpent;
 
           yield function () {
             instance.graph.getNode({ id: u }).topRightLabel = timeIn[u] + '/' + low[u];

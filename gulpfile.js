@@ -12,7 +12,7 @@ var source = require('vinyl-source-stream');
 
 
 gulp.task('eslint', function() {
-  return gulp.src(['public/scripts/**/*.js', 'app/**/*.js'])
+  return gulp.src(['public/scripts/**/*.js', 'src/**/*.js'])
     .pipe($.eslint())
     .pipe(reload({stream: true, once: true}))
     /* Outputs hinting to console */
@@ -36,13 +36,14 @@ gulp.task('less', function () {
 gulp.task('es6', ['eslint'], function () {
 	browserify({
 		entries: './src/index.js',
-		//debug: true,
+		debug: true,
     standalone: 'greuler'
 	})
 	.transform(babelify)
 	.bundle()
 	.pipe(source('app.js'))
-	.pipe(gulp.dest('./.tmp'));
+	.pipe(gulp.dest('./.tmp'))
+	.pipe(gulp.dest('dist'));
 });
 
 
@@ -94,7 +95,7 @@ gulp.task('wiredep', function () {
 
 gulp.task('jade', function () {
   var YOUR_LOCALS = {};
-  gulp.src('public/templates/*.jade')
+  return gulp.src('public/templates/*.jade')
     .pipe($.jade({
       pretty: true,
       locals: YOUR_LOCALS
@@ -104,7 +105,7 @@ gulp.task('jade', function () {
 
 gulp.task('copy-from-tmp', function () {
   return gulp.src('.tmp/**/*')
-    .pipe(gulp.dest('dist/'));
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('copy-examples', function () {
@@ -136,7 +137,7 @@ gulp.task('serve', ['produce'], function () {
 
   // watch for changes
   gulp.watch([
-    'app/**/*.js',
+    'src/**/*.js',
     'public/*.html',
     'public/images/**/*',
     '.tmp/fonts/**/*'
@@ -146,7 +147,7 @@ gulp.task('serve', ['produce'], function () {
   gulp.watch('public/styles/**/*.less', ['less']);
   gulp.watch('public/fonts/**/*', ['fonts']);
   gulp.watch('bower.json', ['wiredep', 'fonts']);
-  gulp.watch('app/**/*.js', ['es6']);
+  gulp.watch('src/**/*.js', ['es6']);
 });
 
 gulp.task('serve:dist',['package'], function () {
@@ -157,22 +158,6 @@ gulp.task('serve:dist',['package'], function () {
       baseDir: ['dist']
     }
   });
-});
-
-gulp.task('serve:test',['produce'], function () {
-  browserSync({
-    notify: false,
-    open: false,
-    port: 9000,
-    ui: false,
-    server: {
-      baseDir: ['.']
-    }
-  });
-
-  gulp.watch([
-    'test/spec/**/*.js'
-  ]).on('change', reload);
 });
 
 gulp.task('build', ['package'], function () {

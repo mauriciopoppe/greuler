@@ -1,4 +1,6 @@
-# greuler [![Build Status][travis-image]][travis-url]
+# greuler 
+
+[![Build Status][travis-image]][travis-url]
 
 [![NPM][npm-image]][npm-url]
 
@@ -8,7 +10,7 @@
 and on top of <a href="http://marvl.infotech.monash.edu/webcola/">WebCola</a>
 which allows the creation and manipulation of graphs with a simple api
         
-Have a look at [the homepage](http://maurizzzio.github.io/greuler/) for a detailed explanation on what the library is capable of
+[Homepage](http://maurizzzio.github.io/greuler/)
 
 ## Installation
 

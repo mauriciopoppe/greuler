@@ -5,6 +5,7 @@
 
   var instance = greuler({
     target: '#bfs',
+    width: 600,
     height: 600,
     animationTime: 500,
     data: greuler.Graph.random({ connected: true })

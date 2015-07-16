@@ -12,7 +12,8 @@
     <!-- Place favicon.ico in the root directory-->
     <!-- build:css styles/vendor.css-->
     <!-- bower:css-->
-    <link rel="stylesheet" href="../bower_components/skeleton/css/skeleton.css" />
+    <link rel="stylesheet" href="../bower_components/skeleton/css/normalize.css">
+    <link rel="stylesheet" href="../bower_components/skeleton/css/skeleton.css">
     <!-- endbower-->
     <!-- endbuild-->
     <!-- build:css styles/main.css-->
@@ -1567,7 +1568,8 @@ describe a node or edge</strong> (an array/function is needed in some cases of s
 <code>instance.graph</code> but they describe multiple nodes/edges),
 also all the methods of <code>instance.graph</code> (but the ones who add nodes and edges) receive a
 single parameter</p>
-<p>Please take a look at all the methods of <code>instance.graph</code> which can be found <a href="">here</a></p>
+<p>Please take a look at all the methods of <code>instance.graph</code> which can be found [here]
+(<a href="https://github.com/maurizzzio/greuler/blob/master/app/Graph.js">https://github.com/maurizzzio/greuler/blob/master/app/Graph.js</a>)</p>
 
       <!-- graph example-->
       <div style="min-height: 360px;" class="row">
@@ -2079,6 +2081,7 @@ the second parameter is an override of the styles predefined to be used during t
 
   var instance = greuler({
     target: '#bfs',
+    width: 600,
     height: 600,
     animationTime: 500,
     data: greuler.Graph.random({ connected: true })
@@ -2158,6 +2161,70 @@ the second parameter is an override of the styles predefined to be used during t
           <button data-example="bfs" class="runner center">run</button>
         </div>
       </div>
+      <hr>
+      <h4>Eulerian trail</h4>
+      <div class="example row">
+        <div class="six columns">
+          <pre><code class="javascript">'use strict';
+window.d3.json('scripts/examples/data/eulerian-graph.json', function (error, data) {
+
+  var instance = greuler({
+    target: '#eulerian-trail',
+    width: 600,
+    height: 600,
+    animationTime: 500,
+    data: data
+  }).update();
+
+  window.examples['eulerian-trail'] = function () {
+    var greuler = window.greuler;
+
+    var player = new greuler.player.Generator(instance);
+    player.run(function *algorithm(instance) {
+      var stack = [];
+      var trail = [];
+
+      function eulerianTrail(u) {
+        stack.push(u);
+        var edges = instance.graph.getIncidentEdges({ id: u });
+        for (var i = 0; i < edges.length; i += 1) {
+          var e = edges[i];
+          var next = e.target.id === u ? e.source.id : e.target.id;
+
+          if (e.used) { continue; }
+          e.used = true;
+
+          eulerianTrail(next);
+        }
+        trail.push(stack.pop());
+      }
+      eulerianTrail(0);
+
+      // node traversal is given by trail
+      for (var i = 0; i < trail.length; i += 1) {
+        yield function () {
+          instance.selector.highlightNode({ id: trail[i] });
+        };
+        if (i + 1 < trail.length) {
+          yield function () {
+            instance.selector.traverseAllEdgesBetween(
+              { source: trail[i], target: trail[i + 1] }
+            );
+          };
+        }
+      }
+    });
+  };
+});
+</code></pre>
+        </div>
+        <div class="six columns">
+          <div id="eulerian-trail"></div>
+          <script src="scripts/examples/eulerian-trail.js"></script>
+          <button data-example="eulerian-trail" class="runner center">run</button>
+        </div>
+      </div>
+      <!-- button disabled state-->
       <script>
         d3.selectAll('[data-example]')
           .on('click', function (d) {
@@ -2167,7 +2234,12 @@ the second parameter is an override of the styles predefined to be used during t
             window.examples[example]();
             el.attr('disabled', 'true');
           });
+        
       </script>
+      <hr>
+      <div class="center">
+        <h2>more examples to coming soon...</h2>
+      </div>
     </div>
     <div class="container"></div>
   </body>

@@ -34,6 +34,20 @@
       script(src='scripts/examples/bfs.js')
       button.runner.center(data-example="bfs") run
 
+  hr
+
+  h4 Eulerian trail
+  .example.row
+    .six.columns
+      pre
+        code.javascript
+          include ../../scripts/examples/eulerian-trail.js
+    .six.columns
+      #eulerian-trail
+      script(src='scripts/examples/eulerian-trail.js')
+      button.runner.center(data-example="eulerian-trail") run
+
+  // button disabled state
   script.
     d3.selectAll('[data-example]')
       .on('click', function (d) {
@@ -43,3 +57,8 @@
         window.examples[example]();
         el.attr('disabled', 'true');
       });
+
+  hr
+
+  .center
+    h2 more examples to coming soon...

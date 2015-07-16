@@ -1,5 +1,5 @@
 {
-  "private": true,
+  "version": "0.1.0",
   "engines": {
     "node": ">=0.12.0"
   },
@@ -30,6 +30,7 @@
     "gulp-sourcemaps": "^1.5.0",
     "gulp-uglify": "^1.1.0",
     "gulp-useref": "^1.1.1",
+    "karma": "^0.13.0",
     "main-bower-files": "^2.5.0",
     "marked": "^0.3.3",
     "opn": "^1.0.1",
@@ -40,5 +41,8 @@
   "dependencies": {
     "compute-lcg": "^1.0.0",
     "extend": "^3.0.0"
+  },
+  "scripts": {
+    "test": "./node_modules/karma/bin/karma start"
   }
 }
