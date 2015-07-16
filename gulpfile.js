@@ -56,7 +56,7 @@ gulp.task('html', function () {
     .pipe($.if('*.css', $.csso()))
     .pipe(assets.restore())
     .pipe($.useref())
-    .pipe($.if('*.html', $.minifyHtml({conditionals: true, loose: true})))
+    //.pipe($.if('*.html', $.minifyHtml({conditionals: true, loose: true})))
     .pipe(gulp.dest('dist'));
 });
 
@@ -122,7 +122,9 @@ gulp.task('preflight',['eslint']);
 
 gulp.task('produce',['preflight','wiredep','es6','less','images','fonts','jade']);
 
-gulp.task('copy', ['html', 'copy-examples', 'copy-from-tmp', 'copy-cola']);
+gulp.task('copy', ['copy-examples', 'copy-from-tmp', 'copy-cola'], function () {
+  return gulp.start('html');
+});
 
 gulp.task('package',['produce'], function () {
   return gulp.start('copy');
