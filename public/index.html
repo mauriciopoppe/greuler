@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>greuler</title>
+    <title>greuler - graph theory visualizations</title>
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link href="http://fonts.googleapis.com/css?family=Handlee" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/github.min.css">
@@ -779,8 +779,15 @@
 </g>
 </svg>
 
+        <script>
+          new Vivus('banner-svg', {type: 'oneByOne', duration: 200});
+          
+        </script>
       </div>
-      <script>new Vivus('banner-svg', {type: 'oneByOne', duration: 200});</script>
+      <div class="center"><span>
+          <iframe src="https://ghbtns.com/github-btn.html?user=maurizzzio&repo=greuler&type=star&count=true" frameborder="0" scrolling="0" width="90px" height="20px"></iframe>
+          <a href="https://twitter.com/share" class="twitter-share-button" data-via="iMauricio" data-hashtags="visualization,graph-theory">Tweet</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></span></div>
     </div>
     <div class="container">
       <p class="center description">
@@ -2203,15 +2210,10 @@ window.d3.json('scripts/examples/data/eulerian-graph.json', function (error, dat
       // node traversal is given by trail
       for (var i = 0; i < trail.length; i += 1) {
         yield function () {
-          instance.selector.highlightNode({ id: trail[i] });
+          instance.selector.traverseAllEdgesBetween(
+            { source: trail[i], target: trail[i + 1] }
+          );
         };
-        if (i + 1 < trail.length) {
-          yield function () {
-            instance.selector.traverseAllEdgesBetween(
-              { source: trail[i], target: trail[i + 1] }
-            );
-          };
-        }
       }
     });
   };

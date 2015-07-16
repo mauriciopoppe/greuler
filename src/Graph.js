@@ -21,6 +21,11 @@ function includes(arr, id) {
   }
 }
 
+/**
+ *
+ * 
+ * @class Graph
+ */
 export default class Graph {
   constructor(owner, data) {
     this.owner = owner;

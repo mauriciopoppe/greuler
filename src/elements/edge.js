@@ -68,11 +68,16 @@ export default function () {
       innerJoints = loop.path;
       d.unit = loop.dir;
     } else {
+      var unit;
+      if (Vector.len(Vector.sub(v, u))) {
+        unit = Vector.unit(Vector.sub(v, u));
+      } else {
+        unit = new Vector(1, 0);
+      }
+
       extend(current, {
-        unit: Vector.unit(Vector.sub(v, u)),
-        unitInverse: Vector.orthogonal(
-          Vector.unit(Vector.sub(v, u))
-        )
+        unit: unit,
+        unitInverse: Vector.orthogonal(unit)
       });
       innerJoints.push(Vector.add(
         current.mid,

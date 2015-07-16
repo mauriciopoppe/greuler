@@ -10,28 +10,39 @@ var HIGHLIGHT = 'highlight';
 
 export default class GreulerDefaultTransition extends Graph {
 
-  innerEdgeSelector(selection) {
-    return selection
-      .selectAll('path.base');
-  }
-
-  innerNodeSelector(selection) {
-    return selection
-      .selectAll('circle');
-  }
-
+  /**
+   * Gets all the edges of the graph
+   *
+   * @returns {d3_selection}
+   */
   getEdges() {
     return this.innerEdgeSelector(
       this.select(this.graph.edges)
     );
   }
 
+  /**
+   * Gets all the nodes of the graph
+   *
+   * @returns {d3_selection}
+   */
   getNodes() {
     return this.innerNodeSelector(
       this.select(this.graph.nodes)
     );
   }
 
+  /**
+   * Highlights a node temporarily, it consists of two
+   * chained transitions
+   *
+   * - increase the radius to 1.5x the original `r` value
+   * - decrease the radius to the original `r` value
+   *
+   * @param {d3_selection} selection
+   * @param {Object} options
+   * @returns {d3_transition}
+   */
   doTemporalHighlightNode(selection, options) {
     return this.innerNodeSelector(selection)
       .transition(HIGHLIGHT)
@@ -42,6 +53,18 @@ export default class GreulerDefaultTransition extends Graph {
       .attr('r', (d) => d.r);
   }
 
+  /**
+   * Highlights an edge temporarily, it consists of two
+   * chained transitions
+   *
+   * - change the stroke of the `path` that represents the edge to
+   * `options.stroke`
+   * - change the stroke to the original value
+   *
+   * @param {d3_selection} selection
+   * @param {Object} options
+   * @returns {d3_transition}
+   */
   doTemporalHighlightEdges(selection, options) {
     return this.innerEdgeSelector(selection)
     .transition(HIGHLIGHT)
@@ -52,6 +75,16 @@ export default class GreulerDefaultTransition extends Graph {
       .attr('stroke', (d) => d.stroke);
   }
 
+  /**
+   * Edge traversal animation, it animates a hidden path giving the impression
+   * of movement, if source is given then it will always start the animation
+   * from the node `source` even if the edge is an incoming edge
+   *
+   * @param {d3_selection} selection
+   * @param {config} options
+   * @param {number} [source=-1]
+   * @returns {d3_transition}
+   */
   traverseEdgeWithDirection(selection, options, source = -1) {
     return selection
       .selectAll('path.traversal')

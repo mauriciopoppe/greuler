@@ -21,10 +21,10 @@ class Vector {
   }
 
   static unit(a) {
-    var length = this.len(a);
-    if (this.length <= 0) {
-      throw Error('the length of the vector is <= 0');
+    if (a.x === 0 && a.y === 0) {
+      throw Error('the length of the vector is 0');
     }
+    var length = this.len(a);
     return new Vector(a.x / length, a.y / length);
   }
 

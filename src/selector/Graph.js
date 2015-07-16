@@ -26,7 +26,13 @@ export default class ElementSelector {
     return this.owner.options.animationTime;
   }
 
-  // edges
+  /**
+   * Given a collection of elements returned by the Graph class this methods returns
+   * the d3 selection that for all those objects
+   *
+   * @param {Object[]|Object} els An array of edges/nodes or a single edge/node
+   * @return {d3_selection}
+   */
   select(els) {
     if (!Array.isArray(els)) {
       els = [els];
@@ -41,4 +47,25 @@ export default class ElementSelector {
       }).join(', ')
     );
   }
+
+  /**
+   * Selects the path inside the tag <g> that represents an edge
+   *
+   * @param {d3_selection} selection
+   */
+  innerEdgeSelector(selection) {
+    return selection
+      .selectAll('path.base');
+  }
+
+  /**
+   * Selects the circle inside the tag <g> that represents a node
+   *
+   * @param {d3_selection} selection
+   */
+  innerNodeSelector(selection) {
+    return selection
+      .selectAll('circle');
+  }
+
 }

@@ -28,11 +28,10 @@ $ bower install --save greuler
 ## Usage
 
 ```js
-var greuler;
 // npm
-greuler = require('greuler');
+var greuler = require('greuler');
 // browser
-greuler = window.greuler;
+var greuler = window.greuler;
 
 greuler({
   // options below
@@ -42,6 +41,56 @@ greuler({
 ## Examples
 
 Check out the examples at the [`homepage`](http://maurizzzio.github.io/greuler/)
+
+## Usage Notes
+
+- The layout adaptor instance can be accessed through `instance.layout`, all the properties are
+mapped to calls to methods of WebCola
+
+```javascript
+// e.g.
+greuler({
+  // ...
+  data: {
+    linkDistance: 100,
+    avoidOverlaps: true,
+    nodes: [...],
+    links: [...],
+    groups: [...],
+  }
+});
+
+// is mapped to
+cola.d3Adaptor()
+  .linkDistance(data.linkDistance)
+  .avoidOverlaps(data.avoidOverlaps)
+  .nodes(data.nodes)
+  .links(data.links)
+// ...
+```
+
+- To make the nodes have a fixed position listen for the `firstLayoutEnd` event and add the `fixed` property 
+to each one of the nodes you want to be fixed e.g.
+
+```javascript
+instance.events.on('firstLayoutEnd', function () {
+  instance.graph.nodes.forEach(function (d) {
+    d.fixed = true;
+  });
+});
+```
+
+- Custom animations can easily be created, for any of the values returned from `instance.graph.*` call
+`instance.selector.select` and you obtain the group that represents the edge e.g.
+
+```javascript
+var nodes = instance.graph.getNodesByFn(function (node) {
+  return node.id > 5;
+});
+
+// a selection of <g> tags
+var selection = instance.selection.select(nodes);
+```
 
 ## API
 
@@ -92,7 +141,15 @@ Additional options
 
 A greuler instance used to interact with the graph
 
-### `instance.update([options])`
+#### `instance.events`
+
+All the events are exposed through this object
+
+**events**
+
+* `firstLayoutEnd` fired when the initial layout has finished, it's fired only once
+
+#### `instance.update([options])`
 
 **params**
 
@@ -101,9 +158,25 @@ A greuler instance used to interact with the graph
   operations needs to be done only when nodes/edges are added/removed to the graph, any other operation
   that modifies existing properties of the nodes/edges don't need a layout)
 
-### `instance.graph`
+#### `instance.graph`
 
-### `instance.selector`
+Check out [the Graph class](https://github.com/maurizzzio/greuler/blob/master/src/Graph.js)
+
+#### `instance.selector`
+
+Check out [the Selector class](https://github.com/maurizzzio/greuler/blob/master/src/selector/GreulerDefaultTransition.js)
+
+### `greuler.colors`
+
+An object containing the predefined palette used in greuler which is built with `d3.scale.category20()`
+
+e.g.
+
+```javascript
+greuler.colors.RED
+greuler.colors.BLUE
+greuler.colors.LIGHT_GREEN
+```
 
 ## Development
 

@@ -1,6 +1,6 @@
 {
   "name": "greuler",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "authors": [
     "Mauricio Poppe <me@maurizzzio.com>"
   ],
@@ -24,11 +24,13 @@
     "bower_components",
     "test",
     "tests",
+    "src",
+    "public",
     "!dist/app.js",
     "dist/*",
     "!README"
   ],
-  "dependencies": {
+  "devDependencies": {
     "skeleton": "~2.0.4",
     "vivus": "~0.2.2"
   }
