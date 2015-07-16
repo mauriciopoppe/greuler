@@ -195,7 +195,14 @@ greuler.colors.LIGHT_GREEN
 
 ## Development
 
-After cloning the repo and running `npm install`
+After cloning the repo run
+
+```
+npm install
+bower install
+```
+
+And then
 
 ```sh
 gulp serve
