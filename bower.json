@@ -26,6 +26,7 @@
     "src",
     "public",
     "dist",
+    "!dist/greuler.js",
     "!README"
   ],
   "devDependencies": {
