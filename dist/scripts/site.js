@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }).update();
 
   instance.fns = [{
-    title: 'highlighting a node',
+    title: 'highlighting a random node and edge',
     fn: function () {
       var order = instance.graph.nodes.length;
       var size = instance.graph.edges.length;
