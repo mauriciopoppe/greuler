@@ -67,7 +67,8 @@ export default function () {
       .attr('fill', 'white')
       .attr('font-size', '12px')
       .attr('text-anchor', 'middle')
-      .attr('y', (d) => d.height / 4);
+      .attr('dominant-baseline', 'central');
+      //.attr('y', (d) => d.height / 4);
     nodes.selectAll('text.label')
       .text(function (d) {
         if ('label' in d) {

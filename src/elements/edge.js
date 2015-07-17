@@ -73,7 +73,7 @@ export default function () {
 
     if (u.id === v.id) {
       // apply the following for self-loop edges
-      var loop = selfLoop(u, margin * v.r * (current.count + 1));
+      var loop = selfLoop(u, 1.5 * margin * v.r * (current.count + 1));
       innerJoints = loop.path;
       d.unit = loop.dir;
     } else {
@@ -100,34 +100,28 @@ export default function () {
 
     current.count += 1;
     current.direction *= -1;
-    
-    var p0 = u;
-    var p1 = v;
-    
+
     var NabP0 = versor({
-      x: innerJoints[0].x - p0.x,
-      y: innerJoints[0].y - p0.y
+      x: innerJoints[0].x - u.x,
+      y: innerJoints[0].y - u.y
     });
-    
-    p0 = {
-      x: p0.x + NabP0.x * u.r,
-      y: p0.y + NabP0.y * u.r
-    };
+
+    innerJoints.unshift({
+      x: u.x + NabP0.x * u.r,
+      y: u.y + NabP0.y * u.r
+    });
     
     var l = innerJoints.length - 1;
     
     var NabP1 = versor({
-      x: p1.x - innerJoints[l].x,
-      y: p1.y - innerJoints[l].y
+      x: v.x - innerJoints[l].x,
+      y: v.y - innerJoints[l].y
     });
-    
-    p1 = {
-      x: p1.x - NabP1.x * v.r,
-      y: p1.y - NabP1.y * v.r
-    };
-    
-    innerJoints.unshift(p0);
-    innerJoints.push(p1);
+
+    innerJoints.push({
+      x: v.x - NabP1.x * v.r,
+      y: v.y - NabP1.y * v.r
+    });
     
     d.path = innerJoints;
   }
@@ -233,6 +227,7 @@ export default function () {
     // weight enter
     weights.enter()
       .append('text')
+      .classed('weight', true)
       .attr('font-size', '9px')
       .attr('dominant-baseline', 'text-after-edge')
       .attr('text-anchor', 'middle')
