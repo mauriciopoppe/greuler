@@ -25,7 +25,7 @@
     "tests",
     "src",
     "public",
-    "dist",
+    "dist/**",
     "!dist/greuler.js",
     "!README"
   ],
