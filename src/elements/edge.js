@@ -41,6 +41,10 @@ export default function () {
       dir: ort
     };
   }
+  
+  function xyOfObj(o) {
+    return {x:o.x, y:o.y};
+  };
 
   function createPath(d, meta, margin) {
     var u, v;
@@ -63,7 +67,7 @@ export default function () {
 
     if (u.id === v.id) {
       // apply the following for self-loop edges
-      var loop = selfLoop(u, margin * (current.count + 1));
+      var loop = selfLoop(u, margin * v.r * (current.count + 1));
       innerJoints = loop.path;
       d.unit = loop.dir;
     } else {
@@ -82,7 +86,7 @@ export default function () {
         current.mid,
         Vector.scale(
           current.unitInverse,
-          Math.floor(current.count / 2) * margin * current.direction
+          Math.floor(current.count / 2) * margin * v.r * current.direction
         )
       ));
       d.unit = current.unit;
@@ -90,16 +94,73 @@ export default function () {
 
     current.count += 1;
     current.direction *= -1;
-    d.path = [d.source]
+    
+    var p0 = xyOfObj(d.source);
+    var p1 = xyOfObj(d.target);
+    
+    var ix = innerJoints[0].x;
+    var iy = innerJoints[0].y;
+    
+    var abP0 = {
+      x: ix - p0.x,
+      y: iy - p0.y
+    };
+    
+    var dx = p0.x-ix;
+    var dy = p0.y-iy;
+    var l = Math.sqrt( dx*dx + dy*dy );
+    
+    var n_abP0 = {
+      x: abP0.x / l,
+      y: abP0.y / l
+    };
+    
+    p0 = {
+      x: p0.x + n_abP0.x * d.source.r,
+      y: p0.y + n_abP0.y * d.source.r
+    };
+    
+    var _l = innerJoints.length - 1
+    ix = innerJoints[ _l ].x;
+    iy = innerJoints[ _l ].y;
+    
+    var abP1 = {
+      x: p1.x - ix ,
+      y: p1.y - iy
+    };
+    
+    var dx = p1.x-ix;
+    var dy = p1.y-iy;
+    var l = Math.sqrt( dx*dx + dy*dy );
+    
+    var n_abP1 = {
+      x: abP1.x / l,
+      y: abP1.y / l
+    };
+    
+    p1 = {
+      x: p1.x - n_abP1.x * d.target.r,
+      y: p1.y - n_abP1.y * d.target.r
+    };
+    
+    
+    innerJoints.unshift(p0);
+    innerJoints.push(p1);
+    
+    d.path = innerJoints;
+    
+    /*d.path = [d.source]
       .concat(innerJoints)
-      .concat([d.target]);
+      .concat([d.target]);*/
+    //console.log(d.path);
   }
 
   var line = d3.svg.line()
     .x(function (d) { return d.x; })
     .y(function (d) { return d.y; })
-    .tension(1.5)
-    .interpolate('bundle');
+    .interpolate('basis');
+    //.tension(1.5)
+    //.interpolate('bundle');
 
   function inner(selection) {
     // edges
@@ -130,7 +191,7 @@ export default function () {
 
     var meta = {};
     links.each(function (d) {
-      createPath(d, meta, 17);
+      createPath(d, meta, 1.7);
     });
 
     // path enter
