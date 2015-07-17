@@ -4,7 +4,7 @@
     "Mauricio Poppe <me@maurizzzio.com>"
   ],
   "description": "graph theory visualizations",
-  "main": "dist/app.js",
+  "main": "dist/greuler.js",
   "moduleType": [
     "amd",
     "globals",
@@ -25,8 +25,7 @@
     "tests",
     "src",
     "public",
-    "!dist/greuler.js",
-    "dist/*",
+    "dist",
     "!README"
   ],
   "devDependencies": {
