@@ -42,9 +42,15 @@ export default function () {
     };
   }
   
-  function xyOfObj(o) {
-    return {x:o.x, y:o.y};
-  };
+  function versor(p) {
+    var dx = p.x;
+    var dy = p.y;
+    var l = Math.sqrt( dx * dx + dy * dy );
+    return {
+      x: p.x / l,
+      y: p.y / l
+    };
+  }
 
   function createPath(d, meta, margin) {
     var u, v;
@@ -95,64 +101,35 @@ export default function () {
     current.count += 1;
     current.direction *= -1;
     
-    var p0 = xyOfObj(d.source);
-    var p1 = xyOfObj(d.target);
+    var p0 = u;
+    var p1 = v;
     
-    var ix = innerJoints[0].x;
-    var iy = innerJoints[0].y;
-    
-    var abP0 = {
-      x: ix - p0.x,
-      y: iy - p0.y
-    };
-    
-    var dx = p0.x-ix;
-    var dy = p0.y-iy;
-    var l = Math.sqrt( dx*dx + dy*dy );
-    
-    var n_abP0 = {
-      x: abP0.x / l,
-      y: abP0.y / l
-    };
+    var NabP0 = versor({
+      x: innerJoints[0].x - p0.x,
+      y: innerJoints[0].y - p0.y
+    });
     
     p0 = {
-      x: p0.x + n_abP0.x * d.source.r,
-      y: p0.y + n_abP0.y * d.source.r
+      x: p0.x + NabP0.x * u.r,
+      y: p0.y + NabP0.y * u.r
     };
     
-    var _l = innerJoints.length - 1
-    ix = innerJoints[ _l ].x;
-    iy = innerJoints[ _l ].y;
+    var l = innerJoints.length - 1;
     
-    var abP1 = {
-      x: p1.x - ix ,
-      y: p1.y - iy
-    };
-    
-    var dx = p1.x-ix;
-    var dy = p1.y-iy;
-    var l = Math.sqrt( dx*dx + dy*dy );
-    
-    var n_abP1 = {
-      x: abP1.x / l,
-      y: abP1.y / l
-    };
+    var NabP1 = versor({
+      x: p1.x - innerJoints[l].x,
+      y: p1.y - innerJoints[l].y
+    });
     
     p1 = {
-      x: p1.x - n_abP1.x * d.target.r,
-      y: p1.y - n_abP1.y * d.target.r
+      x: p1.x - NabP1.x * v.r,
+      y: p1.y - NabP1.y * v.r
     };
-    
     
     innerJoints.unshift(p0);
     innerJoints.push(p1);
     
     d.path = innerJoints;
-    
-    /*d.path = [d.source]
-      .concat(innerJoints)
-      .concat([d.target]);*/
-    //console.log(d.path);
   }
 
   var line = d3.svg.line()
