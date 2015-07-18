@@ -27,6 +27,7 @@
     "public",
     "dist/**",
     "!dist/greuler.js",
+    "!dist/greuler.min.js",
     "!README"
   ],
   "devDependencies": {

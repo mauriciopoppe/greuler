@@ -36,7 +36,8 @@ class Vector {
     return Math.atan2(a.y, a.x) * 180 / Math.PI;
   }
 
-// binary
+
+  // binary
 
   static add(a, b) {
     return new Vector(a.x + b.x, a.y + b.y);
@@ -62,6 +63,13 @@ class Vector {
     return Math.acos(Vector.dot(a, b) / Vector.len(a) - Vector.len(b));
   }
 
+  static rotate(a, angle) {
+    var cosA = Math.cos(angle);
+    var sinA = Math.sin(angle);
+    var nx = a.x * cosA - a.y * sinA;
+    var ny = a.x * sinA + a.y * cosA;
+    return new Vector(nx, ny);
+  }
 }
 
 

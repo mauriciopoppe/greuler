@@ -39,7 +39,13 @@ And then include it in your webpage
 ```html
 <script src="bower_components/greuler/dist/greuler.js"></script>
 ```
+
+or 
     
+```html
+<script src="bower_components/greuler/dist/greuler.min.js"></script>
+```
+
 ## Usage
 
 ```js
@@ -59,8 +65,7 @@ Check out the examples at the [`homepage`](http://maurizzzio.github.io/greuler/)
 
 ## Usage Notes
 
-- The layout adaptor instance can be accessed through `instance.layout`, all the properties are
-mapped to calls to methods of WebCola
+- The `data` property of the configuration option sent to greuler maps all the properties to calls to methods of WebCola
 
 ```javascript
 // e.g.
@@ -84,6 +89,11 @@ cola.d3Adaptor()
 // ...
 ```
 
+On runtime you can add/remove/update the properties through `instance.options.data`, make sure you don't modify
+`instance.options.data.nodes` or `instance.options.data.links` to avoid layout errors, after all this is the job of
+`instance.graph.*` methods :)
+
+- The layout adaptor instance can be accessed through `instance.layout`
 - To make the nodes have a fixed position listen for the `firstLayoutEnd` event and add the `fixed` property 
 to each one of the nodes you want to be fixed e.g.
 
@@ -96,7 +106,7 @@ instance.events.on('firstLayoutEnd', function () {
 ```
 
 - Custom animations can easily be created, for any of the values returned from `instance.graph.*` call
-`instance.selector.select` and you obtain the group that represents the edge e.g.
+`instance.selector.select` and you obtain the group that represents the node/edge e.g.
 
 ```javascript
 var nodes = instance.graph.getNodesByFn(function (node) {
@@ -109,7 +119,7 @@ var selection = instance.selection.select(nodes);
 
 ## API
 
-```
+```javascript
 var greuler = require('greuler');
 ```
 

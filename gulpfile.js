@@ -8,8 +8,7 @@ var reload = browserSync.reload;
 var browserify = require('browserify');
 var babelify = require('babelify');
 var source = require('vinyl-source-stream');
-
-
+var buffer = require('vinyl-buffer');
 
 gulp.task('eslint', function () {
   return gulp.src(['src/**/*.js'])
@@ -46,6 +45,19 @@ gulp.task('es6', ['eslint'], function () {
 	.pipe(gulp.dest('dist'));
 });
 
+gulp.task('es6-min', function () {
+  browserify({
+    entries: './src/index.js',
+    standalone: 'greuler'
+  })
+    .transform(babelify)
+    .bundle()
+    .pipe(source('greuler.min.js'))
+    .pipe(buffer())
+    .pipe($.uglify())
+    .pipe(gulp.dest('./.tmp'))
+    .pipe(gulp.dest('dist'));
+});
 
 gulp.task('html', function () {
   var assets = $.useref.assets();
@@ -109,13 +121,13 @@ gulp.task('copy-cola', function () {
 
 gulp.task('preflight',['eslint']);
 
-gulp.task('produce',['preflight','es6','less','images','fonts', 'jade']);
+gulp.task('produce',['preflight', 'es6', 'less','images','fonts', 'jade']);
 
 gulp.task('copy', ['copy-examples', 'copy-from-tmp', 'copy-cola'], function () {
   return gulp.start('html');
 });
 
-gulp.task('package',['produce'], function () {
+gulp.task('package', ['produce', 'es6-min'], function () {
   return gulp.start('copy');
 });
 

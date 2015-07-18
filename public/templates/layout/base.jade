@@ -33,7 +33,9 @@ html(lang='')
     // endbower
     // endbuild
 
+    // build:js greuler.min.js
     script(src='greuler.js')
+    // endbuild
 
     // build:js scripts/site.js
     script(src='scripts/site/site.js')
@@ -41,10 +43,4 @@ html(lang='')
     script(src='scripts/site/selector-example.js')
     // endbuild
   body
-    include header
-
     block content
-
-    block scripts
-
-    include footer

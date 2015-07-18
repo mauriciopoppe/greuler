@@ -3,6 +3,11 @@ document.addEventListener('DOMContentLoaded', function () {
   var d3 = window.d3;
   var greuler = window.greuler;
 
+  if (!d3.select('#selector-example').size()) {
+    // playground fallback
+    return;
+  }
+
   var instance = greuler({
     target: '#selector-example',
     directed: true,

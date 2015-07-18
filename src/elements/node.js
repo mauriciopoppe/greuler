@@ -58,8 +58,8 @@ export default function () {
       });
 
     g.append('circle')
-      .attr('fill', (d) => d.fill)
-      .attr('r', (d) => d.r );
+      .attr('fill', d => d.fill)
+      .attr('r', d => d.r );
 
     // inner label
     g.append('text')

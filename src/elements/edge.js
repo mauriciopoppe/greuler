@@ -10,7 +10,25 @@ export default function () {
 
   var owner;
 
-  function selfLoop(u, margin) {
+  function moveTowardsPoint(point, middle) {
+    var margin = point.r;
+    var unit = Vector.unit(Vector.sub(middle, point));
+    return Vector.add(point, Vector.scale(unit, margin));
+  }
+
+  /**
+   * Computes the inner points of a loop edge
+   *
+   * - analyzes each adjacent vertex
+   *  - for each each edge u-v move the opposite way e.g. v->u
+   *  - the sum of unit vectors will give roughly a good approximation
+   *
+   * @param {Object} u Vertex
+   * @param {number} marginBetweenEdges Defined in `createPath`
+   * @param {number} count The number of u-u edges found yet
+   * @returns {{path: *[], dir: *}}
+   */
+  function selfLoop(u, marginBetweenEdges, count) {
     var adjacent = owner.graph.getAdjacentNodes(u);
     var dir = new Vector(0, 0);
     for (var i = 0; i < adjacent.length; i += 1) {
@@ -23,26 +41,74 @@ export default function () {
       }
     }
 
+    function toRad(a) {
+      return a * Math.PI / 180;
+    }
+
     // no adjacent vertices
     if (dir.x === 0 && dir.y === 0) {
       dir = Vector.unit(new Vector(0, -1));
     }
 
-    var k = 0.8;
-    var up = Vector.add(u, Vector.scale(dir, margin * k));
-    var mid = Vector.mid(u, up);
     var ort = Vector.orthogonal(dir);
 
-    var right = Vector.add(mid, Vector.scale(ort, margin / 2 * k));
-    var left = Vector.add(mid, Vector.scale(ort, -margin / 2 * k));
+    // moving u towards `dir` `u.r` units
+    var uBorderOrigin = Vector.scale(dir, u.r + 4);
+    //var uBorderOriginTwice = Vector.scale(dir, u.r * 2);
+    // uD is now in the edge of the circle, making a little arc in the circle
+
+    // endpoints of the edge will have a separation of 10 deg, 30 deg, 50 deg, ...
+    var angle = toRad(25) + (count - 1) * toRad(25);
+
+    // the point to the left of u + uBorder
+    var uBorderLeft = Vector.add(u, Vector.rotate(uBorderOrigin, angle));
+    // the point to the right of u + uBorder
+    var uBorderRight = Vector.add(u, Vector.rotate(uBorderOrigin, -angle));
+
+    // some length away from the node computed by doing random samples
+    var length = (marginBetweenEdges * 0.6) * (count + 1);
+
+
+
+    /*
+     * Form the shape of a weird rhombus
+     *
+     *
+     *            up
+     *           /  \
+     *          /    \
+     *         /      \
+     *        /        \
+     *     left       right
+     *       \         /
+     *     border   border
+     *
+     */
+    var up = Vector.add(u, Vector.scale(dir, u.r + length));
+
+    var midLeft = Vector.add(uBorderLeft, Vector.scale(dir, length * 0.5));
+    var midRight = Vector.add(uBorderRight, Vector.scale(dir, length * 0.5));
+
+    var left = Vector.add(midLeft, Vector.scale(ort, length / 4));
+    var right = Vector.add(midRight, Vector.scale(ort, -length / 4));
 
     return {
-      path: [left, up, right],
+      path: [uBorderLeft, left, up, right, uBorderRight],
       dir: ort
     };
   }
 
-  function createPath(d, meta, margin) {
+  /**
+   * Creates the points of the <path> that represent an edge
+   *
+   * @param {Object} d Edge
+   * @param {Object} meta Holds the edge count between vertices,
+   * unit vectors and other metadata
+   * @param {number} marginBetweenEdges Used in both normal and
+   * loop edges sets the separation between edges from the mid
+   * point of the vertices they join
+   */
+  function createPath(d, meta, marginBetweenEdges) {
     var u, v;
     var current;
 
@@ -63,7 +129,7 @@ export default function () {
 
     if (u.id === v.id) {
       // apply the following for self-loop edges
-      var loop = selfLoop(u, margin * (current.count + 1));
+      var loop = selfLoop(u, marginBetweenEdges, current.count);
       innerJoints = loop.path;
       d.unit = loop.dir;
     } else {
@@ -76,13 +142,13 @@ export default function () {
 
       extend(current, {
         unit: unit,
-        unitInverse: Vector.orthogonal(unit)
+        unitOrthogonal: Vector.orthogonal(unit)
       });
       innerJoints.push(Vector.add(
         current.mid,
         Vector.scale(
-          current.unitInverse,
-          Math.floor(current.count / 2) * margin * current.direction
+          current.unitOrthogonal,
+          Math.floor(current.count / 2) * marginBetweenEdges * current.direction
         )
       ));
       d.unit = current.unit;
@@ -90,9 +156,23 @@ export default function () {
 
     current.count += 1;
     current.direction *= -1;
-    d.path = [d.source]
+
+    // problem: the edge starts/ends in the center of some node
+    //
+    // real solution: render the path normally then compute the position of a point
+    // with `path.getPointAtLength(t * l)` where `l` is the length of the path and
+    // `t` an interpolated place = radius of each node
+    //
+    // simple trick: shorten the length of the edge by moving the start/end points
+    // of the edges toward each other
+    var source = d.source;
+    var target = d.target;
+    source = moveTowardsPoint(d.source, innerJoints[0]);
+    target = moveTowardsPoint(d.target, innerJoints[innerJoints.length - 1]);
+
+    d.path = [source]
       .concat(innerJoints)
-      .concat([d.target]);
+      .concat([target]);
   }
 
   var line = d3.svg.line()
@@ -100,6 +180,7 @@ export default function () {
     .y(function (d) { return d.y; })
     .tension(1.5)
     .interpolate('bundle');
+    //.interpolate('linear');
 
   function inner(selection) {
     // edges
