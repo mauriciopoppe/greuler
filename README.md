@@ -1,8 +1,8 @@
 # greuler 
 
-[![Build Status][travis-image]][travis-url] <img src="https://github.com/maurizzzio/greuler/blob/master/badge%402x.png" width="130" height="30">
+[![Build Status][travis-image]][travis-url] [![NPM][npm-image]][npm-url] <img src="https://github.com/maurizzzio/greuler/blob/master/badge%402x.png" width="130" height="30">
 
-[![NPM][npm-image]][npm-url]
+[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
 <b>greuler</b> is graph theory visualization tool powered by <a href="http://d3js.org/">d3</a>
 and on top of <a href="http://marvl.infotech.monash.edu/webcola/">WebCola</a>
@@ -224,7 +224,7 @@ Open `http://localhost:9000` and that's it!
 
 2015 MIT © Mauricio Poppe
 
-[npm-image]: https://nodei.co/npm/greuler.png?downloads=true
+[npm-image]: https://img.shields.io/npm/v/greuler.svg?style=flat
 [npm-url]: https://npmjs.org/package/greuler
 [travis-image]: https://travis-ci.org/maurizzzio/greuler.svg?branch=master
 [travis-url]: https://travis-ci.org/maurizzzio/greuler

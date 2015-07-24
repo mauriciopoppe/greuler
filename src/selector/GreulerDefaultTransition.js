@@ -1,11 +1,11 @@
-'use strict';
+'use strict'
 
-const d3 = window.d3;
+const d3 = window.d3
 
-import extend from 'extend';
-import Graph from './Graph';
+import extend from 'extend'
+import Graph from './Graph'
 
-var HIGHLIGHT = 'highlight';
+var HIGHLIGHT = 'highlight'
 
 export default class GreulerDefaultTransition extends Graph {
 
@@ -14,10 +14,10 @@ export default class GreulerDefaultTransition extends Graph {
    *
    * @returns {d3_selection}
    */
-  getEdges() {
+  getEdges () {
     return this.innerEdgeSelector(
       this.select(this.graph.edges)
-    );
+    )
   }
 
   /**
@@ -25,10 +25,10 @@ export default class GreulerDefaultTransition extends Graph {
    *
    * @returns {d3_selection}
    */
-  getNodes() {
+  getNodes () {
     return this.innerNodeSelector(
       this.select(this.graph.nodes)
-    );
+    )
   }
 
   /**
@@ -42,14 +42,14 @@ export default class GreulerDefaultTransition extends Graph {
    * @param {Object} options
    * @returns {d3_transition}
    */
-  doTemporalHighlightNode(selection, options) {
+  doTemporalHighlightNode (selection, options) {
     return this.innerNodeSelector(selection)
       .transition(HIGHLIGHT)
       .duration(this.getAnimationTime() / 2)
       .attr('r', (d) => options.r || (d.r * 1.5))
       .transition(HIGHLIGHT)
       .duration(this.getAnimationTime() / 2)
-      .attr('r', (d) => d.r);
+      .attr('r', (d) => d.r)
   }
 
   /**
@@ -64,14 +64,14 @@ export default class GreulerDefaultTransition extends Graph {
    * @param {Object} options
    * @returns {d3_transition}
    */
-  doTemporalHighlightEdges(selection, options) {
+  doTemporalHighlightEdges (selection, options) {
     return this.innerEdgeSelector(selection)
-    .transition(HIGHLIGHT)
+      .transition(HIGHLIGHT)
       .duration(this.getAnimationTime() / 2)
       .attr('stroke', options.stroke)
-    .transition(HIGHLIGHT)
+      .transition(HIGHLIGHT)
       .duration(this.getAnimationTime() / 2)
-      .attr('stroke', (d) => d.stroke);
+      .attr('stroke', (d) => d.stroke)
   }
 
   /**
@@ -84,152 +84,152 @@ export default class GreulerDefaultTransition extends Graph {
    * @param {number} [source=-1]
    * @returns {d3_transition}
    */
-  traverseEdgeWithDirection(selection, options, source = -1) {
+  traverseEdgeWithDirection (selection, options, source = -1) {
     return selection
       .selectAll('path.traversal')
       .each(function () {
-        var el = d3.select(this);
-        var l = this.getTotalLength();
+        var el = d3.select(this)
+        var l = this.getTotalLength()
         el
           .attr('stroke', options.stroke)
           .attr('stroke-dasharray', `${l} ${l}`)
           .attr('stroke-dashoffset', l)
-          .attr('opacity', 1);
+          .attr('opacity', 1)
       })
       .transition('dasharray')
       .duration(options.duration)
       .attr('stroke-dashoffset', function (d) {
-        var length = this.getTotalLength();
-        var twiceLength = length * 2;
-        var lengthToMove = 0;
+        var length = this.getTotalLength()
+        var twiceLength = length * 2
+        var lengthToMove = 0
         if (source !== -1) {
           if (d.target.id === source) {
-            lengthToMove = twiceLength;
+            lengthToMove = twiceLength
           }
         }
 
         if (options.reverse) {
-          lengthToMove = twiceLength - lengthToMove;
+          lengthToMove = twiceLength - lengthToMove
         }
 
-        return lengthToMove;
+        return lengthToMove
       })
       .attr('opacity', 0)
       .each('end', function () {
-        var el = d3.select(this);
+        var el = d3.select(this)
         el.attr('stroke-dasharray', null)
           .attr('stroke-dashoffset', null)
-          .attr('opacity', 0);
-      });
+          .attr('opacity', 0)
+      })
   }
 
-  traverseEdges(selection, options, source) {
+  traverseEdges (selection, options, source) {
     options = extend({
       keepStroke: true,
       reverse: false
-    }, this.getStyleOptions(), options);
+    }, this.getStyleOptions(), options)
 
-    selection.call(this.traverseEdgeWithDirection, options, source);
+    selection.call(this.traverseEdgeWithDirection, options, source)
     if (options.keepStroke) {
       this.innerEdgeSelector(selection)
         .transition('update')
         .duration(options.duration)
-        .attr('stroke', options.stroke);
+        .attr('stroke', options.stroke)
     }
-    return this.innerEdgeSelector(selection);
+    return this.innerEdgeSelector(selection)
   }
 
-  getNode(node) {
+  getNode (node) {
     return this.innerNodeSelector(
       this.select(this.graph.getNode(node))
-    );
+    )
   }
 
-  getEdge(edge) {
+  getEdge (edge) {
     return this.innerEdgeSelector(
       this.select(this.graph.getEdge(edge))
-    );
+    )
   }
 
   // temporal highlight
 
-  highlightNode(node, options) {
+  highlightNode (node, options) {
     return this.doTemporalHighlightNode(
       this.select(this.graph.getNode(node)),
       this.getStyleOptions(options)
-    );
+    )
   }
 
-  highlightEdge(edge, options) {
+  highlightEdge (edge, options) {
     return this.doTemporalHighlightEdges(
       this.select(this.graph.getEdge(edge)),
       this.getStyleOptions(options)
-    );
+    )
   }
 
-  highlightIncidentEdges(node, options) {
+  highlightIncidentEdges (node, options) {
     return this.doTemporalHighlightEdges(
       this.select(this.graph.getIncidentEdges(node)),
       this.getStyleOptions(options)
-    );
+    )
   }
 
-  highlightOutgoingEdges(node, options) {
+  highlightOutgoingEdges (node, options) {
     return this.doTemporalHighlightEdges(
       this.select(this.graph.getOutgoingEdges(node)),
       this.getStyleOptions(options)
-    );
+    )
   }
 
-  highlightIncomingEdges(node, options) {
+  highlightIncomingEdges (node, options) {
     return this.doTemporalHighlightEdges(
       this.select(this.graph.getIncomingEdges(node)),
       this.getStyleOptions(options)
-    );
+    )
   }
 
   // traversal of an edge given a node
 
-  traverseOutgoingEdges(node, options) {
+  traverseOutgoingEdges (node, options) {
     return this.traverseEdges(
       this.select(this.graph.getOutgoingEdges(node)),
       this.getStyleOptions(options)
-    );
+    )
   }
 
-  traverseIncomingEdges(node, options) {
+  traverseIncomingEdges (node, options) {
     return this.traverseEdges(
       this.select(this.graph.getIncomingEdges(node)),
       this.getStyleOptions(options)
-    );
+    )
   }
 
-  traverseIncidentEdges(node, options) {
+  traverseIncidentEdges (node, options) {
     return this.traverseEdges(
       this.select(this.graph.getIncidentEdges(node)),
       this.getStyleOptions(options)
-    );
+    )
   }
 
   // traversal of an edge between two nodes
 
-  traverseEdgesBetween(edge, options) {
+  traverseEdgesBetween (edge, options) {
     return this.traverseEdges(
       this.select(
         this.graph.getEdgesBetween(edge)
       ),
       this.getStyleOptions(options),
       edge.source
-    );
+    )
   }
 
-  traverseAllEdgesBetween(edge, options) {
+  traverseAllEdgesBetween (edge, options) {
     return this.traverseEdges(
       this.select(
         this.graph.getAllEdgesBetween(edge)
       ),
       this.getStyleOptions(options),
       edge.source
-    );
+    )
   }
 }

@@ -1,19 +1,18 @@
-'use strict';
+'use strict'
 
-var d3 = window.d3;
+var d3 = window.d3
 
-import extend from 'extend';
-import Vector from '../Vector';
-import utils from '../utils';
+import extend from 'extend'
+import Vector from '../Vector'
+import utils from '../utils'
 
 export default function () {
+  var owner
 
-  var owner;
-
-  function moveTowardsPoint(point, middle) {
-    var margin = point.r;
-    var unit = Vector.unit(Vector.sub(middle, point));
-    return Vector.add(point, Vector.scale(unit, margin));
+  function moveTowardsPoint (point, middle) {
+    var margin = point.r
+    var unit = Vector.unit(Vector.sub(middle, point))
+    return Vector.add(point, Vector.scale(unit, margin))
   }
 
   /**
@@ -28,47 +27,45 @@ export default function () {
    * @param {number} count The number of u-u edges found yet
    * @returns {{path: *[], dir: *}}
    */
-  function selfLoop(u, marginBetweenEdges, count) {
-    var adjacent = owner.graph.getAdjacentNodes(u);
-    var dir = new Vector(0, 0);
+  function selfLoop (u, marginBetweenEdges, count) {
+    var adjacent = owner.graph.getAdjacentNodes(u)
+    var dir = new Vector(0, 0)
     for (var i = 0; i < adjacent.length; i += 1) {
-      var v = adjacent[i];
+      var v = adjacent[i]
       if (u.id !== v.id) {
         dir = Vector.unit(Vector.add(
           dir,
           Vector.unit(Vector.sub(u, v))
-        ));
+        ))
       }
     }
 
-    function toRad(a) {
-      return a * Math.PI / 180;
+    function toRad (a) {
+      return a * Math.PI / 180
     }
 
     // no adjacent vertices
     if (dir.x === 0 && dir.y === 0) {
-      dir = Vector.unit(new Vector(0, -1));
+      dir = Vector.unit(new Vector(0, -1))
     }
 
-    var ort = Vector.orthogonal(dir);
+    var ort = Vector.orthogonal(dir)
 
     // moving u towards `dir` `u.r` units
-    var uBorderOrigin = Vector.scale(dir, u.r + 4);
-    //var uBorderOriginTwice = Vector.scale(dir, u.r * 2);
+    var uBorderOrigin = Vector.scale(dir, u.r + 4)
+    // var uBorderOriginTwice = Vector.scale(dir, u.r * 2)
     // uD is now in the edge of the circle, making a little arc in the circle
 
-    // endpoints of the edge will have a separation of 10 deg, 30 deg, 50 deg, ...
-    var angle = toRad(25) + (count - 1) * toRad(25);
+    // endpoints of the edge will have a separation of 25 deg, 50 deg, 75 deg, ...
+    var angle = toRad(25) + (count - 1) * toRad(25)
 
     // the point to the left of u + uBorder
-    var uBorderLeft = Vector.add(u, Vector.rotate(uBorderOrigin, angle));
+    var uBorderLeft = Vector.add(u, Vector.rotate(uBorderOrigin, angle))
     // the point to the right of u + uBorder
-    var uBorderRight = Vector.add(u, Vector.rotate(uBorderOrigin, -angle));
+    var uBorderRight = Vector.add(u, Vector.rotate(uBorderOrigin, -angle))
 
     // some length away from the node computed by doing random samples
-    var length = (marginBetweenEdges * 0.6) * (count + 1);
-
-
+    var length = (marginBetweenEdges * 0.6) * (count + 1)
 
     /*
      * Form the shape of a weird rhombus
@@ -84,18 +81,18 @@ export default function () {
      *     border   border
      *
      */
-    var up = Vector.add(u, Vector.scale(dir, u.r + length));
+    var up = Vector.add(u, Vector.scale(dir, u.r + length))
 
-    var midLeft = Vector.add(uBorderLeft, Vector.scale(dir, length * 0.5));
-    var midRight = Vector.add(uBorderRight, Vector.scale(dir, length * 0.5));
+    var midLeft = Vector.add(uBorderLeft, Vector.scale(dir, length * 0.5))
+    var midRight = Vector.add(uBorderRight, Vector.scale(dir, length * 0.5))
 
-    var left = Vector.add(midLeft, Vector.scale(ort, length / 4));
-    var right = Vector.add(midRight, Vector.scale(ort, -length / 4));
+    var left = Vector.add(midLeft, Vector.scale(ort, length / 4))
+    var right = Vector.add(midRight, Vector.scale(ort, -length / 4))
 
     return {
       path: [uBorderLeft, left, up, right, uBorderRight],
       dir: ort
-    };
+    }
   }
 
   /**
@@ -108,54 +105,54 @@ export default function () {
    * loop edges sets the separation between edges from the mid
    * point of the vertices they join
    */
-  function createPath(d, meta, marginBetweenEdges) {
-    var u, v;
-    var current;
+  function createPath (d, meta, marginBetweenEdges) {
+    var u, v
+    var current
 
-    u = d.source;
-    v = d.target;
+    u = d.source
+    v = d.target
     if (u.id > v.id) {
-      [u, v] = [v, u];
+      [u, v] = [v, u]
     }
-    meta[u.id] = meta[u.id] || {};
+    meta[u.id] = meta[u.id] || {}
 
     current = (meta[u.id][v.id] = meta[u.id][v.id] || {
-      count: 1,
-      mid: Vector.mid(u, v),
-      direction: -1
-    });
+        count: 1,
+        mid: Vector.mid(u, v),
+        direction: -1
+    })
 
-    var innerJoints = [];
+    var innerJoints = []
 
     if (u.id === v.id) {
       // apply the following for self-loop edges
-      var loop = selfLoop(u, marginBetweenEdges, current.count);
-      innerJoints = loop.path;
-      d.unit = loop.dir;
+      var loop = selfLoop(u, marginBetweenEdges, current.count)
+      innerJoints = loop.path
+      d.unit = loop.dir
     } else {
-      var unit;
+      var unit
       if (Vector.len(Vector.sub(v, u))) {
-        unit = Vector.unit(Vector.sub(v, u));
+        unit = Vector.unit(Vector.sub(v, u))
       } else {
-        unit = new Vector(1, 0);
+        unit = new Vector(1, 0)
       }
 
       extend(current, {
         unit: unit,
         unitOrthogonal: Vector.orthogonal(unit)
-      });
+      })
       innerJoints.push(Vector.add(
         current.mid,
         Vector.scale(
           current.unitOrthogonal,
           Math.floor(current.count / 2) * marginBetweenEdges * current.direction
         )
-      ));
-      d.unit = current.unit;
+      ))
+      d.unit = current.unit
     }
 
-    current.count += 1;
-    current.direction *= -1;
+    current.count += 1
+    current.direction *= -1
 
     // problem: the edge starts/ends in the center of some node
     //
@@ -165,113 +162,113 @@ export default function () {
     //
     // simple trick: shorten the length of the edge by moving the start/end points
     // of the edges toward each other
-    var source = d.source;
-    var target = d.target;
-    source = moveTowardsPoint(d.source, innerJoints[0]);
-    target = moveTowardsPoint(d.target, innerJoints[innerJoints.length - 1]);
+    var source = d.source
+    var target = d.target
+    source = moveTowardsPoint(d.source, innerJoints[0])
+    target = moveTowardsPoint(d.target, innerJoints[innerJoints.length - 1])
 
     d.path = [source]
       .concat(innerJoints)
-      .concat([target]);
+      .concat([target])
   }
 
   var line = d3.svg.line()
-    .x(function (d) { return d.x; })
-    .y(function (d) { return d.y; })
+    .x(function (d) { return d.x })
+    .y(function (d) { return d.y })
     .tension(1.5)
-    .interpolate('bundle');
-    //.interpolate('linear');
+    .interpolate('bundle')
+    // .interpolate('linear')
 
-  function inner(selection) {
+  function inner (selection) {
     // edges
     var links = selection.selectAll('g.edge')
       .data(function (d) {
-        return d.links;
+        return d.links
       }, function (d) {
-        return d.id;
-      });
+        return d.id
+      })
     links.enter().append('g')
       .attr('class', 'edge')
       .attr('opacity', 0)
-      .attr('id', function (d) { return utils.ns(d.id); })
+      .attr('id', function (d) { return utils.ns(d.id) })
       .transition('enter')
-      .attr('opacity', 1);
+      .attr('opacity', 1)
 
     // update
     links
       .each(function (d) {
-        var self = d3.select(this);
+        var self = d3.select(this)
         var cls = {
           directed: d.directed || owner.options.directed
-        };
-        cls['source-' + d.source.id] = true;
-        cls['target-' + d.target.id] = true;
-        self.classed(cls);
-      });
+        }
+        cls['source-' + d.source.id] = true
+        cls['target-' + d.target.id] = true
+        self.classed(cls)
+      })
 
-    var meta = {};
+    var meta = {}
     links.each(function (d) {
-      createPath(d, meta, 17);
-    });
+      createPath(d, meta, 17)
+    })
 
     // path enter
     var paths = links.selectAll('path')
       .data(function (d) {
         // 1. real path
         // 2. stroke-dasharray helper
-        return [d, d];
-      });
+        return [d, d]
+      })
     paths.enter()
       .append('path')
       .attr('stroke', d => d.stroke)
       .attr('fill', 'transparent')
       .attr('stroke-width', 2)
       .each(function (d, i) {
-        var el = d3.select(this);
-        el.attr('opacity', !i ? 1 : 0);
+        var el = d3.select(this)
+        el.attr('opacity', !i ? 1 : 0)
         if (i === 0) {
-          el.classed('base', true);
+          el.classed('base', true)
         }
         if (i === 1) {
-          el.attr('stroke-width', 5);
-          el.classed('traversal', true);
+          el.attr('stroke-width', 5)
+          el.classed('traversal', true)
         }
-      });
-      //.attr('d', function () {
-      //  var parent = d3.select(this.parentNode).datum();
-      //  return line([parent.source]);
-      //});
+      })
+      // .attr('d', function () {
+      //  var parent = d3.select(this.parentNode).datum()
+      //  return line([parent.source])
+      // })
 
     // path update
     utils.conditionalTransition(paths, !owner.nodeDragging)
-      .attr('d', d => line(d.path));
+      .attr('d', d => line(d.path))
 
     paths.each(function (d, i) {
-      var path = d3.select(this);
-      var parent = d3.select(this.parentNode);
+      var path = d3.select(this)
+      var parent = d3.select(this.parentNode)
       if (i === 0) {
         path.attr('marker-end',
           parent.classed('directed')
             ? 'url(#' + owner.markerId + ')'
             : null
-        );
+        )
       }
-    });
+    })
 
-    function weightPosition(selection) {
+    function weightPosition (selection) {
       selection
         .attr('transform', function (d) {
-          var angle = Vector.angleDeg(d.unit);
-          var v = d.path[Math.floor(d.path.length / 2)];
+          var angle = Vector.angleDeg(d.unit)
+          var v = d.path[Math.floor(d.path.length / 2)]
           return utils.transform({
             translate: v,
             rotate: angle
-          });
-        });
+          })
+        })
     }
 
     var weights = links.selectAll('text')
-      .data(function (d) { return [d]; });
+      .data(d => [d])
 
     // weight enter
     weights.enter()
@@ -279,29 +276,29 @@ export default function () {
       .attr('font-size', '9px')
       .attr('dominant-baseline', 'text-after-edge')
       .attr('text-anchor', 'middle')
-      .call(weightPosition);
+      .call(weightPosition)
 
     // weight update
     utils.conditionalTransition(weights, !owner.nodeDragging)
       .text(d => d.weight)
-      .call(weightPosition);
+      .call(weightPosition)
 
     // weight exit
     weights.exit()
-      .remove();
+      .remove()
 
     // exit
     links.exit()
-      .remove();
+      .remove()
   }
 
   inner.owner = function (value) {
     if (!arguments.length) {
-      return owner;
+      return owner
     }
-    owner = value;
-    return inner;
-  };
+    owner = value
+    return inner
+  }
 
-  return inner;
+  return inner
 }

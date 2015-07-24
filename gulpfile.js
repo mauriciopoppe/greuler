@@ -10,16 +10,6 @@ var babelify = require('babelify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 
-gulp.task('eslint', function () {
-  return gulp.src(['src/**/*.js'])
-    .pipe($.eslint())
-    .pipe(reload({stream: true, once: true}))
-    /* Outputs hinting to console */
-    .pipe($.eslint.format())
-    //.pipe($.if(!browserSync.active, $.eslint.failOnError()))
-});
-
-
 gulp.task('less', function () {
   return gulp.src('public/styles/*.less')
 		.pipe($.sourcemaps.init())
@@ -32,7 +22,7 @@ gulp.task('less', function () {
     .pipe(reload({stream: true}));
 });
 
-gulp.task('es6', ['eslint'], function () {
+gulp.task('es6', function () {
 	browserify({
 		entries: './src/index.js',
 		debug: true,
@@ -112,18 +102,18 @@ gulp.task('copy-from-tmp', function () {
 gulp.task('copy-examples', function () {
   return gulp.src('public/scripts/examples/**')
     .pipe(gulp.dest('dist/scripts/examples/'));
-});
+})
 
-gulp.task('copy-cola', function () {
-  return gulp.src('public/private/cola.v3.js')
-    .pipe(gulp.dest('dist/private/'));
-});
+gulp.task('copy-lib', function () {
+  return gulp.src('public/scripts/lib/**')
+    .pipe(gulp.dest('dist/scripts/lib/'));
+})
 
-gulp.task('preflight',['eslint']);
+gulp.task('copy-scripts', ['copy-examples', 'copy-lib']);
 
-gulp.task('produce',['preflight', 'es6', 'less','images','fonts', 'jade']);
+gulp.task('produce',['es6', 'less','images','fonts', 'jade']);
 
-gulp.task('copy', ['copy-examples', 'copy-from-tmp', 'copy-cola'], function () {
+gulp.task('copy', ['copy-scripts', 'copy-from-tmp'], function () {
   return gulp.start('html');
 });
 
@@ -136,10 +126,7 @@ gulp.task('serve', ['produce'], function () {
     notify: false,
     port: 9000,
     server: {
-      baseDir: ['.tmp', 'public'],
-      routes: {
-        '/bower_components': 'bower_components'
-      }
+      baseDir: ['.tmp', 'public']
     }
   });
 

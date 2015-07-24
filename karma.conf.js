@@ -15,8 +15,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'public/private/d3.js',
-      'public/private/cola.v3.js',
+      'public/scripts/lib/d3.js',
+      'public/scripts/lib/cola.v3.js',
       'dist/greuler.js',
       'test/bower_components/mocha/mocha.js',
       'test/bower_components/chai/chai.js',

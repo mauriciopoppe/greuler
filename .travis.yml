@@ -15,6 +15,6 @@ before_script:
   - sh -e /etc/init.d/xvfb start
 
 script:
-  - gulp
-  - cd test && bower install
-  - npm test
+  - gulp    # build
+  - npm run lint
+  - cd test && bower install && npm test

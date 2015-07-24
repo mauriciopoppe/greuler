@@ -1,28 +1,28 @@
-'use strict';
+'use strict'
 
-import utils from '../utils';
-import extend from 'extend';
+import utils from '../utils'
+import extend from 'extend'
 
 export default class ElementSelector {
-  constructor(owner) {
-    this.owner = owner;
-    this.graph = owner.graph;
-    this.defaultStyleOptions = {};
+  constructor (owner) {
+    this.owner = owner
+    this.graph = owner.graph
+    this.defaultStyleOptions = {}
   }
 
-  getDefaultStyleOptions() {
+  getDefaultStyleOptions () {
     return extend({
       duration: this.getAnimationTime(),
       stroke: '#E74C3C'
-    }, this.defaultStyleOptions);
+    }, this.defaultStyleOptions)
   }
 
-  getStyleOptions(options) {
-    return extend({}, this.getDefaultStyleOptions(), options);
+  getStyleOptions (options) {
+    return extend({}, this.getDefaultStyleOptions(), options)
   }
 
-  getAnimationTime() {
-    return this.owner.options.animationTime;
+  getAnimationTime () {
+    return this.owner.options.animationTime
   }
 
   /**
@@ -32,19 +32,19 @@ export default class ElementSelector {
    * @param {Object[]|Object} els An array of edges/nodes or a single edge/node
    * @return {d3_selection}
    */
-  select(els) {
+  select (els) {
     if (!Array.isArray(els)) {
-      els = [els];
+      els = [els]
     }
     if (!els.length) {
-      els.push({ id: -1 });
+      els.push({ id: -1 })
     }
-    els = els.filter(Boolean);
+    els = els.filter(Boolean)
     return this.owner.root.selectAll(
       els.map(function (e) {
-        return '#' + utils.ns(e.id);
+        return '#' + utils.ns(e.id)
       }).join(', ')
-    );
+    )
   }
 
   /**
@@ -52,9 +52,9 @@ export default class ElementSelector {
    *
    * @param {d3_selection} selection
    */
-  innerEdgeSelector(selection) {
+  innerEdgeSelector (selection) {
     return selection
-      .selectAll('path.base');
+      .selectAll('path.base')
   }
 
   /**
@@ -62,9 +62,9 @@ export default class ElementSelector {
    *
    * @param {d3_selection} selection
    */
-  innerNodeSelector(selection) {
+  innerNodeSelector (selection) {
     return selection
-      .selectAll('circle');
+      .selectAll('circle')
   }
 
 }

@@ -1,36 +1,31 @@
-'use strict';
+'use strict'
 
-import extend from 'extend';
-import util from './utils';
-import {colors} from './const';
+import extend from 'extend'
+import util from './utils'
+import { colors } from './const'
 
 const NODE_DEFAULT_OPTIONS = {
   r: 10,
   fill: '#2980B9'
-};
+}
 
 const EDGE_DEFAULT_OPTIONS = {
   stroke: colors.LIGHT_GRAY
-};
+}
 
-function includes(arr, id) {
+function includes (arr, id) {
   for (var i = 0; i < arr.length; i += 1) {
     if (arr[i].id === id) {
-      return true;
+      return true
     }
   }
 }
 
-/**
- *
- * 
- * @class Graph
- */
 export default class Graph {
-  constructor(owner, data) {
-    this.owner = owner;
-    this.nodes = data.nodes;
-    this.edges = data.links;
+  constructor (owner, data) {
+    this.owner = owner
+    this.nodes = data.nodes
+    this.edges = data.links
   }
 
   /**
@@ -52,18 +47,18 @@ export default class Graph {
    *
    * NOTE: this function receives any number of arguments
    */
-  addNode() {
+  addNode () {
     for (var i = 0; i < arguments.length; i += 1) {
-      var config = arguments[i];
+      var config = arguments[i]
       if (!config.hasOwnProperty('id')) {
-        throw Error('the object must have the property `id`');
+        throw Error('the object must have the property `id`')
       }
       if (this.getNode(config)) {
-        throw Error('node already in store');
+        throw Error('node already in store')
       }
       this.nodes.push(
         Graph.appendNodeDefaults.call(this.owner, config)
-      );
+      )
     }
   }
 
@@ -74,8 +69,8 @@ export default class Graph {
    * @param {number|string} node.id The id of the node
    * @returns {Object|undefined}
    */
-  getNode(node) {
-    return this.getNodesByFn(v => v.id === node.id)[0];
+  getNode (node) {
+    return this.getNodesByFn(v => v.id === node.id)[0]
   }
 
   /**
@@ -85,8 +80,8 @@ export default class Graph {
    * @param {Function} fn
    * @returns {Object[]}
    */
-  getNodesByFn(fn) {
-    return this.nodes.filter(fn);
+  getNodesByFn (fn) {
+    return this.nodes.filter(fn)
   }
 
   /**
@@ -96,26 +91,26 @@ export default class Graph {
    * @param {number|string} node.id The id of the node
    * @returns {Object[]}
    */
-  getAdjacentNodes(node) {
-    var adjacentNodes = [];
-    var taken = {};
-    var next;
+  getAdjacentNodes (node) {
+    var adjacentNodes = []
+    var taken = {}
+    var next
     for (var i = 0; i < this.edges.length; i += 1) {
-      var edge = this.edges[i];
-      next = null;
+      var edge = this.edges[i]
+      next = null
       if (edge.source.id === node.id) {
-        next = edge.target;
+        next = edge.target
       } else if (edge.target.id === node.id) {
-        next = edge.source;
+        next = edge.source
       }
 
       if (next && !taken[next.id]) {
-        taken[next.id] = true;
-        adjacentNodes.push(next);
+        taken[next.id] = true
+        adjacentNodes.push(next)
       }
     }
 
-    return adjacentNodes;
+    return adjacentNodes
   }
 
   /**
@@ -125,23 +120,23 @@ export default class Graph {
    * @param {number|string} node.id The id of the node
    * @returns {Object[]}
    */
-  getSuccessorNodes(node) {
-    var successor = [];
-    var taken = {};
-    var next;
+  getSuccessorNodes (node) {
+    var successor = []
+    var taken = {}
+    var next
     for (var i = 0; i < this.edges.length; i += 1) {
-      var edge = this.edges[i];
-      next = null;
+      var edge = this.edges[i]
+      next = null
       if (edge.source.id === node.id) {
-        next = edge.target;
+        next = edge.target
       }
       if (next && !taken[next.id]) {
-        taken[next.id] = true;
-        successor.push(next);
+        taken[next.id] = true
+        successor.push(next)
       }
     }
 
-    return successor;
+    return successor
   }
 
   /**
@@ -151,23 +146,23 @@ export default class Graph {
    * @param {number|string} node.id The id of the node
    * @returns {Object[]}
    */
-  getPredecessorNodes(node) {
-    var predecessor = [];
-    var taken = {};
-    var next;
+  getPredecessorNodes (node) {
+    var predecessor = []
+    var taken = {}
+    var next
     for (var i = 0; i < this.edges.length; i += 1) {
-      var edge = this.edges[i];
-      next = null;
+      var edge = this.edges[i]
+      next = null
       if (edge.target.id === node.id) {
-        next = edge.source;
+        next = edge.source
       }
       if (next && !taken[next.id]) {
-        taken[next.id] = true;
-        predecessor.push(next);
+        taken[next.id] = true
+        predecessor.push(next)
       }
     }
 
-    return predecessor;
+    return predecessor
   }
 
   /**
@@ -176,10 +171,10 @@ export default class Graph {
    * @param {Object} node
    * @param {number|string} node.id The id of the node
    */
-  removeNode(node) {
+  removeNode (node) {
     this.removeNodesByFn(function (v) {
-      return v.id === node.id;
-    });
+      return v.id === node.id
+    })
   }
 
   /**
@@ -188,11 +183,11 @@ export default class Graph {
    *
    * @param {Object[]} nodes
    */
-  removeNodes(nodes) {
+  removeNodes (nodes) {
     // TODO: improve n^2 removal
     this.removeNodesByFn(function (v) {
-      return includes(nodes, v.id);
-    });
+      return includes(nodes, v.id)
+    })
   }
 
   /**
@@ -201,17 +196,17 @@ export default class Graph {
    *
    * @param {Function} fn
    */
-  removeNodesByFn(fn) {
-    var i;
+  removeNodesByFn (fn) {
+    var i
     for (i = 0; i < this.nodes.length; i += 1) {
       if (fn(this.nodes[i], i)) {
         // remove nodes
-        var node = this.nodes.splice(i, 1);
+        var node = this.nodes.splice(i, 1)
         // remove incident edges
         this.removeEdges(
           this.getIncidentEdges(node[0])
-        );
-        i -= 1;
+        )
+        i -= 1
       }
     }
   }
@@ -235,32 +230,32 @@ export default class Graph {
    *
    * NOTE: this function receives any number of arguments
    */
-  addEdge() {
+  addEdge () {
     for (var i = 0; i < arguments.length; i += 1) {
-      var config = arguments[i];
+      var config = arguments[i]
 
       if (!config.hasOwnProperty('source') || !config.hasOwnProperty('target')) {
-        throw Error('the edge must have the properties `source` and `target`');
+        throw Error('the edge must have the properties `source` and `target`')
       }
-      var source = config.source;
-      var target = config.target;
+      var source = config.source
+      var target = config.target
 
       if (typeof source !== 'object') {
-        source = this.getNode({ id: config.source });
+        source = this.getNode({ id: config.source })
       }
 
       if (typeof target !== 'object') {
-        target = this.getNode({ id: config.target });
+        target = this.getNode({ id: config.target })
       }
 
       if (!source || !target) {
-        throw Error('new edge does not join existing vertices');
+        throw Error('new edge does not join existing vertices')
       }
-      config.source = source;
-      config.target = target;
+      config.source = source
+      config.target = target
       this.edges.push(
         Graph.appendEdgeDefaults.call(this.owner, config)
-      );
+      )
     }
   }
 
@@ -271,8 +266,8 @@ export default class Graph {
    * @param {number|string} edge.id The id of the edge
    * @returns {Object}
    */
-  getEdge(edge) {
-    return this.getEdgesByFn(e => e.id === edge.id)[0];
+  getEdge (edge) {
+    return this.getEdgesByFn(e => e.id === edge.id)[0]
   }
 
   /**
@@ -284,10 +279,10 @@ export default class Graph {
    * @param {number|string} options.target The id of the target node
    * @returns {Object[]}
    */
-  getEdgesBetween(options) {
+  getEdgesBetween (options) {
     return this.getEdgesByFn(function (e) {
-      return e.source.id === options.source && e.target.id === options.target;
-    });
+      return e.source.id === options.source && e.target.id === options.target
+    })
   }
 
   /**
@@ -299,11 +294,11 @@ export default class Graph {
    * @param {number|string} options.target The id of the target node
    * @returns {Object[]}
    */
-  getAllEdgesBetween(options) {
+  getAllEdgesBetween (options) {
     return this.getEdgesByFn(function (e) {
       return (e.source.id === options.source && e.target.id === options.target) ||
-        (e.source.id === options.target && e.target.id === options.source);
-    });
+      (e.source.id === options.target && e.target.id === options.source)
+    })
   }
 
   /**
@@ -312,8 +307,8 @@ export default class Graph {
    * @param {Object} edge
    * @param {number|string} edge.id The id of the edge
    */
-  removeEdge(edge) {
-    this.removeEdgesByFn(e => e.id === edge.id);
+  removeEdge (edge) {
+    this.removeEdgesByFn(e => e.id === edge.id)
   }
 
   /**
@@ -322,11 +317,11 @@ export default class Graph {
    *
    * @param {Object[]} edges
    */
-  removeEdges(edges) {
+  removeEdges (edges) {
     // TODO: improve n^2 removal
     this.removeEdgesByFn(function (e) {
-      return includes(edges, e.id);
-    });
+      return includes(edges, e.id)
+    })
   }
 
   /**
@@ -335,12 +330,12 @@ export default class Graph {
    *
    * @param {function} fn
    */
-  removeEdgesByFn(fn) {
-    var i;
+  removeEdgesByFn (fn) {
+    var i
     for (i = 0; i < this.edges.length; i += 1) {
       if (fn(this.edges[i], i)) {
-        this.edges.splice(i, 1);
-        i -= 1;
+        this.edges.splice(i, 1)
+        i -= 1
       }
     }
   }
@@ -351,8 +346,8 @@ export default class Graph {
    * @param {Function} fn
    * @returns {Object[]}
    */
-  getEdgesByFn(fn) {
-    return this.edges.filter(fn);
+  getEdgesByFn (fn) {
+    return this.edges.filter(fn)
   }
 
   /**
@@ -362,8 +357,8 @@ export default class Graph {
    * @param {number|string} node.id The id of the node
    * @returns {Object[]}
    */
-  getOutgoingEdges(node) {
-    return this.getEdgesByFn((e) => e.source.id === node.id);
+  getOutgoingEdges (node) {
+    return this.getEdgesByFn((e) => e.source.id === node.id)
   }
 
   /**
@@ -373,8 +368,8 @@ export default class Graph {
    * @param {number|string} node.id The id of the node
    * @returns {Object[]}
    */
-  getIncomingEdges(node) {
-    return this.getEdgesByFn((e) => e.target.id === node.id);
+  getIncomingEdges (node) {
+    return this.getEdgesByFn((e) => e.target.id === node.id)
   }
 
   /**
@@ -384,9 +379,9 @@ export default class Graph {
    * @param {number|string} node.id The id of the node
    * @returns {Object[]}
    */
-  getIncidentEdges(node) {
+  getIncidentEdges (node) {
     return this.getOutgoingEdges(node)
-      .concat(this.getIncomingEdges(node));
+      .concat(this.getIncomingEdges(node))
   }
 
   /**
@@ -394,21 +389,21 @@ export default class Graph {
    *
    * NOTE: the function receives any number of parameters
    */
-  add() {
+  add () {
     for (var i = 0; i < arguments.length; i += 1) {
-      var el = arguments[i];
+      var el = arguments[i]
       // assume that edges have a source/target parameter
       if (el.hasOwnProperty('source') && el.hasOwnProperty('target')) {
-        this.addEdge(el);
+        this.addEdge(el)
       } else {
-        this.addNode(el);
+        this.addNode(el)
       }
     }
   }
 
-  static appendNodeDefaults(v) {
+  static appendNodeDefaults (v) {
     if (!v.hasOwnProperty('id')) {
-      v.id = util.id();
+      v.id = util.id()
     }
 
     v = extend(
@@ -419,20 +414,20 @@ export default class Graph {
       this.options.nodeDefaults,
       // node
       v
-    );
+    )
 
     if (!v.hasOwnProperty('width')) {
-      v.width = 2 * v.r;
+      v.width = 2 * v.r
     }
     if (!v.hasOwnProperty('height')) {
-      v.height = 2 * v.r;
+      v.height = 2 * v.r
     }
-    return v;
+    return v
   }
 
-  static appendEdgeDefaults(e) {
+  static appendEdgeDefaults (e) {
     if (!e.hasOwnProperty('id')) {
-      e.id = util.id();
+      e.id = util.id()
     }
     e = extend(
       {},
@@ -442,8 +437,8 @@ export default class Graph {
       this.options.edgeDefaults,
       // edge
       e
-    );
-    return e;
+    )
+    return e
   }
 
   /**
@@ -459,63 +454,62 @@ export default class Graph {
    * @param {Object} options
    * @returns {{nodes: Array, links: Array}}
    */
-  static random(options) {
+  static random (options) {
     options = extend({
       order: 10,
       size: 15,
       connected: false,
       multiGraph: false,
       pseudoGraph: false
-    }, options);
+    }, options)
 
-    var i, u, v;
-    var nodes = [];
-    var adjacencyList = [];
+    var i, u, v
+    var nodes = []
+    var adjacencyList = []
     for (i = 0; i < options.order; i += 1) {
-      adjacencyList[i] = [];
-      nodes.push({ id: i });
+      adjacencyList[i] = []
+      nodes.push({ id: i })
     }
 
-    function add(u, v) {
-      adjacencyList[u][v] = adjacencyList[v][u] = true;
+    function add (u, v) {
+      adjacencyList[u][v] = adjacencyList[v][u] = true
     }
 
-    var edges = [];
-    i = 0;
+    var edges = []
+    i = 0
 
     if (options.connected) {
       for (i = 1; i < options.order; i += 1) {
-        v = Math.floor(Math.random() * i);
-        add(i, v);
+        v = Math.floor(Math.random() * i)
+        add(i, v)
         edges.push({
           source: i,
           target: v
-        });
+        })
       }
-      i -= 1;
+      i -= 1
     }
 
     for (; i < options.size; i += 1) {
-      u = Math.floor(Math.random() * options.order);
-      v = Math.floor(Math.random() * options.order);
+      u = Math.floor(Math.random() * options.order)
+      v = Math.floor(Math.random() * options.order)
 
       if (u === v && !options.pseudoGraph) {
-        i -= 1;
+        i -= 1
       } else if (adjacencyList[u][v] && !options.multiGraph) {
-        i -= 1;
+        i -= 1
       } else {
-        add(u, v);
+        add(u, v)
         edges.push({
           source: u,
           target: v
-        });
+        })
       }
     }
 
     return {
       nodes: nodes,
       links: edges
-    };
+    }
   }
 }
-
