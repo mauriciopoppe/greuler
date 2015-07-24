@@ -6,7 +6,6 @@
   "devDependencies": {
     "autoprefixer-core": "^5.1.8",
     "babel": "^5.2.3",
-    "babel-eslint": "^3.0.1",
     "babelify": "^6.0.2",
     "browser-sync": "^2.2.1",
     "browserify": "^10.0.0",
@@ -15,15 +14,12 @@
     "gulp-babel": "^5.1.0",
     "gulp-cache": "^0.2.8",
     "gulp-csso": "^1.0.0",
-    "gulp-eslint": "^0.11.1",
     "gulp-gh-pages": "^0.5.2",
     "gulp-if": "^1.2.5",
     "gulp-imagemin": "^2.2.1",
     "gulp-jade": "^1.0.1",
-    "gulp-jshint": "^1.9.2",
     "gulp-less": "^1.3.3",
     "gulp-load-plugins": "^0.8.1",
-    "gulp-minify-html": "^1.0.0",
     "gulp-postcss": "^5.0.0",
     "gulp-size": "^1.2.1",
     "gulp-sourcemaps": "^1.5.0",
@@ -34,12 +30,9 @@
     "karma-mocha": "^0.1.10",
     "main-bower-files": "^2.5.0",
     "marked": "^0.3.3",
-    "opn": "^1.0.1",
     "standard": "^4.5.4",
-    "text-to-svg": "^2.1.0",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",
-    "wiredep": "^2.2.2"
+    "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
     "compute-lcg": "^1.0.0",
