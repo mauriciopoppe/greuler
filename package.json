@@ -30,6 +30,7 @@
     "karma-mocha": "^0.1.10",
     "main-bower-files": "^2.5.0",
     "marked": "^0.3.3",
+    "react": "^0.13.3",
     "standard": "^4.5.4",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"

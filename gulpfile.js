@@ -22,6 +22,18 @@ gulp.task('less', function () {
     .pipe(reload({stream: true}));
 });
 
+gulp.task('site', function () {
+  browserify({
+    entries: 'public/scripts/jsx/app.jsx',
+    extension: ['jsx'],
+    debug: true
+  })
+    .transform(babelify)
+    .bundle()
+    .pipe(source('app.js'))
+    .pipe(gulp.dest('public/scripts/site/'));
+});
+
 gulp.task('es6', function () {
 	browserify({
 		entries: './src/index.js',
@@ -110,7 +122,7 @@ gulp.task('copy-lib', function () {
 
 gulp.task('copy-scripts', ['copy-examples', 'copy-lib']);
 
-gulp.task('produce',['es6', 'less','images','fonts', 'jade']);
+gulp.task('produce',['site', 'es6', 'less','images','fonts', 'jade']);
 
 gulp.task('copy', ['copy-scripts', 'copy-from-tmp'], function () {
   return gulp.start('html');
@@ -132,6 +144,7 @@ gulp.task('serve', ['produce'], function () {
   // watch for changes
   gulp.watch([
     'src/**/*.js',
+    'public/scripts/**',
     'public/*.html',
     'public/images/**/*',
     '.tmp/fonts/**/*'
@@ -142,6 +155,7 @@ gulp.task('serve', ['produce'], function () {
   gulp.watch('public/fonts/**/*', ['fonts']);
   gulp.watch('bower.json', ['wiredep', 'fonts']);
   gulp.watch('src/**/*.js', ['es6']);
+  gulp.watch('public/scripts/**/*.jsx', ['site']);
 });
 
 gulp.task('serve:dist',['package'], function () {
