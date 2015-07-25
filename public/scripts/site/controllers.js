@@ -6,8 +6,18 @@ angular.module('greuler')
   })
   .controller('ExampleController', function (Utils, $routeParams, $http) {
     var example = this
+
+    example.list = [
+      { id: 'dfs', name: 'Depth First Search' },
+      { id: 'bfs', name: 'Breadth First Search' },
+      { id: 'eulerian-trail', name: 'Eulerian Trail' }
+    ]
+
     if ($routeParams.id) {
       var id = $routeParams.id
+      example.chosen = example.list.filter(function (e) {
+        return e.id === id
+      })[0]
       //$http({
       //  method: 'GET',
       //  responseType: 'text',

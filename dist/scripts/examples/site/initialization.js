@@ -17,4 +17,4 @@ greuler({
       {source: 3, target: 4}
     ]
   }
-}).update();
+}).update()

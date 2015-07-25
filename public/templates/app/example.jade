@@ -1,14 +1,12 @@
 .container
+  h2.center {{ example.chosen.name }}
+
   .row
     .four.columns
       .sidebar
         ul
-          li
-            a(href="#/examples/dfs") Depth First Search
-          li
-            a(href="#/examples/bfs") Breadth First Search
-          li
-            a(href="#/examples/eulerian-trail") Eulerian trail
+          li(ng-repeat="example in example.list")
+            a(href="#/examples/{{ example.id }}") {{ example.name }}
 
     .eight.columns
       .example

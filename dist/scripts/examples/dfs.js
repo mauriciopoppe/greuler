@@ -4,14 +4,14 @@
   var greuler = window.greuler;
 
   var instance = greuler({
-    target: '#dfs',
+    target: '#demo',
     height: 500,
     animationTime: 500,
     data: greuler.Graph.random({ connected: true })
   }).update();
 
-  window.examples.dfs = function () {
-    var player = new greuler.player.Generator(instance);
+  window.site.run = function () {
+    var player = window.site.generator = new greuler.player.Generator(instance);
     player.run(function *algorithm(instance) {
       var visited = [];
 

@@ -4,15 +4,15 @@
   var greuler = window.greuler;
 
   var instance = greuler({
-    target: '#bfs',
+    target: '#demo',
     width: 600,
     height: 600,
     animationTime: 500,
     data: greuler.Graph.random({ connected: true })
   }).update();
 
-  window.examples.bfs = function () {
-    var player = new greuler.player.Generator(instance);
+  window.site.run = function () {
+    var player = window.site.generator = new greuler.player.Generator(instance);
     player.run(function *algorithm(instance) {
 
       function *bfs(source) {
