@@ -179,7 +179,7 @@ export default function () {
     .y(function (d) { return d.y })
     .tension(1.5)
     .interpolate('bundle')
-    //.interpolate('linear')
+    // .interpolate('linear')
 
   function inner (selection) {
     // edges
