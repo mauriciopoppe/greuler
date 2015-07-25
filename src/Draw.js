@@ -94,13 +94,12 @@ export default class Draw {
       directed: false
     }, options)
 
-    this.options.data = extend(true, {
+    this.options.data = extend({
       nodes: [],
       links: [],
       groups: [],
       constraints: [],
       avoidOverlaps: true,
-      layoutIterations: [0, 0, 0],
       size: [options.width, options.height],
       linkDistance: function (d) {
         return d.linkDistance || 80
@@ -117,12 +116,10 @@ export default class Draw {
 
     Object.keys(self.options.data).forEach(function (k) {
       var v = self.options.data[k]
-      if (self.layout[k]) {
-        self.layout[k](v)
-      }
+      self.layout[k](v)
     }, this)
 
-    this.layout.start.apply(this.layout, this.options.data.layoutIterations)
+    this.layout.start.apply(this.layout, updateOptions.iterations)
   }
 
   tick () {
@@ -131,14 +128,15 @@ export default class Draw {
   }
 
   update (updateOptions) {
-    updateOptions = extend({
-      skipLayout: false
+    updateOptions = extend(true, {
+      skipLayout: false,
+      iterations: [0, 0, 0]
     }, updateOptions)
 
     this.initLayout(updateOptions)
     this.build(updateOptions)
 
-    // update inner nodes/edges if layout.tick wasn't run
+    // update nodes/edges if layout.tick wasn't run
     if (updateOptions.skipLayout) {
       this.tick()
     }
