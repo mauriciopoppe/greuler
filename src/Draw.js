@@ -122,7 +122,7 @@ export default class Draw {
       }
     }, this)
 
-    this.layout.start.call(this.layout, this.options.data.layoutIterations)
+    this.layout.start.apply(this.layout, this.options.data.layoutIterations)
   }
 
   tick () {
