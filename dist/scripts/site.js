@@ -117,7 +117,7 @@ angular.module('greuler')
 
       // script
       $.ajax({
-        url: '/scripts/examples/' + id + '.js',
+        url: '/greuler/scripts/examples/' + id + '.js',
         dataType: "script"
       });
     }
