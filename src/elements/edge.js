@@ -57,7 +57,8 @@ export default function () {
     // uD is now in the edge of the circle, making a little arc in the circle
 
     // endpoints of the edge will have a separation of 25 deg, 50 deg, 75 deg, ...
-    var angle = toRad(25) + (count - 1) * toRad(25)
+    var separation = toRad(25)
+    var angle = separation + (count - 1) * separation
 
     // the point to the left of u + uBorder
     var uBorderLeft = Vector.add(u, Vector.rotate(uBorderOrigin, angle))
