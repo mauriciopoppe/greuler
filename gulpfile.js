@@ -125,7 +125,10 @@ gulp.task('serve', ['produce'], function () {
     notify: false,
     port: 9000,
     server: {
-      baseDir: ['.tmp', 'public']
+      baseDir: ['.tmp', 'public'],
+      routes: {
+        '/greuler': 'public'
+      }
     }
   });
 
