@@ -35,6 +35,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "arrify": "^1.0.0",
     "compute-lcg": "^1.0.0",
     "extend": "^3.0.0"
   },

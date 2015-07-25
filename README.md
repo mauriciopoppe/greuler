@@ -89,6 +89,17 @@ cola.d3Adaptor()
 // ...
 ```
 
+- layout methods that receive multiple arguments are sent in data in an array form
+
+e.g. `layout.flowLayout('y', 50)`
+
+```
+data: {
+  // ...
+  symmetricDiffLinkLengths: ['y', 50]
+}
+```
+
 On runtime you can add/remove/update the properties through `instance.options.data`, make sure you don't modify
 `instance.options.data.nodes` or `instance.options.data.links` to avoid layout errors, after all this is the job of
 `instance.graph.*` methods :)
@@ -182,6 +193,7 @@ All the events are exposed through this object
   * `options.skipLayout=false` True to skip layout and only bind the data to the svg elements (a layout
   operations needs to be done only when nodes/edges are added/removed to the graph, any other operation
   that modifies existing properties of the nodes/edges don't need a layout)
+  * `options.iterations=[]` The number of iterations run by WebCola see [layout.start](http://marvl.infotech.monash.edu/webcola/doc/classes/cola.layout.html#start)
 
 #### `instance.graph`
 

@@ -3,6 +3,7 @@
 var d3 = window.d3
 var cola = window.cola
 
+import arrify from 'arrify'
 import extend from 'extend'
 import node from './elements/node'
 import edge from './elements/edge'
@@ -114,9 +115,22 @@ export default class Draw {
       return
     }
 
+    var receivesArray = {
+      nodes: true,
+      links: true,
+      groups: true,
+      constraints: true,
+      distanceMatrix: true,
+      size: true
+    }
+
     Object.keys(self.options.data).forEach(function (k) {
       var v = self.options.data[k]
-      self.layout[k](v)
+      if (receivesArray[k]) {
+        self.layout[k](arrify(v))
+      } else {
+        self.layout[k].apply(self.layout, arrify(v))
+      }
     }, this)
 
     this.layout.start.apply(this.layout, updateOptions.iterations)
@@ -130,7 +144,7 @@ export default class Draw {
   update (updateOptions) {
     updateOptions = extend(true, {
       skipLayout: false,
-      iterations: [0, 0, 0]
+      iterations: []
     }, updateOptions)
 
     this.initLayout(updateOptions)
