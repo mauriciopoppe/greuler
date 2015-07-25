@@ -94,12 +94,13 @@ export default class Draw {
       directed: false
     }, options)
 
-    this.options.data = extend({
+    this.options.data = extend(true, {
       nodes: [],
       links: [],
       groups: [],
       constraints: [],
       avoidOverlaps: true,
+      layoutIterations: [0, 0, 0],
       size: [options.width, options.height],
       linkDistance: function (d) {
         return d.linkDistance || 80
@@ -116,11 +117,12 @@ export default class Draw {
 
     Object.keys(self.options.data).forEach(function (k) {
       var v = self.options.data[k]
-      self.layout[k](v)
+      if (self.layout[k]) {
+        self.layout[k](v)
+      }
     }, this)
 
-    // this.layout.start(15, 15, 15)
-    this.layout.start()
+    this.layout.start.call(this.layout, this.options.data.layoutIterations)
   }
 
   tick () {

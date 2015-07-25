@@ -52,7 +52,7 @@ gulp.task('es6-min', function () {
 gulp.task('html', function () {
   var assets = $.useref.assets();
 
-  return gulp.src('public/*.html')
+  return gulp.src(['public/*.html', 'favicon.ico'])
     .pipe(assets)
     //.pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', $.csso()))
@@ -103,12 +103,17 @@ gulp.task('copy-examples', function () {
     .pipe(gulp.dest('dist/scripts/examples/'));
 })
 
+gulp.task('copy-fav', function () {
+  return gulp.src(['public/favicon.*', 'public/robots.txt'])
+    .pipe(gulp.dest('dist/'));
+})
+
 gulp.task('copy-lib', function () {
   return gulp.src('public/scripts/lib/**')
     .pipe(gulp.dest('dist/scripts/lib/'));
 })
 
-gulp.task('copy-scripts', ['copy-examples', 'copy-lib']);
+gulp.task('copy-scripts', ['copy-examples', 'copy-lib', 'copy-fav']);
 
 gulp.task('produce',['es6', 'less','images','fonts', 'jade']);
 
