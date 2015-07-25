@@ -107,6 +107,7 @@ export default function () {
    */
   function createPath (d, meta, marginBetweenEdges) {
     var u, v
+    var uBorder, vBorder
     var current
 
     u = d.source
@@ -116,27 +117,29 @@ export default function () {
     }
     meta[u.id] = meta[u.id] || {}
 
+    // the mid point is computed from the borders of both nodes
+    // the mid point is used to determine the position of the label
+    uBorder = u
+    vBorder = v
+    if (u.id !== v.id) {
+      uBorder = moveTowardsPoint(u, v)
+      vBorder = moveTowardsPoint(v, u)
+    }
+
     current = (meta[u.id][v.id] = meta[u.id][v.id] || {
-        count: 1,
-        mid: Vector.mid(u, v),
-        direction: -1
+      count: 1,
+      mid: Vector.mid(uBorder, vBorder),
+      direction: -1
     })
 
-    var innerJoints = []
-
+    var innerJoints
     if (u.id === v.id) {
       // apply the following for self-loop edges
       var loop = selfLoop(u, marginBetweenEdges, current.count)
       innerJoints = loop.path
       d.unit = loop.dir
     } else {
-      var unit
-      if (Vector.len(Vector.sub(v, u))) {
-        unit = Vector.unit(Vector.sub(v, u))
-      } else {
-        unit = new Vector(1, 0)
-      }
-
+      var unit = Vector.unit(Vector.sub(v, u))
       extend(current, {
         unit: unit,
         unitOrthogonal: Vector.orthogonal(unit)
@@ -162,10 +165,8 @@ export default function () {
     //
     // simple trick: shorten the length of the edge by moving the start/end points
     // of the edges toward each other
-    var source = d.source
-    var target = d.target
-    source = moveTowardsPoint(d.source, innerJoints[0])
-    target = moveTowardsPoint(d.target, innerJoints[innerJoints.length - 1])
+    var source = moveTowardsPoint(d.source, innerJoints[0])
+    var target = moveTowardsPoint(d.target, innerJoints[innerJoints.length - 1])
 
     d.path = [source]
       .concat(innerJoints)
@@ -177,7 +178,7 @@ export default function () {
     .y(function (d) { return d.y })
     .tension(1.5)
     .interpolate('bundle')
-    // .interpolate('linear')
+    //.interpolate('linear')
 
   function inner (selection) {
     // edges

@@ -2,8 +2,8 @@
 <html lang="">
   <head>
     <meta charset="utf-8">
-    <script src="private/d3.js"></script>
-    <script src="private/cola.v3.js"></script>
+    <script src="scripts/lib/d3.js"></script>
+    <script src="scripts/lib/cola.v3.js"></script>
     <script src="greuler.js"></script>
   </head>
   <body>
@@ -18,11 +18,11 @@
         data: {
           linkDistance: 150,
           nodes: [
-            {id: 0},
+            {id: 0, r: 20},
             {id: 1},
-            {id: 2},
+            {id: 2, r: 30},
             {id: 3},
-            {id: 4}
+            {id: 4, r: 50}
           ],
           links: [
             {source: 0, target: 0, weight: 24},
