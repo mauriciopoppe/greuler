@@ -133,7 +133,7 @@ export default function () {
       direction: -1
     })
 
-    var innerJoints
+    var innerJoints = []
     if (u.id === v.id) {
       // apply the following for self-loop edges
       var loop = selfLoop(u, marginBetweenEdges, current.count)
