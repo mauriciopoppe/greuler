@@ -1,12 +1,7 @@
 'use strict';
-document.addEventListener('DOMContentLoaded', function () {
+(function () {
   var d3 = window.d3;
   var greuler = window.greuler;
-
-  if (!d3.select('#graph-example').size()) {
-    // playground fallback
-    return;
-  }
 
   var instance = greuler({
     target: '#graph-example',
@@ -186,4 +181,4 @@ document.addEventListener('DOMContentLoaded', function () {
   }];
 
   window.site.fnShowcase(instance.fns, 'graph-example');
-});
+})();

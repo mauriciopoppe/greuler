@@ -1,5 +1,5 @@
 doctype html
-html(lang='')
+html(lang='', ng-app='greuler')
   head
     meta(charset='utf-8')
     meta(name='description', content='')
@@ -11,7 +11,7 @@ html(lang='')
     script(src='//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js')
 
     // Place favicon.ico in the root directory
-    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    link(href="favicon.ico", rel="shortcut icon", type="image/x-icon")
 
     // build:css styles/vendor.css
     // bower:css
@@ -23,6 +23,10 @@ html(lang='')
     // build:css styles/main.css
     link(rel='stylesheet', href='styles/main.css')
     // endbuild
+
+    script(src='https://code.jquery.com/jquery-2.1.4.min.js')
+    script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js')
+    script(src='//code.angularjs.org/1.4.3/angular-route.min.js')
 
     script(src='scripts/lib/d3.js')
     script(src='scripts/lib/cola.v3.js')
@@ -38,10 +42,10 @@ html(lang='')
     // endbuild
 
     // build:js scripts/site.js
-    scrits(src='scripts/site/app.js')
-    script(src='scripts/site/site.js')
-    script(src='scripts/site/graph-example.js')
-    script(src='scripts/site/selector-example.js')
+    script(src='scripts/site/globals.js')
+    script(src='scripts/site/app.js')
+    script(src='scripts/site/utils.js')
+    script(src='scripts/site/controllers.js')
     // endbuild
   body
     block content

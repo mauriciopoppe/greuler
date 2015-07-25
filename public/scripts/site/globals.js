@@ -1,14 +1,13 @@
 'use strict';
 (function () {
   var site = window.site = {};
-  var d3 = window.d3;
-
   site.vivusDefault = {
     type: 'oneByOne',
     duration: 50
   };
 
   site.fnShowcase = function (fns, ns) {
+    var d3 = window.d3;
     var description = d3.select('#' + ns + '-description');
     var title = d3.select('#' + ns + '-title');
     var numbers = d3.select('#' + ns + '-numbers');
@@ -40,14 +39,5 @@
       .on('mouseout', function () {
         title.html(null);
       });
-  };
-
-  document.addEventListener('DOMContentLoaded', function () {
-    var hljs = window.hljs;
-    // code highligh
-    d3.selectAll('pre code')
-      .each(function () {
-        hljs.highlightBlock(this);
-      });
-  });
+  }
 })();

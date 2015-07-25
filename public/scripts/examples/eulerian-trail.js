@@ -2,17 +2,16 @@
 window.d3.json('scripts/examples/data/eulerian-graph.json', function (error, data) {
 
   var instance = greuler({
-    target: '#eulerian-trail',
+    target: '#demo',
     width: 600,
     height: 600,
     animationTime: 500,
     data: data
   }).update();
 
-  window.examples['eulerian-trail'] = function () {
+  window.site.run = function () {
     var greuler = window.greuler;
-
-    var player = new greuler.player.Generator(instance);
+    var player = window.site.generator = new greuler.player.Generator(instance);
     player.run(function *algorithm(instance) {
       var stack = [];
       var trail = [];

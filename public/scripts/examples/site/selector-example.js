@@ -1,5 +1,6 @@
 'use strict';
-document.addEventListener('DOMContentLoaded', function () {
+
+(function () {
   var d3 = window.d3;
   var greuler = window.greuler;
 
@@ -163,13 +164,5 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }];
 
-  window.site.fnShowcase(instance.fns, 'selector-example');
-});
-
-//{
-//"name": "greuler",
-//  "dependencies": {
-//  "skeleton": "~2.0.4",
-//    "vivus": "~0.2.2"
-//}
-//}
+  window.site.fnShowcase(instance.fns, 'selector-example')
+})()

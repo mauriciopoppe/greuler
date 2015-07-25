@@ -63,7 +63,7 @@ button {
   user-select: none;
 }
 
-// main
+/* mobile rules */
 div {
 	p {
 		color: #111;
@@ -74,19 +74,15 @@ div {
   fill: none;
 }
 
-#intro-description {
+#intro-wrapper {
   font-style: italic;
   font-size: 0.7em;
-}
-
-.description {
-  width: 500px;
+  margin: 40px 0;
 }
 
 @selector-example: 50px;
 .example-numbers {
   min-width: 1px;
-
   span {
     border: 1px solid @main;
     margin: 5px 10px;
@@ -103,6 +99,33 @@ div {
   }
 }
 
-.runner {
+#runner {
   display: block;
+}
+
+.navbar-list {
+  display: block;
+}
+
+.navbar-item {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: .2rem;
+  text-decoration: none;
+  color: #222;
+}
+
+/* Larger than tablet */
+@media (min-width: 750px) {
+  .navbar-list {
+    display: flex;
+  }
+
+  .navbar-item {
+    flex: 1;
+    width: 25%;
+  }
 }
