@@ -232,6 +232,13 @@ gulp serve
 
 Open `http://localhost:9000` and that's it! 
 
+
+### Deploy
+
+```bash
+$ gulp && gulp deploy
+```
+
 ## License
 
 2015 MIT © Mauricio Poppe
