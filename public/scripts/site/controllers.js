@@ -33,7 +33,7 @@ angular.module('greuler')
       example.chosen = example.list.filter(function (e) {
         return e.id === id
       })[0]
-      example.url = '/greuler/scripts/examples/' + id + '.js'
+      example.url = 'scripts/examples/' + id + '.js'
 
       // fetch script (the id is the filename)
       $.ajax({
@@ -47,7 +47,7 @@ angular.module('greuler')
       $runner.prop('disabled', true)
     }
     example.source = function () {
-      var root = location.href.split('/#')
+      var root = location.href.split('#')
       var newTab = 'view-source:' + root[0] + example.url
       window.open(newTab);
     }
