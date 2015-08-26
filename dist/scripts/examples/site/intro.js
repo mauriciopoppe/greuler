@@ -49,7 +49,7 @@
 
   gen.run(function *algorithm(instance) {
     yield function () {
-      updateText('here a simple graph G');
+      updateText('an undirected graph G');
     };
 
     yield function () {
@@ -99,7 +99,7 @@
     };
 
     yield function () {
-      updateText('mmm now let\'s remove node 2, see? the incident edges are now gone');
+      updateText('now let\'s remove node 2, see? the incident edges are now gone');
 
       instance.graph.removeNode({ id: 2 });
       instance.update();

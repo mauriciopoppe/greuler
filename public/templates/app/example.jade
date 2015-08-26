@@ -1,18 +1,19 @@
-.container
+.container.example-container
   h2.center {{ example.chosen.name }}
 
   .row
-    .four.columns
-      .sidebar
+    .three.columns
+      .examples-sidebar
         ul
           li(ng-repeat="example in example.list")
             a(href="#/examples/{{ example.id }}") {{ example.name }}
+        p more examples coming soon...
 
-    .eight.columns
+    .nine.columns
       .example
         #demo
 
-      //pre
-      //  code
-      //    {{ example.code }}
-  button.center#runner(ng-click='example.run()') run
+  .center
+    button#runner(ng-click='example.run()') run algorithm
+    button(ng-click='example.source()') view source
+    button(ng-show='example.chosen.article', ng-click='example.article()') author's article
