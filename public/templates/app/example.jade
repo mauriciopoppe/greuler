@@ -1,5 +1,5 @@
 .container.example-container
-  h2.center {{ example.chosen.name }}
+  .center {{ example.chosen.name }}
 
   .row
     .three.columns
@@ -12,6 +12,7 @@
     .nine.columns
       .example
         #demo
+        p#annotations(ng-show='example.chosen.annotation', ng-bind-html='example.chosen.annotation')
 
   .center
     button#runner(ng-click='example.run()') run algorithm

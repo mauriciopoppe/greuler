@@ -1,6 +1,6 @@
 
 <div class="container example-container">
-  <h2 class="center">{{ example.chosen.name }}</h2>
+  <div class="center">{{ example.chosen.name }}</div>
   <div class="row">
     <div class="three columns">
       <div class="examples-sidebar">
@@ -13,6 +13,7 @@
     <div class="nine columns">
       <div class="example">
         <div id="demo"></div>
+        <p id="annotations" ng-show="example.chosen.annotation" ng-bind-html="example.chosen.annotation"></p>
       </div>
     </div>
   </div>

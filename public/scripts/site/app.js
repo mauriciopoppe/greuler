@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('greuler', ['ngRoute'])
+var app = angular.module('greuler', ['ngRoute', 'ngSanitize'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

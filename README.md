@@ -235,8 +235,16 @@ Open `http://localhost:9000` and that's it!
 
 ### Deploy
 
+To generate the dist files
+
 ```bash
-$ gulp && gulp deploy
+$ gulp
+```
+
+To generate the site (fetching the latest version from the remote repo)
+
+```bash
+$ gulp deploy
 ```
 
 ## License

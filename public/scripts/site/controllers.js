@@ -15,7 +15,9 @@ var list = [{
 }, {
   id: 'articulation-points',
   name: 'Articulation Points',
-  article: 'http://maurizzzio.com/static/graphs/cut-vertices.html'
+  article: 'http://maurizzzio.com/static/graphs/cut-vertices.html',
+  annotation: '<p>Legend:</p> <p class="small">Number on the left: the time a node was discovered <br />' +
+    'Number on the right: the lowest time of some node that can be reached from this node</p>'
 }]
 
 angular.module('greuler')

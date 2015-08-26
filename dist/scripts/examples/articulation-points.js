@@ -12,12 +12,6 @@
     })
   }).update()
 
-
-  // little legend
-  d3.select('#demo')
-    .append('div')
-    .text('Legend: ')
-
   window.site.run = function () {
     var player = window.site.generator = new greuler.player.Generator(instance)
     player.run(function *algorithm(instance) {

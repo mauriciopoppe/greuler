@@ -44,7 +44,7 @@
 
 'use strict';
 
-var app = angular.module('greuler', ['ngRoute'])
+var app = angular.module('greuler', ['ngRoute', 'ngSanitize'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -104,7 +104,9 @@ var list = [{
 }, {
   id: 'articulation-points',
   name: 'Articulation Points',
-  article: 'http://maurizzzio.com/static/graphs/cut-vertices.html'
+  article: 'http://maurizzzio.com/static/graphs/cut-vertices.html',
+  annotation: '<p>Legend:</p> <p class="small">Number on the left: the time a node was discovered <br />' +
+    'Number on the right: the lowest time of some node that can be reached from this node</p>'
 }]
 
 angular.module('greuler')
@@ -122,7 +124,7 @@ angular.module('greuler')
       example.chosen = example.list.filter(function (e) {
         return e.id === id
       })[0]
-      example.url = '/greuler/scripts/examples/' + id + '.js'
+      example.url = 'scripts/examples/' + id + '.js'
 
       // fetch script (the id is the filename)
       $.ajax({
@@ -136,7 +138,7 @@ angular.module('greuler')
       $runner.prop('disabled', true)
     }
     example.source = function () {
-      var root = location.href.split('/#')
+      var root = location.href.split('#')
       var newTab = 'view-source:' + root[0] + example.url
       window.open(newTab);
     }
