@@ -35,3 +35,5 @@ bower_components
 test/bower_components
 .publish/
 sandbox/
+
+.DS_Store
