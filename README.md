@@ -12,13 +12,6 @@ which allows the creation and manipulation of graphs with a simple api
 
 ## Installation
 
-### npm + browserify
-
-```sh
-// ES6
-$ npm install --save greuler
-```
-
 ### browser
 
 **greuler** works on top of d3.js and WebCola so include those first
@@ -49,10 +42,7 @@ or
 ## Usage
 
 ```js
-// npm
-var greuler = require('greuler');
-// browser
-var greuler = window.greuler;
+var greuler = require('greuler')
 
 greuler({
   // options below
@@ -78,7 +68,7 @@ greuler({
     links: [...],
     groups: [...],
   }
-});
+})
 
 // is mapped to
 cola.d3Adaptor()
@@ -111,8 +101,8 @@ to each one of the nodes you want to be fixed e.g.
 ```javascript
 instance.events.on('firstLayoutEnd', function () {
   instance.graph.nodes.forEach(function (d) {
-    d.fixed = true;
-  });
+    d.fixed = true
+  })
 });
 ```
 
@@ -131,7 +121,7 @@ var selection = instance.selection.select(nodes);
 ## API
 
 ```javascript
-var greuler = require('greuler');
+var greuler = require('greuler')
 ```
 
 ### `instance = greuler(options)`

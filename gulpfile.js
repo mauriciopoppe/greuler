@@ -85,7 +85,7 @@ gulp.task('clean', require('del').bind(null, ['.tmp', 'dist']));
 
 gulp.task('jade', function () {
   var YOUR_LOCALS = {};
-  return gulp.src('public/templates/app/**/*.jade')
+  return gulp.src('public/templates/app/*.jade')
     .pipe($.jade({
       pretty: true,
       locals: YOUR_LOCALS
