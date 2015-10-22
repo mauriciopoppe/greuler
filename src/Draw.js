@@ -1,7 +1,7 @@
 'use strict'
 
 import d3 from 'd3';
-import cola from 'webcola/WebCola/cola';
+import 'webcola/WebCola/cola.min';
 
 import arrify from 'arrify'
 import extend from 'extend'
