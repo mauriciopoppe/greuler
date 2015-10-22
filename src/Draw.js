@@ -1,7 +1,7 @@
 'use strict'
 
-var d3 = window.d3
-var cola = window.cola
+import d3 from 'd3';
+import cola from 'webcola/WebCola/cola';
 
 import arrify from 'arrify'
 import extend from 'extend'

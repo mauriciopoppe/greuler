@@ -37,7 +37,9 @@
   "dependencies": {
     "arrify": "^1.0.0",
     "compute-lcg": "^1.0.0",
-    "extend": "^3.0.0"
+    "d3": "^3.5.6",
+    "extend": "^3.0.0",
+    "webcola": "^3.1.2"
   },
   "scripts": {
     "lint": "standard",

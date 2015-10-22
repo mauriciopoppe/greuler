@@ -1,6 +1,7 @@
 'use strict'
 
-var d3 = window.d3
+import d3 from 'd3';
+
 var color = d3.scale.category20()
 var colors = {}
 var colorLiterals = ['BLUE', 'ORANGE', 'GREEN', 'RED', 'PURPLE', 'BROWN', 'PINK', 'GRAY', 'YELLOW', 'CYAN']

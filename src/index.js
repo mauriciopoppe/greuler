@@ -3,7 +3,7 @@
 import polyfills from './polyfills'
 polyfills()
 
-var d3 = window.d3
+import d3 from 'd3';
 
 // node
 import Draw from './Draw'

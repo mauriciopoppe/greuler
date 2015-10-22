@@ -26,7 +26,8 @@ gulp.task('es6', function () {
 	browserify({
 		entries: './src/index.js',
 		debug: true,
-    standalone: 'greuler'
+    standalone: 'greuler',
+    noParse: [__dirname + '/node_modules/webcola/WebCola/cola.js']
 	})
 	.transform(babelify)
 	.bundle()
@@ -38,7 +39,8 @@ gulp.task('es6', function () {
 gulp.task('es6-min', function () {
   browserify({
     entries: './src/index.js',
-    standalone: 'greuler'
+    standalone: 'greuler',
+    noParse: [__dirname + '/node_modules/webcola/WebCola/cola.js']
   })
     .transform(babelify)
     .bundle()

@@ -1,6 +1,6 @@
 'use strict'
 
-var d3 = window.d3
+import d3 from 'd3';
 
 import extend from 'extend'
 import Vector from '../Vector'
