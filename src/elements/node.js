@@ -100,7 +100,7 @@ export default function () {
       .attr('y', d => -d.height / 2 + 3)
     nodes.selectAll('text.outer-top-left')
       .text(function (d) {
-        if ('topRightLabel' in d) {
+        if ('topLeftLabel' in d) {
           return d.topLeftLabel
         }
       })
