@@ -1,6 +1,6 @@
 # greuler 
 
-[![Build Status][travis-image]][travis-url] [![NPM][npm-image]][npm-url] <img src="https://github.com/maurizzzio/greuler/blob/master/badge%402x.png" width="130" height="30">
+[![Build Status][travis-image]][travis-url] [![NPM][npm-image]][npm-url] <img src="https://github.com/mauriciopoppe/greuler/blob/master/badge%402x.png" width="130" height="30">
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
@@ -8,7 +8,7 @@
 and on top of <a href="http://marvl.infotech.monash.edu/webcola/">WebCola</a>
 which allows the creation and manipulation of graphs with a simple api
         
-[Homepage](http://maurizzzio.github.io/greuler/)
+[Homepage](http://mauriciopoppe.github.io/greuler/)
 
 ## Installation
 
@@ -51,7 +51,7 @@ greuler({
 
 ## Examples
 
-Check out the examples at the [`homepage`](http://maurizzzio.github.io/greuler/)
+Check out the examples at the [`homepage`](http://mauriciopoppe.github.io/greuler/)
 
 ## Usage Notes
 
@@ -243,5 +243,5 @@ $ gulp deploy
 
 [npm-image]: https://img.shields.io/npm/v/greuler.svg?style=flat
 [npm-url]: https://npmjs.org/package/greuler
-[travis-image]: https://travis-ci.org/maurizzzio/greuler.svg?branch=master
-[travis-url]: https://travis-ci.org/maurizzzio/greuler
+[travis-image]: https://travis-ci.org/mauriciopoppe/greuler.svg?branch=master
+[travis-url]: https://travis-ci.org/mauriciopoppe/greuler
