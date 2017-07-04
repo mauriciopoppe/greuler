@@ -1,41 +1,38 @@
 'use strict'
 
-var d3 = window.d3
+import { select } from 'd3-selection'
 
 import utils from '../utils'
 import { colors } from '../const'
 
 export default function () {
-  var owner
+  let owner
 
   function inner (selection) {
-    var nodes = selection
+    const nodes = selection
       .selectAll('g.node')
-      .data(function (d) {
-        return d.nodes
-      }, function (d) {
-        return d.id
-      })
+      .data(d => d.nodes, d => d.id)
 
-    var layout = owner.layout
+    const layout = owner.layout
 
-    var g = nodes.enter().append('g')
+    const g = nodes.enter()
+      .append('g')
       .attr('class', function (d) {
-        return 'node ' + (d.class || '')
+        return 'node ' + (d.class || '');
       })
       .attr('id', function (d) { return utils.ns(d.id) })
       .attr('transform', function (d) {
         return utils.transform({ translate: d })
       })
       .on('mouseover', function () {
-        var el = d3.select(this)
+        var el = select(this)
         if (!el.over) {
           el.style('cursor', 'pointer')
         }
         el.over = true
       })
       .on('mouseout', function () {
-        var el = d3.select(this)
+        var el = select(this)
         el.over = false
         el.style('cursor', null)
       })
@@ -44,17 +41,17 @@ export default function () {
       .attr('opacity', 1)
     g.call(layout.drag)
 
-    var dragStart = layout.drag().on('dragstart.d3adaptor')
-    var dragEnd = layout.drag().on('dragend.d3adaptor')
-    layout.drag()
-      .on('dragstart.d3adaptor', function () {
-        owner.nodeDragging = true
-        dragStart.apply(undefined, arguments)
-      })
-      .on('dragend.d3adaptor', function () {
-        owner.nodeDragging = false
-        dragEnd.apply(undefined, arguments)
-      })
+    // var dragStart = layout.drag().on('start.d3adaptor')
+    // var dragEnd = layout.drag().on('end.d3adaptor')
+    // layout.drag()
+    //   .on('start.d3adaptor', function () {
+    //     owner.nodeDragging = true
+    //     dragStart.apply(undefined, arguments)
+    //   })
+    //   .on('end.d3adaptor', function () {
+    //     owner.nodeDragging = false
+    //     dragEnd.apply(undefined, arguments)
+    //   })
 
     g.append('circle')
       .attr('fill', d => d.fill)
@@ -67,6 +64,7 @@ export default function () {
       .attr('font-size', '12px')
       .attr('text-anchor', 'middle')
       .attr('dominant-baseline', 'central')
+
     nodes.selectAll('text.label')
       .text(function (d) {
         if ('label' in d) {
@@ -105,8 +103,9 @@ export default function () {
         }
       })
 
-    // update
-    utils.conditionalTransition(nodes, !owner.nodeDragging)
+    // // update
+    // utils.conditionalTransition(nodes, !owner.nodeDragging)
+    utils.transition(nodes)
       .attr('transform', function (d) {
         return utils.transform({
           translate: d

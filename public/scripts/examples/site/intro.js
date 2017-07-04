@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var d3 = window.d3;
   var greuler = window.greuler;
   var instance = greuler({
     target: '#intro',

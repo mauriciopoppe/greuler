@@ -4,7 +4,10 @@
     "Mauricio Poppe <me@maurizzzio.com>"
   ],
   "description": "graph theory visualizations",
-  "main": "dist/greuler.js",
+  "main": [
+    "dist/greuler.js",
+    "dist/greuler.min.js"
+  ],
   "moduleType": [
     "amd",
     "globals",
@@ -18,11 +21,9 @@
   "license": "MIT",
   "homepage": "maurizzzio.github.io/greuler",
   "ignore": [
-    "**/.*",
-    "node_modules",
     "bower_components",
+    "node_modules",
     "test",
-    "tests",
     "src",
     "public",
     "dist/**",

@@ -4,9 +4,9 @@ angular.module('greuler')
   .factory('Utils', function () {
     return {
       afterRender: function () {
-        d3.selectAll('pre code')
-          .each(function () {
-            hljs.highlightBlock(this);
+        Array.from(document.querySelectorAll('pre code'))
+          .forEach(function (el) {
+            hljs.highlightBlock(el);
           });
       }
     }

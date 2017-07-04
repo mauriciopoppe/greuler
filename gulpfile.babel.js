@@ -1,60 +1,66 @@
-/*global -$ */
 'use strict';
-// generated on 2015-07-09 using generator-es6-webapp 0.1.0
-var gulp = require('gulp');
-var $ = require('gulp-load-plugins')();
-var browserSync = require('browser-sync');
+
+import gulp from 'gulp'
+import gulpLoad from 'gulp-load-plugins'
+import { rollup } from 'rollup'
+import browserSync from 'browser-sync'
+
+import rollupConfig from './rollup.config'
+
+// var gulp = require('gulp');
+// var $ = require('gulp-load-plugins')();
+// var browserSync = require('browser-sync');
+// var browserify = require('browserify');
+// var babelify = require('babelify');
+// var source = require('vinyl-source-stream');
+// var buffer = require('vinyl-buffer');
+
+const $ = gulpLoad()
 var reload = browserSync.reload;
-var browserify = require('browserify');
-var babelify = require('babelify');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
+var babelifyOpts = {
+  presets: ['es2015'],
+  plugins: [
+    'add-module-exports'
+  ]
+}
 
 gulp.task('less', function () {
   return gulp.src('public/styles/*.less')
-		.pipe($.sourcemaps.init())
+    .pipe($.sourcemaps.init())
     .pipe($.less())
-    .pipe($.postcss([
-      require('autoprefixer-core')({browsers: ['last 1 version']})
-    ]))
+    .pipe($.autoprefixer({browsers: ['last 2 versions']}))
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest('.tmp/styles'))
     .pipe(reload({stream: true}));
 });
 
-gulp.task('es6', function () {
-	browserify({
-		entries: './src/index.js',
-		debug: true,
-    standalone: 'greuler'
-	})
-	.transform(babelify)
-	.bundle()
-	.pipe(source('greuler.js'))
-	.pipe(gulp.dest('./.tmp'))
-	.pipe(gulp.dest('dist'));
+gulp.task('build:src', function () {
+  return rollup(rollupConfig)
+    .then(function (bundle) {
+      rollupConfig.cache = bundle
+      bundle.write(rollupConfig)
+    })
+    .catch(console.error)
 });
 
-gulp.task('es6-min', function () {
-  browserify({
-    entries: './src/index.js',
-    standalone: 'greuler'
-  })
-    .transform(babelify)
-    .bundle()
-    .pipe(source('greuler.min.js'))
-    .pipe(buffer())
-    .pipe($.uglify())
-    .pipe(gulp.dest('./.tmp'))
-    .pipe(gulp.dest('dist'));
-});
+// gulp.task('es6-min', function () {
+//   browserify({
+//     entries: './src/index.js',
+//     standalone: 'greuler'
+//   })
+//     .transform(babelify, babelifyOpts)
+//     .bundle()
+//     .pipe(source('greuler.min.js'))
+//     .pipe(buffer())
+//     .pipe($.uglify())
+//     .pipe(gulp.dest('./.tmp'))
+//     .pipe(gulp.dest('dist'));
+// });
 
 gulp.task('html', function () {
   var assets = $.useref.assets();
-
   return gulp.src(['public/*.html', 'favicon.ico'])
     .pipe(assets)
-    //.pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', $.csso()))
     .pipe(assets.restore())
     .pipe($.useref())
@@ -85,7 +91,7 @@ gulp.task('clean', require('del').bind(null, ['.tmp', 'dist']));
 
 gulp.task('jade', function () {
   var YOUR_LOCALS = {};
-  return gulp.src('public/templates/app/*.jade')
+  return gulp.src('public/_templates/app/*.jade')
     .pipe($.jade({
       pretty: true,
       locals: YOUR_LOCALS
@@ -115,7 +121,7 @@ gulp.task('copy-lib', function () {
 
 gulp.task('copy-scripts', ['copy-examples', 'copy-lib', 'copy-fav']);
 
-gulp.task('produce',['es6', 'less','images','fonts', 'jade']);
+gulp.task('produce',['build:src', 'less','images','fonts', 'jade']);
 
 gulp.task('copy', ['copy-scripts', 'copy-from-tmp'], function () {
   return gulp.start('html');
@@ -134,7 +140,8 @@ gulp.task('serve', ['produce'], function () {
       routes: {
         '/greuler': 'public'
       }
-    }
+    },
+    open: false
   });
 
   // watch for changes
@@ -146,11 +153,11 @@ gulp.task('serve', ['produce'], function () {
     '.tmp/fonts/**/*'
   ]).on('change', reload);
 
-  gulp.watch('public/templates/**/*.jade', ['jade']);
+  gulp.watch('public/_templates/**/*.jade', ['jade']);
   gulp.watch('public/styles/**/*.less', ['less']);
   gulp.watch('public/fonts/**/*', ['fonts']);
   gulp.watch('bower.json', ['wiredep', 'fonts']);
-  gulp.watch('src/**/*.js', ['es6']);
+  gulp.watch('src/**/*.js', ['build:src']);
 });
 
 gulp.task('serve:dist',['package'], function () {

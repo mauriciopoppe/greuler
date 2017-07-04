@@ -1,9 +1,8 @@
 'use strict'
 
-import polyfills from './polyfills'
-polyfills()
-
-var d3 = window.d3
+import './polyfills'
+import 'd3-transition'
+import { select } from 'd3-selection'
 
 // node
 import Draw from './Draw'
@@ -12,18 +11,14 @@ import utils from './utils'
 var instances = []
 
 function run (options) {
-  function factory (options) {
-    var el = d3.select(options.target)
-    var id = el.attr('greuler-id')
-    if (!id) {
-      id = utils.id()
-      el.attr('greuler-id', id)
-      instances[id] = new Draw(id, options)
-    }
-    return instances[id]
+  var el = select(options.target)
+  var id = el.attr('greuler-id')
+  if (!id) {
+    id = utils.id()
+    el.attr('greuler-id', id)
+    instances[id] = new Draw(id, options)
   }
-
-  return factory(options)
+  return instances[id]
 }
 
 import Graph from './Graph'

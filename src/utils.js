@@ -29,7 +29,6 @@ export default {
     return selection
       .transition('layout')
       .duration(300)
-      .ease('linear')
   },
 
   conditionalTransition: function (el, condition) {
@@ -43,3 +42,6 @@ export default {
     return 'greuler-' + str
   }
 }
+
+export const ns = str => 'greuler-' + str
+

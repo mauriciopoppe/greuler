@@ -1,10 +1,14 @@
 'use strict'
 
-var d3 = window.d3
-
 import extend from 'extend'
+import { default as defined } from 'defined'
+import { line, curveBundle } from 'd3-shape'
+import { select } from 'd3-selection'
+
 import Vector from '../Vector'
-import utils from '../utils'
+import { default as utils, ns } from '../utils'
+
+console.log(typeof ns, ns(3))
 
 export default function () {
   var owner
@@ -174,59 +178,66 @@ export default function () {
       .concat([target])
   }
 
-  var line = d3.svg.line()
+  function weightPosition (selection) {
+    selection
+      .attr('transform', function (d) {
+        var angle = Vector.angleDeg(d.unit)
+        var v = d.path[Math.floor(d.path.length / 2)]
+        return utils.transform({
+          translate: v,
+          rotate: angle
+        })
+      })
+  }
+
+  var pathCreator = line()
     .x(function (d) { return d.x })
     .y(function (d) { return d.y })
-    .tension(1.5)
-    .interpolate('bundle')
+    .curve(curveBundle.beta(1))
+    // .tension(1.5)
+    // .interpolate('bundle')
     // .interpolate('linear')
 
   function inner (selection) {
-    // edges
-    var links = selection.selectAll('g.edge')
-      .data(function (d) {
-        return d.links
-      }, function (d) {
-        return d.id
-      })
-    links.enter().append('g')
-      .attr('class', 'edge')
-      .attr('opacity', 0)
-      .attr('id', function (d) { return utils.ns(d.id) })
-      .transition('enter')
-      .attr('opacity', 1)
+    var links = selection
+      .selectAll('g.edge')
+      .data(d => d.links, d => d.id)
 
-    // update
-    links
-      .each(function (d) {
-        var self = d3.select(this)
-        var cls = {
-          directed: d.directed || owner.options.directed
-        }
-        cls['source-' + d.source.id] = true
-        cls['target-' + d.target.id] = true
-        self.classed(cls)
-      })
+    const linksEnter = links.enter().append('g')
+    linksEnter
+        .attr('class', 'edge')
+        // .attr('opacity', 0)
+        .attr('id', d => ns(d.id))
+      // .transition('enter')
+        .attr('opacity', 1)
+      .merge(links)
+        .each(function (d) {
+          var self = select(this)
+          self.classed(`source-${d.source.id}`, true)
+          self.classed(`target-${d.target.id}`, true)
+          self.classed('directed', defined(d.directed, owner.options.directed))
+        })
+
+    const linksAll = linksEnter.merge(links)
 
     var meta = {}
-    links.each(function (d) {
+    linksAll.each(function (d) {
       createPath(d, meta, 17)
     })
 
     // path enter
-    var paths = links.selectAll('path')
+    var paths = linksAll.selectAll('path')
       .data(function (d) {
         // 1. real path
         // 2. stroke-dasharray helper
         return [d, d]
       })
-    paths.enter()
-      .append('path')
+    const pathsEnter = paths.enter().append('path')
       .attr('stroke', d => d.stroke)
       .attr('fill', 'transparent')
       .attr('stroke-width', 2)
       .each(function (d, i) {
-        var el = d3.select(this)
+        var el = select(this)
         el.attr('opacity', !i ? 1 : 0)
         if (i === 0) {
           el.classed('base', true)
@@ -236,18 +247,16 @@ export default function () {
           el.classed('traversal', true)
         }
       })
-      // .attr('d', function () {
-      //  var parent = d3.select(this.parentNode).datum()
-      //  return line([parent.source])
-      // })
+
+    const pathsAll = pathsEnter.merge(paths)
 
     // path update
-    utils.conditionalTransition(paths, !owner.nodeDragging)
-      .attr('d', d => line(d.path))
+    utils.conditionalTransition(pathsAll, !owner.nodeDragging)
+      .attr('d', d => pathCreator(d.path))
 
-    paths.each(function (d, i) {
-      var path = d3.select(this)
-      var parent = d3.select(this.parentNode)
+    pathsAll.each(function (d, i) {
+      var path = select(this)
+      var parent = select(this.parentNode)
       if (i === 0) {
         path.attr('marker-end',
           parent.classed('directed')
@@ -257,31 +266,21 @@ export default function () {
       }
     })
 
-    function weightPosition (selection) {
-      selection
-        .attr('transform', function (d) {
-          var angle = Vector.angleDeg(d.unit)
-          var v = d.path[Math.floor(d.path.length / 2)]
-          return utils.transform({
-            translate: v,
-            rotate: angle
-          })
-        })
-    }
-
-    var weights = links.selectAll('text')
+    var weights = linksAll.selectAll('text')
       .data(d => [d])
 
-    // weight enter
-    weights.enter()
-      .append('text')
+    // weights enter
+    const weightsEnter = weights.enter().append('text')
+    weightsEnter
       .attr('font-size', '9px')
       .attr('dominant-baseline', 'text-after-edge')
       .attr('text-anchor', 'middle')
       .call(weightPosition)
 
-    // weight update
-    utils.conditionalTransition(weights, !owner.nodeDragging)
+    const weightsAll = weightsEnter.merge(weights)
+
+    // weights update
+    utils.conditionalTransition(weightsAll, !owner.nodeDragging)
       .text(d => d.weight)
       .call(weightPosition)
 
