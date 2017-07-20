@@ -24,7 +24,7 @@
     "gulp-size": "^1.2.1",
     "gulp-sourcemaps": "^1.5.0",
     "gulp-uglify": "^1.2.0",
-    "gulp-useref": "^1.1.1",
+    "gulp-useref": "^3.1.2",
     "karma": "^0.13.0",
     "karma-firefox-launcher": "^0.1.6",
     "karma-mocha": "^0.1.10",
@@ -61,7 +61,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/maurizzzio/greuler.git"
+    "url": "git+https://github.com/mauriciopoppe/greuler.git"
   },
   "keywords": [
     "graph",
@@ -71,7 +71,7 @@
   "author": "Mauricio Poppe",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/maurizzzio/greuler/issues"
+    "url": "https://github.com/mauriciopoppe/greuler/issues"
   },
-  "homepage": "https://github.com/maurizzzio/greuler#readme"
+  "homepage": "https://github.com/mauriciopoppe/greuler#readme"
 }

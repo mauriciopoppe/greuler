@@ -50,14 +50,17 @@ gulp.task('es6-min', function () {
 });
 
 gulp.task('html', function () {
-  var assets = $.useref.assets();
+  // var useref = $.useref();
 
   return gulp.src(['public/*.html', 'favicon.ico'])
-    .pipe(assets)
+    // .pipe(assets)
     //.pipe($.if('*.js', $.uglify()))
-    .pipe($.if('*.css', $.csso()))
-    .pipe(assets.restore())
-    .pipe($.useref())
+    .pipe($.useref({
+      searchPath: ['.tmp', 'public']
+      // noAssets: true
+    }))
+    // .pipe($.if('*.css', $.csso()))
+    // .pipe(assets.restore())
     .pipe(gulp.dest('dist'));
 });
 
