@@ -1,0 +1,18 @@
+extends ../layout/base
+
+
+block content
+  include ../layout/header
+
+  nav.navbar.container
+    hr
+    .navbar-list
+      a.navbar-item(href='#/') intro
+      a.navbar-item(href='#/api') api
+      a.navbar-item(href='#/examples') examples
+      a.navbar-item(href='#/playground') playground
+    hr
+
+  section(ng-view, autoscroll='false')
+
+  include ../layout/footer

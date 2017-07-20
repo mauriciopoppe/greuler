@@ -1,0 +1,20 @@
+.container.example-container
+  .center {{ example.chosen.name }}
+
+  .row
+    .three.columns
+      .examples-sidebar
+        ul
+          li(ng-repeat="example in example.list")
+            a(href="#/examples/{{ example.id }}") {{ example.name }}
+        p more examples coming soon...
+
+    .nine.columns
+      .example
+        #demo
+        p#annotations(ng-show='example.chosen.annotation', ng-bind-html='example.chosen.annotation')
+
+  .center
+    button#runner(ng-click='example.run()') run algorithm
+    button(ng-click='example.source()') view source
+    button(ng-show='example.chosen.article', ng-click='example.article()') author's article
