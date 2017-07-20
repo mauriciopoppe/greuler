@@ -3,7 +3,7 @@ env: CI=true
 sudo: false
 
 node_js:
-  - '0.12'
+  - 6
 
 install:
   - npm install -g bower

@@ -1,7 +1,7 @@
 'use strict'
 
 import extend from 'extend'
-import util from './utils'
+import { createId } from './utils'
 import { colors } from './const'
 
 const NODE_DEFAULT_OPTIONS = {
@@ -21,7 +21,7 @@ function includes (arr, id) {
   }
 }
 
-export default class Graph {
+export class Graph {
   constructor (owner, data) {
     this.owner = owner
     this.nodes = data.nodes
@@ -403,7 +403,7 @@ export default class Graph {
 
   static appendNodeDefaults (v) {
     if (!v.hasOwnProperty('id')) {
-      v.id = util.id()
+      v.id = createId()
     }
 
     v = extend(
@@ -427,7 +427,7 @@ export default class Graph {
 
   static appendEdgeDefaults (e) {
     if (!e.hasOwnProperty('id')) {
-      e.id = util.id()
+      e.id = createId()
     }
     e = extend(
       {},

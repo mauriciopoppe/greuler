@@ -8,12 +8,12 @@ import { dispatch } from 'd3-dispatch'
 import { timer } from 'd3-timer'
 import { drag } from 'd3-drag'
 
-import node from './elements/node'
-import edge from './elements/edge'
-import GraphManager from './Graph'
-import GreulerDefaultTransition from './selector/GreulerDefaultTransition'
+import { Node } from './elements/node'
+import { Edge } from './elements/edge'
+import { Graph as GraphManager } from './Graph'
+import { GreulerDefaultTransition } from './selector/GreulerDefaultTransition'
 
-export default class Draw {
+export class Draw {
   constructor (id, options) {
     var self = this
     this.events = dispatch('layout', 'firstLayoutEnd')
@@ -30,8 +30,8 @@ export default class Draw {
     this.selector = new GreulerDefaultTransition(this)
 
     // sub-elements that draw stuff
-    this.nodeDrawer = node().owner(this)
-    this.edgeDrawer = edge().owner(this)
+    this.nodeDrawer = Node().owner(this)
+    this.edgeDrawer = Edge().owner(this)
 
     // layout engine
     this.layout = d3adaptor({
@@ -39,7 +39,7 @@ export default class Draw {
       dispatch,
       timer,
       drag,
-      get event() {
+      get event () {
         return event
       }
     })
@@ -218,5 +218,4 @@ export default class Draw {
         .attr('class', 'nodes')
       .merge(nodes)
   }
-
 }

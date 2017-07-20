@@ -1,6 +1,4 @@
-'use strict'
-
-export default class Generator {
+export class Generator {
   constructor (instance, speed) {
     this.instance = instance
     this.speed = speed || instance.options.animationTime

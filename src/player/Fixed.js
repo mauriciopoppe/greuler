@@ -1,6 +1,4 @@
-'use strict'
-
-export default class Player {
+export class Player {
   constructor (actions, speed) {
     this.index = 0
     this.speed = speed
@@ -25,5 +23,4 @@ export default class Player {
     this.pause()
     this.index = 0
   }
-
 }

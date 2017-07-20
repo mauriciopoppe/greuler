@@ -1,14 +1,10 @@
-'use strict'
-
-const d3 = window.d3
-
 import extend from 'extend'
-import Graph from './Graph'
+import { ElementSelector } from './Graph'
+import { select } from 'd3-selection'
 
-var HIGHLIGHT = 'highlight'
+const HIGHLIGHT = 'highlight'
 
-export default class GreulerDefaultTransition extends Graph {
-
+export class GreulerDefaultTransition extends ElementSelector {
   /**
    * Gets all the edges of the graph
    *
@@ -88,7 +84,7 @@ export default class GreulerDefaultTransition extends Graph {
     return selection
       .selectAll('path.traversal')
       .each(function () {
-        var el = d3.select(this)
+        var el = select(this)
         var l = this.getTotalLength()
         el
           .attr('stroke', options.stroke)
@@ -116,7 +112,7 @@ export default class GreulerDefaultTransition extends Graph {
       })
       .attr('opacity', 0)
       .each('end', function () {
-        var el = d3.select(this)
+        var el = select(this)
         el.attr('stroke-dasharray', null)
           .attr('stroke-dashoffset', null)
           .attr('opacity', 0)

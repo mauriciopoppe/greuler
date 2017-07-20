@@ -1,9 +1,7 @@
-'use strict'
-
-import utils from '../utils'
+import { ns } from '../utils'
 import extend from 'extend'
 
-export default class ElementSelector {
+export class ElementSelector {
   constructor (owner) {
     this.owner = owner
     this.graph = owner.graph
@@ -42,7 +40,7 @@ export default class ElementSelector {
     els = els.filter(Boolean)
     return this.owner.root.selectAll(
       els.map(function (e) {
-        return '#' + utils.ns(e.id)
+        return '#' + ns(e.id)
       }).join(', ')
     )
   }
@@ -66,5 +64,4 @@ export default class ElementSelector {
     return selection
       .selectAll('circle')
   }
-
 }

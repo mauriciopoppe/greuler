@@ -2,10 +2,10 @@
 
 import { select } from 'd3-selection'
 
-import utils from '../utils'
+import { transform, ns } from '../utils'
 import { colors } from '../const'
 
-export default function () {
+export function Node () {
   let owner
 
   function inner (selection) {
@@ -18,11 +18,11 @@ export default function () {
     const g = nodes.enter()
       .append('g')
       .attr('class', function (d) {
-        return 'node ' + (d.class || '');
+        return 'node ' + (d.class || '')
       })
-      .attr('id', function (d) { return utils.ns(d.id) })
+      .attr('id', function (d) { return ns(d.id) })
       .attr('transform', function (d) {
-        return utils.transform({ translate: d })
+        return transform({ translate: d })
       })
       .on('mouseover', function () {
         var el = select(this)
@@ -105,9 +105,11 @@ export default function () {
 
     // // update
     // utils.conditionalTransition(nodes, !owner.nodeDragging)
-    utils.transition(nodes)
+
+    // utils.transition(nodes)
+    nodes
       .attr('transform', function (d) {
-        return utils.transform({
+        return transform({
           translate: d
         })
       })

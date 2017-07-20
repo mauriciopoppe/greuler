@@ -5,12 +5,10 @@ import { default as defined } from 'defined'
 import { line, curveBundle } from 'd3-shape'
 import { select } from 'd3-selection'
 
-import Vector from '../Vector'
-import { default as utils, ns } from '../utils'
+import { Vector } from '../Vector'
+import { transform, ns } from '../utils'
 
-console.log(typeof ns, ns(3))
-
-export default function () {
+export function Edge () {
   var owner
 
   function moveTowardsPoint (point, middle) {
@@ -183,7 +181,7 @@ export default function () {
       .attr('transform', function (d) {
         var angle = Vector.angleDeg(d.unit)
         var v = d.path[Math.floor(d.path.length / 2)]
-        return utils.transform({
+        return transform({
           translate: v,
           rotate: angle
         })
@@ -251,7 +249,8 @@ export default function () {
     const pathsAll = pathsEnter.merge(paths)
 
     // path update
-    utils.conditionalTransition(pathsAll, !owner.nodeDragging)
+    // utils.conditionalTransition(pathsAll, !owner.nodeDragging)
+    pathsAll
       .attr('d', d => pathCreator(d.path))
 
     pathsAll.each(function (d, i) {
@@ -280,7 +279,8 @@ export default function () {
     const weightsAll = weightsEnter.merge(weights)
 
     // weights update
-    utils.conditionalTransition(weightsAll, !owner.nodeDragging)
+    // utils.conditionalTransition(weightsAll, !owner.nodeDragging)
+    weightsAll
       .text(d => d.weight)
       .call(weightPosition)
 
