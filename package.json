@@ -61,7 +61,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mauricio-poppe/greuler.git"
+    "url": "git+https://github.com/mauriciopoppe/greuler.git"
   },
   "keywords": [
     "graph",
@@ -71,7 +71,7 @@
   "author": "Mauricio Poppe",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mauricio-poppe/greuler/issues"
+    "url": "https://github.com/mauriciopoppe/greuler/issues"
   },
-  "homepage": "https://github.com/mauricio-poppe/greuler#readme"
+  "homepage": "https://github.com/mauriciopoppe/greuler#readme"
 }
