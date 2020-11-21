@@ -1,14 +1,14 @@
-# greuler 
+# greuler
 
-[![Build Status][travis-image]][travis-url] [![NPM][npm-image]][npm-url] <img src="https://github.com/mauriciopoppe/greuler/blob/master/badge%402x.png" width="130" height="30">
+[![Build Status][travis-image]][travis-url] [![NPM][npm-image]][npm-url] <img src="https://github.com/mauricio-poppe/greuler/blob/master/badge%402x.png" width="130" height="30">
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
 <b>greuler</b> is graph theory visualization tool powered by <a href="http://d3js.org/">d3</a>
 and on top of <a href="http://marvl.infotech.monash.edu/webcola/">WebCola</a>
 which allows the creation and manipulation of graphs with a simple api
-        
-[Homepage](http://mauriciopoppe.github.io/greuler/)
+
+[Homepage](http://mauricio-poppe.github.io/greuler/)
 
 ## Installation
 
@@ -33,8 +33,8 @@ And then include it in your webpage
 <script src="bower_components/greuler/dist/greuler.js"></script>
 ```
 
-or 
-    
+or
+
 ```html
 <script src="bower_components/greuler/dist/greuler.min.js"></script>
 ```
@@ -51,7 +51,7 @@ greuler({
 
 ## Examples
 
-Check out the examples at the [`homepage`](http://mauriciopoppe.github.io/greuler/)
+Check out the examples at the [`homepage`](http://mauricio-poppe.github.io/greuler/)
 
 ## Usage Notes
 
@@ -95,7 +95,7 @@ On runtime you can add/remove/update the properties through `instance.options.da
 `instance.graph.*` methods :)
 
 - The layout adaptor instance can be accessed through `instance.layout`
-- To make the nodes have a fixed position listen for the `firstLayoutEnd` event and add the `fixed` property 
+- To make the nodes have a fixed position listen for the `firstLayoutEnd` event and add the `fixed` property
 to each one of the nodes you want to be fixed e.g.
 
 ```javascript
@@ -220,7 +220,7 @@ And then
 gulp serve
 ```
 
-Open `http://localhost:9000` and that's it! 
+Open `http://localhost:9000` and that's it!
 
 
 ### Deploy
@@ -243,5 +243,5 @@ $ gulp deploy
 
 [npm-image]: https://img.shields.io/npm/v/greuler.svg?style=flat
 [npm-url]: https://npmjs.org/package/greuler
-[travis-image]: https://travis-ci.org/mauriciopoppe/greuler.svg?branch=master
-[travis-url]: https://travis-ci.org/mauriciopoppe/greuler
+[travis-image]: https://travis-ci.org/mauricio-poppe/greuler.svg?branch=master
+[travis-url]: https://travis-ci.org/mauricio-poppe/greuler
