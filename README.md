@@ -18,25 +18,14 @@ which allows the creation and manipulation of graphs with a simple api
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.js"></script>
-<script src="http://marvl.infotech.monash.edu/webcola/cola.v3.min.js"></script>
+<script src="https://mauriciopoppe.github.io/greuler/scripts/lib/cola.v3.js"></script>
+<script src="https://mauriciopoppe.github.io/greuler/greuler.min.js"></script>
 ```
 
-Install **greuler** with bower
+Or include d3 and cola as above and install **greuler** with npm
 
 ```sh
-bower install greuler
-```
-
-And then include it in your webpage
-
-```html
-<script src="bower_components/greuler/dist/greuler.js"></script>
-```
-
-or 
-    
-```html
-<script src="bower_components/greuler/dist/greuler.min.js"></script>
+npm install greuler
 ```
 
 ## Usage
