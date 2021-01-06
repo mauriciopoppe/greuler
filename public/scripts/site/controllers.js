@@ -3,21 +3,21 @@
 var list = [{
   id: 'dfs',
   name: 'Depth First Search',
-  article: 'http://maurizzzio.com/static/graphs/traversal.html'
+  article: 'http://mauriciopoppe.com/static/graphs/traversal.html'
 }, {
   id: 'bfs',
   name: 'Breadth First Search',
-  article: 'http://maurizzzio.com/static/graphs/traversal.html',
+  article: 'http://mauriciopoppe.com/static/graphs/traversal.html',
   annotation: '<p>Legend:</p> <p class="small">Number on the right: The distance from this node to the node with id = 0</p>'
 }, {
   id: 'eulerian-trail',
   name: 'Eulerian Trail',
-  article: 'http://maurizzzio.com/static/graphs/special/eulerian-graphs.html',
+  article: 'http://mauriciopoppe.com/static/graphs/special/eulerian-graphs.html',
   annotation: '<p>Note: the edges are highlighted after preprocessing the trail</p>'
 }, {
   id: 'articulation-points',
   name: 'Articulation Points',
-  article: 'http://maurizzzio.com/static/graphs/cut-vertices.html',
+  article: 'http://mauriciopoppe.com/static/graphs/cut-vertices.html',
   annotation: '<p>Legend:</p> <p class="small">Number on the left: the time a node was discovered <br />' +
     'Number on the right: the lowest time of some node that can be reached from this node</p>'
 }]
