@@ -1,6 +1,8 @@
-@main: #2980B9;
+:root {
+  --main: #2980B9;
+}
 
-// overrides
+/* overrides */
 body {
   margin: 50px 0;
   font-family: 'Alice', cursive;
@@ -26,11 +28,11 @@ code {
 }
 
 button {
-  border: 1px solid @main;
-  color: @main;
+  border: 1px solid var(--main);
+  color: var(--main);
 }
 
-// utilities
+/* utilities */
 .center {
   margin: 0 auto;
   text-align: center;
@@ -44,10 +46,10 @@ button {
   text-align: center;
 }
 
-.border-radius (@radius: 5px) {
-  -webkit-border-radius: @radius;
-  -moz-border-radius:    @radius;
-  border-radius:         @radius;
+.border-radius {
+  -webkit-border-radius: 5px;
+  -moz-border-radius:    5px;
+  border-radius:         5px;
 
   -moz-background-clip:    padding;
   -webkit-background-clip: padding-box;
@@ -64,10 +66,8 @@ button {
 }
 
 /* mobile rules */
-div {
-	p {
-		color: #111;
-	}
+div p {
+  color: #111;
 }
 
 .text-animation svg * {
@@ -80,23 +80,19 @@ div {
   margin: 40px 0;
 }
 
-@selector-example: 50px;
-.example-numbers {
-  min-width: 1px;
-  span {
-    border: 1px solid @main;
-    margin: 5px 10px;
-    width: @selector-example;
-    height: @selector-example;
-    display: inline-block;
-    text-align: center;
-    line-height: @selector-example;
-    .border-radius(50%);
+/*@selector-example: 50px;*/
+.example-numbers span {
+  border: 1px solid var(--main);
+  margin: 5px 10px;
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  text-align: center;
+  line-height: 50px;
+}
 
-    &:hover {
-      cursor: pointer;
-    }
-  }
+.example-numbers span:hover {
+  cursor: pointer;
 }
 
 .navbar-list {
@@ -126,37 +122,30 @@ div {
   }
 }
 
-.example-container {
-  .examples-sidebar {
-    font-size: 14px;
-
-    li {
-      margin: 0;
-    }
-  }
-
-  .example {
-    border-left: 1px solid #eee;
-  }
-
-  .row {
-    margin-bottom: 30px;
-  }
-
-  button {
-    text-transform: none;
-    font-size: 14px;
-    letter-spacing: normal;
-    margin: 0 5px;
-  }
-
-  #annotations {
-    margin: 10px;
-    p {
-      font-size: 14px;
-      &.small {
-        font-size: 10px;
-      }
-    }
-  }
+.example-container .examples-sidebar {
+  font-size: 14px;
+}
+.example-container .examples-sidebar li {
+  margin: 0;
+}
+.example-container .example {
+  border-left: 1px solid #eee;
+}
+.example-container .row {
+  margin-bottom: 30px;
+}
+.example-container button {
+  text-transform: none;
+  font-size: 14px;
+  letter-spacing: normal;
+  margin: 0 5px;
+}
+.example-container #annotations {
+  margin: 10px;
+}
+.example-container #annotations p {
+  font-size: 14px;
+}
+.example-container #annotations p.small {
+  font-size: 10px;
 }
