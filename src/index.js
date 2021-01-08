@@ -1,18 +1,18 @@
-'use strict'
-
 import './polyfills'
 import 'd3-transition'
 import { select } from 'd3-selection'
 
-// node
+import { Graph } from './Graph'
+import { colors } from './const'
+import { Generator } from './player/'
 import { Draw } from './Draw'
 import { createId } from './utils'
 
-var instances = []
+const instances = []
 
-export default function run (options) {
-  var el = select(options.target)
-  var id = el.attr('greuler-id')
+function greuler (options) {
+  const el = select(options.target)
+  let id = el.attr('greuler-id')
   if (!id) {
     id = createId()
     el.attr('greuler-id', id)
@@ -21,7 +21,8 @@ export default function run (options) {
   return instances[id]
 }
 
-export * from './Graph'
-export * from './const'
-export * from './player'
+greuler.Graph = Graph
+greuler.colors = colors
+greuler.Generator = Generator
 
+export default greuler

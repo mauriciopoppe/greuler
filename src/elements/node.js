@@ -1,5 +1,3 @@
-'use strict'
-
 import { select } from 'd3-selection'
 
 import { transform, ns } from '../utils'
@@ -15,7 +13,7 @@ export function Node () {
 
     const layout = owner.layout
 
-    const g = nodes.enter()
+    const nodesEnter = nodes.enter()
       .append('g')
       .attr('class', function (d) {
         return 'node ' + (d.class || '')
@@ -37,9 +35,9 @@ export function Node () {
         el.style('cursor', null)
       })
       .attr('opacity', 0)
-    g.transition('enter')
+    nodesEnter.transition('enter')
       .attr('opacity', 1)
-    g.call(layout.drag)
+    nodesEnter.call(layout.drag)
 
     // var dragStart = layout.drag().on('start.d3adaptor')
     // var dragEnd = layout.drag().on('end.d3adaptor')
@@ -53,19 +51,20 @@ export function Node () {
     //     dragEnd.apply(undefined, arguments)
     //   })
 
-    g.append('circle')
+    nodesEnter.append('circle')
       .attr('fill', d => d.fill)
       .attr('r', d => d.r)
 
     // inner label
-    g.append('text')
+    nodesEnter.append('text')
       .classed('label', true)
       .attr('fill', 'white')
       .attr('font-size', '12px')
       .attr('text-anchor', 'middle')
       .attr('dominant-baseline', 'central')
 
-    nodes.selectAll('text.label')
+    nodes.merge(nodesEnter)
+      .selectAll('text.label')
       .text(function (d) {
         if ('label' in d) {
           return d.label
@@ -74,7 +73,7 @@ export function Node () {
       })
 
     // top-right label
-    g.append('text')
+    nodesEnter.append('text')
       .classed('outer-top-right', true)
       .attr('fill', colors.BLUE)
       .attr('font-size', '9px')
@@ -89,7 +88,7 @@ export function Node () {
       })
 
     // top-left label
-    g.append('text')
+    nodesEnter.append('text')
       .classed('outer-top-left', true)
       .attr('fill', colors.BLUE)
       .attr('font-size', '9px')

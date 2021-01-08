@@ -1,9 +1,6 @@
-'use strict'
-
-import extend from 'extend'
-import { default as defined } from 'defined'
 import { line, curveBundle } from 'd3-shape'
 import { select } from 'd3-selection'
+import extend from 'extend'
 
 import { Vector } from '../Vector'
 import { transform, ns } from '../utils'
@@ -213,7 +210,7 @@ export function Edge () {
           var self = select(this)
           self.classed(`source-${d.source.id}`, true)
           self.classed(`target-${d.target.id}`, true)
-          self.classed('directed', defined(d.directed, owner.options.directed))
+          self.classed('directed', 'directed' in d ? d.directed : owner.options.directed)
         })
 
     const linksAll = linksEnter.merge(links)

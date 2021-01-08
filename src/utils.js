@@ -29,11 +29,4 @@ export function transition(selection) {
     // .duration(300)
 }
 
-export function conditionalTransition(el, condition) {
-  if (condition) {
-    return this.transition(el)
-  }
-  return el
-}
-
 export const ns = str => 'greuler-' + str

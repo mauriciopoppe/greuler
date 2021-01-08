@@ -1,6 +1,7 @@
-import extend from 'extend'
-import { ElementSelector } from './Graph'
 import { select } from 'd3-selection'
+import extend from 'extend'
+
+import { ElementSelector } from './Graph'
 
 const HIGHLIGHT = 'highlight'
 
@@ -38,7 +39,7 @@ export class GreulerDefaultTransition extends ElementSelector {
    * @param {Object} options
    * @returns {d3_transition}
    */
-  doTemporalHighlightNode (selection, options) {
+  async doTemporalHighlightNode (selection, options) {
     return this.innerNodeSelector(selection)
       .transition(HIGHLIGHT)
       .duration(this.getAnimationTime() / 2)
@@ -46,6 +47,7 @@ export class GreulerDefaultTransition extends ElementSelector {
       .transition(HIGHLIGHT)
       .duration(this.getAnimationTime() / 2)
       .attr('r', (d) => d.r)
+      .end()
   }
 
   /**
@@ -60,7 +62,7 @@ export class GreulerDefaultTransition extends ElementSelector {
    * @param {Object} options
    * @returns {d3_transition}
    */
-  doTemporalHighlightEdges (selection, options) {
+  async doTemporalHighlightEdges (selection, options) {
     return this.innerEdgeSelector(selection)
       .transition(HIGHLIGHT)
       .duration(this.getAnimationTime() / 2)
@@ -68,6 +70,7 @@ export class GreulerDefaultTransition extends ElementSelector {
       .transition(HIGHLIGHT)
       .duration(this.getAnimationTime() / 2)
       .attr('stroke', (d) => d.stroke)
+      .end()
   }
 
   /**
@@ -80,9 +83,10 @@ export class GreulerDefaultTransition extends ElementSelector {
    * @param {number} [source=-1]
    * @returns {d3_transition}
    */
-  traverseEdgeWithDirection (selection, options, source = -1) {
-    return selection
+  async traverseEdgeWithDirection (selection, options, source = -1) {
+    const paths = selection
       .selectAll('path.traversal')
+    await paths
       .each(function () {
         var el = select(this)
         var l = this.getTotalLength()
@@ -111,15 +115,20 @@ export class GreulerDefaultTransition extends ElementSelector {
         return lengthToMove
       })
       .attr('opacity', 0)
-      .each('end', function () {
+      .end()
+
+    paths
+      .each(function () {
         var el = select(this)
         el.attr('stroke-dasharray', null)
           .attr('stroke-dashoffset', null)
           .attr('opacity', 0)
       })
+
+    return paths
   }
 
-  traverseEdges (selection, options, source) {
+  async traverseEdges (selection, options, source) {
     options = extend({
       keepStroke: true,
       reverse: false
@@ -127,10 +136,11 @@ export class GreulerDefaultTransition extends ElementSelector {
 
     selection.call(this.traverseEdgeWithDirection, options, source)
     if (options.keepStroke) {
-      this.innerEdgeSelector(selection)
+      await this.innerEdgeSelector(selection)
         .transition('update')
         .duration(options.duration)
         .attr('stroke', options.stroke)
+        .end()
     }
     return this.innerEdgeSelector(selection)
   }

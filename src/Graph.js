@@ -1,16 +1,15 @@
-'use strict'
-
 import extend from 'extend'
+
 import { createId } from './utils'
 import { colors } from './const'
 
 const NODE_DEFAULT_OPTIONS = {
   r: 10,
-  fill: '#2980B9'
+  fill: colors.DEFAULT_NODE
 }
 
 const EDGE_DEFAULT_OPTIONS = {
-  stroke: colors.LIGHT_GRAY
+  stroke: colors.DEFAULT_EDGE
 }
 
 function includes (arr, id) {

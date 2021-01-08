@@ -198,7 +198,7 @@ export class Draw {
         .attr('fill-opacity', 1)
         .attr('fill', '#777')
 
-    const svg = svgEnter.merge(mount)
+    const svg = this.root = svgEnter.merge(mount)
 
     // wrapper for the edges
     const edges = svg
