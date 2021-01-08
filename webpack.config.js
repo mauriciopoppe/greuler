@@ -11,6 +11,7 @@ module.exports = {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './public',
+    historyApiFallback: true,
     // https://github.com/webpack/webpack-dev-server/issues/2484
     injectClient: false
   },
@@ -26,9 +27,9 @@ module.exports = {
       {
         test: /(\.jsx|\.js|\.ts|\.tsx)$/,
         use: {
-          loader: 'babel-loader',
+          loader: 'babel-loader'
         },
-        exclude: /(node_modules)/,
+        exclude: /(node_modules)/
       },
       {
         test: /\.svg$/,
@@ -37,13 +38,11 @@ module.exports = {
           removeSVGTagAttrs: false
         }
       }
-    ],
+    ]
   },
   resolve: {
     modules: [path.resolve('./node_modules'), path.resolve('./src')],
-    extensions: ['.json', '.js'],
+    extensions: ['.json', '.js']
   },
-  plugins: [
-    new CleanWebpackPlugin()
-  ]
+  plugins: [new CleanWebpackPlugin()]
 }
