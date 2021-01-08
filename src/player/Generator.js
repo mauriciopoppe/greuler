@@ -20,16 +20,16 @@ export class Generator {
       return animation(this.instance)
     }
 
-    var type = this.instance[animation.type]
+    const type = this.instance[animation.type]
     return type[animation.op].apply(type, animation.args || [])
   }
 
   play (value) {
-    var self = this
-    var next = this.fn.next(value)
+    const self = this
+    const next = this.fn.next(value)
     if (!next.done) {
-      var delay = this.speed
-      var runAnimationValue = this.runAnimation(next.value)
+      let delay = this.speed
+      const runAnimationValue = this.runAnimation(next.value)
       if (runAnimationValue && typeof runAnimationValue === 'object') {
         if (typeof runAnimationValue.delay === 'number') {
           delay = runAnimationValue.delay

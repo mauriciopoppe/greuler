@@ -13,7 +13,7 @@ const EDGE_DEFAULT_OPTIONS = {
 }
 
 function includes (arr, id) {
-  for (var i = 0; i < arr.length; i += 1) {
+  for (let i = 0; i < arr.length; i += 1) {
     if (arr[i].id === id) {
       return true
     }
@@ -47,8 +47,8 @@ export class Graph {
    * NOTE: this function receives any number of arguments
    */
   addNode () {
-    for (var i = 0; i < arguments.length; i += 1) {
-      var config = arguments[i]
+    for (let i = 0; i < arguments.length; i += 1) {
+      const config = arguments[i]
       if (!config.hasOwnProperty('id')) {
         throw Error('the object must have the property `id`')
       }
@@ -91,11 +91,11 @@ export class Graph {
    * @returns {Object[]}
    */
   getAdjacentNodes (node) {
-    var adjacentNodes = []
-    var taken = {}
-    var next
-    for (var i = 0; i < this.edges.length; i += 1) {
-      var edge = this.edges[i]
+    const adjacentNodes = []
+    const taken = {}
+    let next
+    for (let i = 0; i < this.edges.length; i += 1) {
+      const edge = this.edges[i]
       next = null
       if (edge.source.id === node.id) {
         next = edge.target
@@ -120,11 +120,11 @@ export class Graph {
    * @returns {Object[]}
    */
   getSuccessorNodes (node) {
-    var successor = []
-    var taken = {}
-    var next
-    for (var i = 0; i < this.edges.length; i += 1) {
-      var edge = this.edges[i]
+    const successor = []
+    const taken = {}
+    let next
+    for (let i = 0; i < this.edges.length; i += 1) {
+      const edge = this.edges[i]
       next = null
       if (edge.source.id === node.id) {
         next = edge.target
@@ -146,11 +146,11 @@ export class Graph {
    * @returns {Object[]}
    */
   getPredecessorNodes (node) {
-    var predecessor = []
-    var taken = {}
-    var next
-    for (var i = 0; i < this.edges.length; i += 1) {
-      var edge = this.edges[i]
+    const predecessor = []
+    const taken = {}
+    let next
+    for (let i = 0; i < this.edges.length; i += 1) {
+      const edge = this.edges[i]
       next = null
       if (edge.target.id === node.id) {
         next = edge.source
@@ -196,11 +196,11 @@ export class Graph {
    * @param {Function} fn
    */
   removeNodesByFn (fn) {
-    var i
+    let i
     for (i = 0; i < this.nodes.length; i += 1) {
       if (fn(this.nodes[i], i)) {
         // remove nodes
-        var node = this.nodes.splice(i, 1)
+        const node = this.nodes.splice(i, 1)
         // remove incident edges
         this.removeEdges(
           this.getIncidentEdges(node[0])
@@ -230,14 +230,14 @@ export class Graph {
    * NOTE: this function receives any number of arguments
    */
   addEdge () {
-    for (var i = 0; i < arguments.length; i += 1) {
-      var config = arguments[i]
+    for (let i = 0; i < arguments.length; i += 1) {
+      const config = arguments[i]
 
       if (!config.hasOwnProperty('source') || !config.hasOwnProperty('target')) {
         throw Error('the edge must have the properties `source` and `target`')
       }
-      var source = config.source
-      var target = config.target
+      let source = config.source
+      let target = config.target
 
       if (typeof source !== 'object') {
         source = this.getNode({ id: config.source })
@@ -330,7 +330,7 @@ export class Graph {
    * @param {function} fn
    */
   removeEdgesByFn (fn) {
-    var i
+    let i
     for (i = 0; i < this.edges.length; i += 1) {
       if (fn(this.edges[i], i)) {
         this.edges.splice(i, 1)
@@ -389,8 +389,8 @@ export class Graph {
    * NOTE: the function receives any number of parameters
    */
   add () {
-    for (var i = 0; i < arguments.length; i += 1) {
-      var el = arguments[i]
+    for (let i = 0; i < arguments.length; i += 1) {
+      const el = arguments[i]
       // assume that edges have a source/target parameter
       if (el.hasOwnProperty('source') && el.hasOwnProperty('target')) {
         this.addEdge(el)
@@ -462,9 +462,9 @@ export class Graph {
       pseudoGraph: false
     }, options)
 
-    var i, u, v
-    var nodes = []
-    var adjacencyList = []
+    let i, u, v
+    const nodes = []
+    const adjacencyList = []
     for (i = 0; i < options.order; i += 1) {
       adjacencyList[i] = []
       nodes.push({ id: i })
@@ -474,7 +474,7 @@ export class Graph {
       adjacencyList[u][v] = adjacencyList[v][u] = true
     }
 
-    var edges = []
+    const edges = []
     i = 0
 
     if (options.connected) {

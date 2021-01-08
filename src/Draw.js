@@ -15,7 +15,7 @@ import { GreulerDefaultTransition } from './selector/GreulerDefaultTransition'
 
 export class Draw {
   constructor (id, options) {
-    var self = this
+    const self = this
     this.events = dispatch('layout', 'firstLayoutEnd')
 
     this.markerId = 'marker-' + id
@@ -48,7 +48,7 @@ export class Draw {
       self.tick()
     })
 
-    var firstEnd = true
+    let firstEnd = true
     this.layout.on('end', function () {
       if (firstEnd) {
         self.events.call('firstLayoutEnd')
@@ -58,9 +58,9 @@ export class Draw {
   }
 
   createGraph () {
-    var data = this.options.data
-    var nodes = data.nodes
-    var links = data.links
+    const data = this.options.data
+    const nodes = data.nodes
+    const links = data.links
 
     data.nodes = []
     data.links = []
@@ -122,13 +122,13 @@ export class Draw {
   }
 
   initLayout (updateOptions) {
-    var self = this
+    const self = this
 
     if (updateOptions.skipLayout) {
       return
     }
 
-    var receivesArray = {
+    const receivesArray = {
       nodes: true,
       links: true,
       groups: true,
@@ -138,7 +138,7 @@ export class Draw {
     }
 
     Object.keys(self.options.data).forEach(function (k) {
-      var v = self.options.data[k]
+      const v = self.options.data[k]
       if (receivesArray[k]) {
         self.layout[k](arrify(v))
       } else {

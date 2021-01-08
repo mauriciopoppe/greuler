@@ -24,7 +24,7 @@ export class Vector {
     if (a.x === 0 && a.y === 0) {
       throw Error('the length of the vector is 0')
     }
-    var length = this.len(a)
+    const length = this.len(a)
     return new Vector(a.x / length, a.y / length)
   }
 
@@ -63,10 +63,10 @@ export class Vector {
   }
 
   static rotate (a, angle) {
-    var cosA = Math.cos(angle)
-    var sinA = Math.sin(angle)
-    var nx = a.x * cosA - a.y * sinA
-    var ny = a.x * sinA + a.y * cosA
+    const cosA = Math.cos(angle)
+    const sinA = Math.sin(angle)
+    const nx = a.x * cosA - a.y * sinA
+    const ny = a.x * sinA + a.y * cosA
     return new Vector(nx, ny)
   }
 }

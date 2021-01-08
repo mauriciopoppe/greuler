@@ -4,13 +4,13 @@ import lcg from 'compute-lcg'
 const rand = lcg(1)
 
 export function createId() {
-  var n = rand()
-  var letter = String.fromCharCode(Math.floor(n * 26) + 97)
+  const n = rand()
+  const letter = String.fromCharCode(Math.floor(n * 26) + 97)
   return letter + n.toString(16).substr(2)
 }
 
 export function transform(o) {
-  var str = ``
+  let str = ``
   if ('translate' in o) {
     str += ` translate(${o.translate.x}, ${o.translate.y})`
   }

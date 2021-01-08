@@ -23,14 +23,14 @@ export function Node () {
         return transform({ translate: d })
       })
       .on('mouseover', function () {
-        var el = select(this)
+        const el = select(this)
         if (!el.over) {
           el.style('cursor', 'pointer')
         }
         el.over = true
       })
       .on('mouseout', function () {
-        var el = select(this)
+        const el = select(this)
         el.over = false
         el.style('cursor', null)
       })

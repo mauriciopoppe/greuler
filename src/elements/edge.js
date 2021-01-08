@@ -6,11 +6,11 @@ import { Vector } from '../Vector'
 import { transform, ns } from '../utils'
 
 export function Edge () {
-  var owner
+  let owner
 
   function moveTowardsPoint (point, middle) {
-    var margin = point.r
-    var unit = Vector.unit(Vector.sub(middle, point))
+    const margin = point.r
+    const unit = Vector.unit(Vector.sub(middle, point))
     return Vector.add(point, Vector.scale(unit, margin))
   }
 
@@ -27,10 +27,10 @@ export function Edge () {
    * @returns {{path: *[], dir: *}}
    */
   function selfLoop (u, marginBetweenEdges, count) {
-    var adjacent = owner.graph.getAdjacentNodes(u)
-    var dir = new Vector(0, 0)
-    for (var i = 0; i < adjacent.length; i += 1) {
-      var v = adjacent[i]
+    const adjacent = owner.graph.getAdjacentNodes(u)
+    let dir = new Vector(0, 0)
+    for (let i = 0; i < adjacent.length; i += 1) {
+      const v = adjacent[i]
       if (u.id !== v.id) {
         dir = Vector.unit(Vector.add(
           dir,
@@ -48,24 +48,24 @@ export function Edge () {
       dir = Vector.unit(new Vector(0, -1))
     }
 
-    var ort = Vector.orthogonal(dir)
+    const ort = Vector.orthogonal(dir)
 
     // moving u towards `dir` `u.r` units
-    var uBorderOrigin = Vector.scale(dir, u.r + 4)
-    // var uBorderOriginTwice = Vector.scale(dir, u.r * 2)
+    const uBorderOrigin = Vector.scale(dir, u.r + 4)
+    // const uBorderOriginTwice = Vector.scale(dir, u.r * 2)
     // uD is now in the edge of the circle, making a little arc in the circle
 
     // endpoints of the edge will have a separation of 25 deg, 50 deg, 75 deg, ...
-    var separation = toRad(25)
-    var angle = separation + (count - 1) * separation
+    const separation = toRad(25)
+    const angle = separation + (count - 1) * separation
 
     // the point to the left of u + uBorder
-    var uBorderLeft = Vector.add(u, Vector.rotate(uBorderOrigin, angle))
+    const uBorderLeft = Vector.add(u, Vector.rotate(uBorderOrigin, angle))
     // the point to the right of u + uBorder
-    var uBorderRight = Vector.add(u, Vector.rotate(uBorderOrigin, -angle))
+    const uBorderRight = Vector.add(u, Vector.rotate(uBorderOrigin, -angle))
 
     // some length away from the node computed by doing random samples
-    var length = (marginBetweenEdges * 0.6) * (count + 1)
+    const length = (marginBetweenEdges * 0.6) * (count + 1)
 
     /*
      * Form the shape of a weird rhombus
@@ -81,13 +81,13 @@ export function Edge () {
      *     border   border
      *
      */
-    var up = Vector.add(u, Vector.scale(dir, u.r + length))
+    const up = Vector.add(u, Vector.scale(dir, u.r + length))
 
-    var midLeft = Vector.add(uBorderLeft, Vector.scale(dir, length * 0.5))
-    var midRight = Vector.add(uBorderRight, Vector.scale(dir, length * 0.5))
+    const midLeft = Vector.add(uBorderLeft, Vector.scale(dir, length * 0.5))
+    const midRight = Vector.add(uBorderRight, Vector.scale(dir, length * 0.5))
 
-    var left = Vector.add(midLeft, Vector.scale(ort, length / 4))
-    var right = Vector.add(midRight, Vector.scale(ort, -length / 4))
+    const left = Vector.add(midLeft, Vector.scale(ort, length / 4))
+    const right = Vector.add(midRight, Vector.scale(ort, -length / 4))
 
     return {
       path: [uBorderLeft, left, up, right, uBorderRight],
@@ -106,12 +106,8 @@ export function Edge () {
    * point of the vertices they join
    */
   function createPath (d, meta, marginBetweenEdges) {
-    var u, v
-    var uBorder, vBorder
-    var current
-
-    u = d.source
-    v = d.target
+    let u = d.source
+    let v = d.target
     if (u.id > v.id) {
       [u, v] = [v, u]
     }
@@ -119,27 +115,27 @@ export function Edge () {
 
     // the mid point is computed from the borders of both nodes
     // the mid point is used to determine the position of the label
-    uBorder = u
-    vBorder = v
+    let uBorder = u
+    let vBorder = v
     if (u.id !== v.id) {
       uBorder = moveTowardsPoint(u, v)
       vBorder = moveTowardsPoint(v, u)
     }
 
-    current = (meta[u.id][v.id] = meta[u.id][v.id] || {
+    const current = (meta[u.id][v.id] = meta[u.id][v.id] || {
       count: 1,
       mid: Vector.mid(uBorder, vBorder),
       direction: -1
     })
 
-    var innerJoints = []
+    let innerJoints = []
     if (u.id === v.id) {
       // apply the following for self-loop edges
-      var loop = selfLoop(u, marginBetweenEdges, current.count)
+      const loop = selfLoop(u, marginBetweenEdges, current.count)
       innerJoints = loop.path
       d.unit = loop.dir
     } else {
-      var unit = Vector.unit(Vector.sub(v, u))
+      const unit = Vector.unit(Vector.sub(v, u))
       extend(current, {
         unit: unit,
         unitOrthogonal: Vector.orthogonal(unit)
@@ -165,8 +161,8 @@ export function Edge () {
     //
     // simple trick: shorten the length of the edge by moving the start/end points
     // of the edges toward each other
-    var source = moveTowardsPoint(d.source, innerJoints[0])
-    var target = moveTowardsPoint(d.target, innerJoints[innerJoints.length - 1])
+    const source = moveTowardsPoint(d.source, innerJoints[0])
+    const target = moveTowardsPoint(d.target, innerJoints[innerJoints.length - 1])
 
     d.path = [source]
       .concat(innerJoints)
@@ -176,8 +172,8 @@ export function Edge () {
   function weightPosition (selection) {
     selection
       .attr('transform', function (d) {
-        var angle = Vector.angleDeg(d.unit)
-        var v = d.path[Math.floor(d.path.length / 2)]
+        const angle = Vector.angleDeg(d.unit)
+        const v = d.path[Math.floor(d.path.length / 2)]
         return transform({
           translate: v,
           rotate: angle
@@ -185,7 +181,7 @@ export function Edge () {
       })
   }
 
-  var pathCreator = line()
+  const pathCreator = line()
     .x(function (d) { return d.x })
     .y(function (d) { return d.y })
     .curve(curveBundle.beta(1))
@@ -194,7 +190,7 @@ export function Edge () {
     // .interpolate('linear')
 
   function inner (selection) {
-    var links = selection
+    const links = selection
       .selectAll('g.edge')
       .data(d => d.links, d => d.id)
 
@@ -207,7 +203,7 @@ export function Edge () {
         .attr('opacity', 1)
       .merge(links)
         .each(function (d) {
-          var self = select(this)
+          const self = select(this)
           self.classed(`source-${d.source.id}`, true)
           self.classed(`target-${d.target.id}`, true)
           self.classed('directed', 'directed' in d ? d.directed : owner.options.directed)
@@ -215,13 +211,13 @@ export function Edge () {
 
     const linksAll = linksEnter.merge(links)
 
-    var meta = {}
+    const meta = {}
     linksAll.each(function (d) {
       createPath(d, meta, 17)
     })
 
     // path enter
-    var paths = linksAll.selectAll('path')
+    const paths = linksAll.selectAll('path')
       .data(function (d) {
         // 1. real path
         // 2. stroke-dasharray helper
@@ -232,7 +228,7 @@ export function Edge () {
       .attr('fill', 'transparent')
       .attr('stroke-width', 2)
       .each(function (d, i) {
-        var el = select(this)
+        const el = select(this)
         el.attr('opacity', !i ? 1 : 0)
         if (i === 0) {
           el.classed('base', true)
@@ -251,8 +247,8 @@ export function Edge () {
       .attr('d', d => pathCreator(d.path))
 
     pathsAll.each(function (d, i) {
-      var path = select(this)
-      var parent = select(this.parentNode)
+      const path = select(this)
+      const parent = select(this.parentNode)
       if (i === 0) {
         path.attr('marker-end',
           parent.classed('directed')
@@ -262,7 +258,7 @@ export function Edge () {
       }
     })
 
-    var weights = linksAll.selectAll('text')
+    const weights = linksAll.selectAll('text')
       .data(d => [d])
 
     // weights enter
