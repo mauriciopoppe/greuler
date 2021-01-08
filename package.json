@@ -8,6 +8,7 @@
     "build:webpack": "NODE_ENV=production webpack"
   },
   "dependencies": {
+    "@mauriciopoppe/graph": "^0.3.0",
     "arrify": "^2.0.1",
     "compute-lcg": "^1.0.0",
     "d3-dispatch": "^1.0.3",

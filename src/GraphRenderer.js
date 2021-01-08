@@ -1,5 +1,3 @@
-'use strict'
-
 import arrify from 'arrify'
 import extend from 'extend'
 import { d3adaptor } from 'webcola'
@@ -10,11 +8,11 @@ import { drag } from 'd3-drag'
 
 import { Node } from './elements/node'
 import { Edge } from './elements/edge'
-import { Graph as GraphManager } from './Graph'
+import { GraphManager } from './Graph'
 import { GreulerDefaultTransition } from './selector/GreulerDefaultTransition'
 
-export class Draw {
-  constructor (id, options) {
+export class GraphRenderer {
+  constructor(id, options) {
     const self = this
     this.events = dispatch('layout', 'firstLayoutEnd')
 
@@ -39,7 +37,7 @@ export class Draw {
       dispatch,
       timer,
       drag,
-      get event () {
+      get event() {
         return event
       }
     })
@@ -57,21 +55,17 @@ export class Draw {
     })
   }
 
-  createGraph () {
+  createGraph() {
     const data = this.options.data
     const nodes = data.nodes
-    const links = data.links
+    const edges = data.edges
 
     data.nodes = []
-    data.links = []
+    data.edges = []
 
     this.graph = new GraphManager(this, data)
-    nodes.forEach(function (node) {
-      this.graph.addNode(node)
-    }, this)
-    links.forEach(function (edge) {
-      this.graph.addEdge(edge)
-    }, this)
+    nodes.forEach((node) => this.graph.addNode(node))
+    edges.forEach((edge) => this.graph.addEdge(edge))
   }
 
   /**
@@ -96,32 +90,38 @@ export class Draw {
    *       - weight="" {string} Label of the edge (can be the weight)
    *
    */
-  defaultOptions (options) {
+  defaultOptions(options) {
     // graph defaults
-    options = extend({
-      width: 700,
-      height: 300,
-      animationTime: 1000,
-      labels: true,
-      directed: false
-    }, options)
+    options = extend(
+      {
+        width: 700,
+        height: 300,
+        animationTime: 1000,
+        labels: true,
+        directed: false
+      },
+      options
+    )
 
-    options.data = extend({
-      nodes: [],
-      links: [],
-      groups: [],
-      constraints: [],
-      avoidOverlaps: true,
-      size: [options.width, options.height],
-      linkDistance: function (d) {
-        return d.linkDistance || 80
-      }
-    }, options.data)
+    options.data = extend(
+      {
+        nodes: [],
+        edges: [],
+        groups: [],
+        constraints: [],
+        avoidOverlaps: true,
+        size: [options.width, options.height],
+        linkDistance: function (d) {
+          return d.linkDistance || 80
+        }
+      },
+      options.data
+    )
 
     return options
   }
 
-  initLayout (updateOptions) {
+  initLayout(updateOptions) {
     const self = this
 
     if (updateOptions.skipLayout) {
@@ -137,28 +137,44 @@ export class Draw {
       size: true
     }
 
-    Object.keys(self.options.data).forEach(function (k) {
-      const v = self.options.data[k]
-      if (receivesArray[k]) {
-        self.layout[k](arrify(v))
-      } else {
-        self.layout[k].apply(self.layout, arrify(v))
+    // mapping of properties from this library to webcola
+    const remaps = {
+      edges: 'links'
+    }
+
+    Object.keys(self.options.data).forEach((key) => {
+      const v = self.options.data[key]
+
+      if (remaps.hasOwnProperty(key)) {
+        key = remaps[key]
       }
-    }, this)
+
+      if (receivesArray[key]) {
+        // call layout library method as fn([a, b, ...])
+        self.layout[key](arrify(v))
+      } else {
+        // call layout library method as fn(a, b, ...)
+        self.layout[key].apply(self.layout, arrify(v))
+      }
+    })
 
     this.layout.start.apply(this.layout, updateOptions.iterations)
   }
 
-  tick () {
+  tick() {
     this.edgeGroup.call(this.edgeDrawer)
     this.nodeGroup.call(this.nodeDrawer)
   }
 
-  update (updateOptions) {
-    updateOptions = extend(true, {
-      skipLayout: false,
-      iterations: []
-    }, updateOptions)
+  update(updateOptions) {
+    updateOptions = extend(
+      true,
+      {
+        skipLayout: false,
+        iterations: []
+      },
+      updateOptions
+    )
 
     this.initLayout(updateOptions)
     this.build(updateOptions)
@@ -171,51 +187,47 @@ export class Draw {
     return this
   }
 
-  build () {
-    const mount = select(this.options.target)
-      .selectAll('svg.greuler')
-      .data([this.options])
+  build() {
+    const mount = select(this.options.target).selectAll('svg.greuler').data([this.options])
 
     // enter
-    const svgEnter = mount.enter().append('svg')
+    const svgEnter = mount
+      .enter()
+      .append('svg')
       .attr('class', 'greuler')
-      .attr('width', d => d.width)
-      .attr('height', d => d.height)
+      .attr('width', (d) => d.width)
+      .attr('height', (d) => d.height)
 
     // marker def
     svgEnter
       .append('svg:defs')
       .append('svg:marker')
-        .attr('id', this.markerId)
-        .attr('viewBox', '0 -5 10 10')
-        .attr('refX', 9)
-        .attr('markerWidth', 5)
-        .attr('markerHeight', 5)
-        .attr('orient', 'auto')
+      .attr('id', this.markerId)
+      .attr('viewBox', '0 -5 10 10')
+      .attr('refX', 9)
+      .attr('markerWidth', 5)
+      .attr('markerHeight', 5)
+      .attr('orient', 'auto')
       .append('svg:path')
-        .attr('d', 'M0,-4L10,0L0,4L2,0')
-        .attr('stroke-width', '0px')
-        .attr('fill-opacity', 1)
-        .attr('fill', '#777')
+      .attr('d', 'M0,-4L10,0L0,4L2,0')
+      .attr('stroke-width', '0px')
+      .attr('fill-opacity', 1)
+      .attr('fill', '#777')
 
-    const svg = this.root = svgEnter.merge(mount)
+    const svg = (this.root = svgEnter.merge(mount))
 
     // wrapper for the edges
-    const edges = svg
-      .selectAll('g.edges')
-      .data(function (d) { return [d.data] })
+    const edges = svg.selectAll('g.edges').data(function (d) {
+      return [d.data]
+    })
 
-    this.edgeGroup = edges.enter().append('g')
-        .attr('class', 'edges')
-      .merge(edges)
+    this.edgeGroup = edges.enter().append('g').attr('class', 'edges').merge(edges)
 
     // wrapper for the nodes
-    const nodes = svg
-      .selectAll('g.nodes')
-      .data(function (d) { return [d.data] })
+    const nodes = svg.selectAll('g.nodes').data(function (d) {
+      return [d.data]
+    })
 
-    this.nodeGroup = nodes.enter().append('g')
-        .attr('class', 'nodes')
-      .merge(nodes)
+    this.nodeGroup = nodes.enter().append('g').attr('class', 'nodes').merge(nodes)
   }
 }

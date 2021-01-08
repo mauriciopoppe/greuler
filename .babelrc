@@ -5,11 +5,9 @@
     [
       "@babel/preset-env",
       {
-        "loose": true,
         "targets": {
-          "browsers": "last 2 versions, > 0.5%, ie >= 11"
-        },
-        "exclude": ["transform-regenerator"]
+          "browsers": "last 1 chrome versions"
+        }
       }
     ],
     "@babel/preset-react"

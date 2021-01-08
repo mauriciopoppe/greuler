@@ -12,7 +12,7 @@ const EDGE_DEFAULT_OPTIONS = {
   stroke: colors.DEFAULT_EDGE
 }
 
-function includes (arr, id) {
+function includes(arr, id) {
   for (let i = 0; i < arr.length; i += 1) {
     if (arr[i].id === id) {
       return true
@@ -20,11 +20,11 @@ function includes (arr, id) {
   }
 }
 
-export class Graph {
-  constructor (owner, data) {
+export class GraphManager {
+  constructor(owner, data) {
     this.owner = owner
     this.nodes = data.nodes
-    this.edges = data.links
+    this.edges = data.edges
   }
 
   /**
@@ -46,7 +46,7 @@ export class Graph {
    *
    * NOTE: this function receives any number of arguments
    */
-  addNode () {
+  addNode() {
     for (let i = 0; i < arguments.length; i += 1) {
       const config = arguments[i]
       if (!config.hasOwnProperty('id')) {
@@ -55,9 +55,7 @@ export class Graph {
       if (this.getNode(config)) {
         throw Error('node already in store')
       }
-      this.nodes.push(
-        Graph.appendNodeDefaults.call(this.owner, config)
-      )
+      this.nodes.push(GraphManager.appendNodeDefaults.call(this.owner, config))
     }
   }
 
@@ -68,8 +66,8 @@ export class Graph {
    * @param {number|string} node.id The id of the node
    * @returns {Object|undefined}
    */
-  getNode (node) {
-    return this.getNodesByFn(v => v.id === node.id)[0]
+  getNode(node) {
+    return this.getNodesByFn((v) => v.id === node.id)[0]
   }
 
   /**
@@ -79,7 +77,7 @@ export class Graph {
    * @param {Function} fn
    * @returns {Object[]}
    */
-  getNodesByFn (fn) {
+  getNodesByFn(fn) {
     return this.nodes.filter(fn)
   }
 
@@ -90,7 +88,7 @@ export class Graph {
    * @param {number|string} node.id The id of the node
    * @returns {Object[]}
    */
-  getAdjacentNodes (node) {
+  getAdjacentNodes(node) {
     const adjacentNodes = []
     const taken = {}
     let next
@@ -119,7 +117,7 @@ export class Graph {
    * @param {number|string} node.id The id of the node
    * @returns {Object[]}
    */
-  getSuccessorNodes (node) {
+  getSuccessorNodes(node) {
     const successor = []
     const taken = {}
     let next
@@ -145,7 +143,7 @@ export class Graph {
    * @param {number|string} node.id The id of the node
    * @returns {Object[]}
    */
-  getPredecessorNodes (node) {
+  getPredecessorNodes(node) {
     const predecessor = []
     const taken = {}
     let next
@@ -170,7 +168,7 @@ export class Graph {
    * @param {Object} node
    * @param {number|string} node.id The id of the node
    */
-  removeNode (node) {
+  removeNode(node) {
     this.removeNodesByFn(function (v) {
       return v.id === node.id
     })
@@ -182,7 +180,7 @@ export class Graph {
    *
    * @param {Object[]} nodes
    */
-  removeNodes (nodes) {
+  removeNodes(nodes) {
     // TODO: improve n^2 removal
     this.removeNodesByFn(function (v) {
       return includes(nodes, v.id)
@@ -195,16 +193,14 @@ export class Graph {
    *
    * @param {Function} fn
    */
-  removeNodesByFn (fn) {
+  removeNodesByFn(fn) {
     let i
     for (i = 0; i < this.nodes.length; i += 1) {
       if (fn(this.nodes[i], i)) {
         // remove nodes
         const node = this.nodes.splice(i, 1)
         // remove incident edges
-        this.removeEdges(
-          this.getIncidentEdges(node[0])
-        )
+        this.removeEdges(this.getIncidentEdges(node[0]))
         i -= 1
       }
     }
@@ -229,7 +225,7 @@ export class Graph {
    *
    * NOTE: this function receives any number of arguments
    */
-  addEdge () {
+  addEdge() {
     for (let i = 0; i < arguments.length; i += 1) {
       const config = arguments[i]
 
@@ -252,9 +248,7 @@ export class Graph {
       }
       config.source = source
       config.target = target
-      this.edges.push(
-        Graph.appendEdgeDefaults.call(this.owner, config)
-      )
+      this.edges.push(GraphManager.appendEdgeDefaults.call(this.owner, config))
     }
   }
 
@@ -265,8 +259,8 @@ export class Graph {
    * @param {number|string} edge.id The id of the edge
    * @returns {Object}
    */
-  getEdge (edge) {
-    return this.getEdgesByFn(e => e.id === edge.id)[0]
+  getEdge(edge) {
+    return this.getEdgesByFn((e) => e.id === edge.id)[0]
   }
 
   /**
@@ -278,7 +272,7 @@ export class Graph {
    * @param {number|string} options.target The id of the target node
    * @returns {Object[]}
    */
-  getEdgesBetween (options) {
+  getEdgesBetween(options) {
     return this.getEdgesByFn(function (e) {
       return e.source.id === options.source && e.target.id === options.target
     })
@@ -293,10 +287,12 @@ export class Graph {
    * @param {number|string} options.target The id of the target node
    * @returns {Object[]}
    */
-  getAllEdgesBetween (options) {
+  getAllEdgesBetween(options) {
     return this.getEdgesByFn(function (e) {
-      return (e.source.id === options.source && e.target.id === options.target) ||
-      (e.source.id === options.target && e.target.id === options.source)
+      return (
+        (e.source.id === options.source && e.target.id === options.target) ||
+        (e.source.id === options.target && e.target.id === options.source)
+      )
     })
   }
 
@@ -306,8 +302,8 @@ export class Graph {
    * @param {Object} edge
    * @param {number|string} edge.id The id of the edge
    */
-  removeEdge (edge) {
-    this.removeEdgesByFn(e => e.id === edge.id)
+  removeEdge(edge) {
+    this.removeEdgesByFn((e) => e.id === edge.id)
   }
 
   /**
@@ -316,7 +312,7 @@ export class Graph {
    *
    * @param {Object[]} edges
    */
-  removeEdges (edges) {
+  removeEdges(edges) {
     // TODO: improve n^2 removal
     this.removeEdgesByFn(function (e) {
       return includes(edges, e.id)
@@ -329,7 +325,7 @@ export class Graph {
    *
    * @param {function} fn
    */
-  removeEdgesByFn (fn) {
+  removeEdgesByFn(fn) {
     let i
     for (i = 0; i < this.edges.length; i += 1) {
       if (fn(this.edges[i], i)) {
@@ -345,7 +341,7 @@ export class Graph {
    * @param {Function} fn
    * @returns {Object[]}
    */
-  getEdgesByFn (fn) {
+  getEdgesByFn(fn) {
     return this.edges.filter(fn)
   }
 
@@ -356,7 +352,7 @@ export class Graph {
    * @param {number|string} node.id The id of the node
    * @returns {Object[]}
    */
-  getOutgoingEdges (node) {
+  getOutgoingEdges(node) {
     return this.getEdgesByFn((e) => e.source.id === node.id)
   }
 
@@ -367,7 +363,7 @@ export class Graph {
    * @param {number|string} node.id The id of the node
    * @returns {Object[]}
    */
-  getIncomingEdges (node) {
+  getIncomingEdges(node) {
     return this.getEdgesByFn((e) => e.target.id === node.id)
   }
 
@@ -378,9 +374,8 @@ export class Graph {
    * @param {number|string} node.id The id of the node
    * @returns {Object[]}
    */
-  getIncidentEdges (node) {
-    return this.getOutgoingEdges(node)
-      .concat(this.getIncomingEdges(node))
+  getIncidentEdges(node) {
+    return this.getOutgoingEdges(node).concat(this.getIncomingEdges(node))
   }
 
   /**
@@ -388,7 +383,7 @@ export class Graph {
    *
    * NOTE: the function receives any number of parameters
    */
-  add () {
+  add() {
     for (let i = 0; i < arguments.length; i += 1) {
       const el = arguments[i]
       // assume that edges have a source/target parameter
@@ -400,7 +395,7 @@ export class Graph {
     }
   }
 
-  static appendNodeDefaults (v) {
+  static appendNodeDefaults(v) {
     if (!v.hasOwnProperty('id')) {
       v.id = createId()
     }
@@ -424,7 +419,7 @@ export class Graph {
     return v
   }
 
-  static appendEdgeDefaults (e) {
+  static appendEdgeDefaults(e) {
     if (!e.hasOwnProperty('id')) {
       e.id = createId()
     }
@@ -453,14 +448,17 @@ export class Graph {
    * @param {Object} options
    * @returns {{nodes: Array, links: Array}}
    */
-  static random (options) {
-    options = extend({
-      order: 10,
-      size: 15,
-      connected: false,
-      multiGraph: false,
-      pseudoGraph: false
-    }, options)
+  static random(options) {
+    options = extend(
+      {
+        order: 10,
+        size: 15,
+        connected: false,
+        multiGraph: false,
+        pseudoGraph: false
+      },
+      options
+    )
 
     let i, u, v
     const nodes = []
@@ -470,7 +468,7 @@ export class Graph {
       nodes.push({ id: i })
     }
 
-    function add (u, v) {
+    function add(u, v) {
       adjacencyList[u][v] = adjacencyList[v][u] = true
     }
 

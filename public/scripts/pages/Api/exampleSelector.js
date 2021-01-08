@@ -8,7 +8,7 @@ export default function () {
     height: target.getBoundingClientRect().height,
     data: {
       nodes: [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }],
-      links: [
+      edges: [
         { source: 0, target: 1 },
         { source: 0, target: 2 },
         { source: 0, target: 3 },

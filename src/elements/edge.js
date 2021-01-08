@@ -5,10 +5,10 @@ import extend from 'extend'
 import { Vector } from '../Vector'
 import { transform, ns } from '../utils'
 
-export function Edge () {
+export function Edge() {
   let owner
 
-  function moveTowardsPoint (point, middle) {
+  function moveTowardsPoint(point, middle) {
     const margin = point.r
     const unit = Vector.unit(Vector.sub(middle, point))
     return Vector.add(point, Vector.scale(unit, margin))
@@ -26,21 +26,18 @@ export function Edge () {
    * @param {number} count The number of u-u edges found yet
    * @returns {{path: *[], dir: *}}
    */
-  function selfLoop (u, marginBetweenEdges, count) {
+  function selfLoop(u, marginBetweenEdges, count) {
     const adjacent = owner.graph.getAdjacentNodes(u)
     let dir = new Vector(0, 0)
     for (let i = 0; i < adjacent.length; i += 1) {
       const v = adjacent[i]
       if (u.id !== v.id) {
-        dir = Vector.unit(Vector.add(
-          dir,
-          Vector.unit(Vector.sub(u, v))
-        ))
+        dir = Vector.unit(Vector.add(dir, Vector.unit(Vector.sub(u, v))))
       }
     }
 
-    function toRad (a) {
-      return a * Math.PI / 180
+    function toRad(a) {
+      return (a * Math.PI) / 180
     }
 
     // no adjacent vertices
@@ -65,7 +62,7 @@ export function Edge () {
     const uBorderRight = Vector.add(u, Vector.rotate(uBorderOrigin, -angle))
 
     // some length away from the node computed by doing random samples
-    const length = (marginBetweenEdges * 0.6) * (count + 1)
+    const length = marginBetweenEdges * 0.6 * (count + 1)
 
     /*
      * Form the shape of a weird rhombus
@@ -105,11 +102,11 @@ export function Edge () {
    * loop edges sets the separation between edges from the mid
    * point of the vertices they join
    */
-  function createPath (d, meta, marginBetweenEdges) {
+  function createPath(d, meta, marginBetweenEdges) {
     let u = d.source
     let v = d.target
     if (u.id > v.id) {
-      [u, v] = [v, u]
+      ;[u, v] = [v, u]
     }
     meta[u.id] = meta[u.id] || {}
 
@@ -140,13 +137,12 @@ export function Edge () {
         unit: unit,
         unitOrthogonal: Vector.orthogonal(unit)
       })
-      innerJoints.push(Vector.add(
-        current.mid,
-        Vector.scale(
-          current.unitOrthogonal,
-          Math.floor(current.count / 2) * marginBetweenEdges * current.direction
+      innerJoints.push(
+        Vector.add(
+          current.mid,
+          Vector.scale(current.unitOrthogonal, Math.floor(current.count / 2) * marginBetweenEdges * current.direction)
         )
-      ))
+      )
       d.unit = current.unit
     }
 
@@ -164,50 +160,52 @@ export function Edge () {
     const source = moveTowardsPoint(d.source, innerJoints[0])
     const target = moveTowardsPoint(d.target, innerJoints[innerJoints.length - 1])
 
-    d.path = [source]
-      .concat(innerJoints)
-      .concat([target])
+    d.path = [source].concat(innerJoints).concat([target])
   }
 
-  function weightPosition (selection) {
-    selection
-      .attr('transform', function (d) {
-        const angle = Vector.angleDeg(d.unit)
-        const v = d.path[Math.floor(d.path.length / 2)]
-        return transform({
-          translate: v,
-          rotate: angle
-        })
+  function weightPosition(selection) {
+    selection.attr('transform', function (d) {
+      const angle = Vector.angleDeg(d.unit)
+      const v = d.path[Math.floor(d.path.length / 2)]
+      return transform({
+        translate: v,
+        rotate: angle
       })
+    })
   }
 
   const pathCreator = line()
-    .x(function (d) { return d.x })
-    .y(function (d) { return d.y })
+    .x(function (d) {
+      return d.x
+    })
+    .y(function (d) {
+      return d.y
+    })
     .curve(curveBundle.beta(1))
-    // .tension(1.5)
-    // .interpolate('bundle')
-    // .interpolate('linear')
+  // .tension(1.5)
+  // .interpolate('bundle')
+  // .interpolate('linear')
 
-  function inner (selection) {
-    const links = selection
-      .selectAll('g.edge')
-      .data(d => d.links, d => d.id)
+  function inner(selection) {
+    const links = selection.selectAll('g.edge').data(
+      (d) => d.edges,
+      (d) => d.id
+    )
 
     const linksEnter = links.enter().append('g')
     linksEnter
-        .attr('class', 'edge')
-        // .attr('opacity', 0)
-        .attr('id', d => ns(d.id))
+      .attr('class', 'edge')
+      // .attr('opacity', 0)
+      .attr('id', (d) => ns(d.id))
       // .transition('enter')
-        .attr('opacity', 1)
+      .attr('opacity', 1)
       .merge(links)
-        .each(function (d) {
-          const self = select(this)
-          self.classed(`source-${d.source.id}`, true)
-          self.classed(`target-${d.target.id}`, true)
-          self.classed('directed', 'directed' in d ? d.directed : owner.options.directed)
-        })
+      .each(function (d) {
+        const self = select(this)
+        self.classed(`source-${d.source.id}`, true)
+        self.classed(`target-${d.target.id}`, true)
+        self.classed('directed', 'directed' in d ? d.directed : owner.options.directed)
+      })
 
     const linksAll = linksEnter.merge(links)
 
@@ -217,14 +215,15 @@ export function Edge () {
     })
 
     // path enter
-    const paths = linksAll.selectAll('path')
-      .data(function (d) {
-        // 1. real path
-        // 2. stroke-dasharray helper
-        return [d, d]
-      })
-    const pathsEnter = paths.enter().append('path')
-      .attr('stroke', d => d.stroke)
+    const paths = linksAll.selectAll('path').data(function (d) {
+      // 1. real path
+      // 2. stroke-dasharray helper
+      return [d, d]
+    })
+    const pathsEnter = paths
+      .enter()
+      .append('path')
+      .attr('stroke', (d) => d.stroke)
       .attr('fill', 'transparent')
       .attr('stroke-width', 2)
       .each(function (d, i) {
@@ -243,23 +242,17 @@ export function Edge () {
 
     // path update
     // utils.conditionalTransition(pathsAll, !owner.nodeDragging)
-    pathsAll
-      .attr('d', d => pathCreator(d.path))
+    pathsAll.attr('d', (d) => pathCreator(d.path))
 
     pathsAll.each(function (d, i) {
       const path = select(this)
       const parent = select(this.parentNode)
       if (i === 0) {
-        path.attr('marker-end',
-          parent.classed('directed')
-            ? 'url(#' + owner.markerId + ')'
-            : null
-        )
+        path.attr('marker-end', parent.classed('directed') ? 'url(#' + owner.markerId + ')' : null)
       }
     })
 
-    const weights = linksAll.selectAll('text')
-      .data(d => [d])
+    const weights = linksAll.selectAll('text').data((d) => [d])
 
     // weights enter
     const weightsEnter = weights.enter().append('text')
@@ -273,17 +266,13 @@ export function Edge () {
 
     // weights update
     // utils.conditionalTransition(weightsAll, !owner.nodeDragging)
-    weightsAll
-      .text(d => d.weight)
-      .call(weightPosition)
+    weightsAll.text((d) => d.weight).call(weightPosition)
 
     // weight exit
-    weights.exit()
-      .remove()
+    weights.exit().remove()
 
     // exit
-    links.exit()
-      .remove()
+    links.exit().remove()
   }
 
   inner.owner = function (value) {

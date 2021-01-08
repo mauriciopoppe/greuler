@@ -8,7 +8,7 @@ export default async function () {
       animationTime: 3000,
       data: {
         nodes: [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }],
-        links: [
+        edges: [
           { source: 0, target: 1 },
           { source: 0, target: 2 },
           { source: 0, target: 3 },
