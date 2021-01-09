@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import Prism from 'prismjs'
 
 import InstallationSVG from './installation.svg'
 
@@ -33,11 +34,11 @@ export const Introduction = (props) => {
       <div className="is-flex is-justify-content-center" dangerouslySetInnerHTML={{ __html: InstallationSVG }} />
       <div>
         <pre>
-          <code className="language-bash">npm install greuler</code>
+          <code>npm install greuler</code>
         </pre>
-        <p>Or</p>
+        <p>Or as a script</p>
         <pre>
-          <code className="language-html">https://unpkg.com/greuler</code>
+          <code>&lt;script src="https://unpkg.com/greuler@alpha"&gt;&lt;/script&gt;</code>
         </pre>
       </div>
 
