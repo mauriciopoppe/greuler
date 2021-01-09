@@ -143,6 +143,53 @@ export default async function () {
     )
 
     await updateText('ready?')
+
+    await updateText(
+      'in the visualization an edge colored as ' +
+        '<span style="color: cyan">cyan</span> first and then <span style="color: red">red</span> ' +
+        "is a back edge, <br /> it's found by checking if the both end vertices of a non traversed edge were visited before"
+    )
+
+    instance.options.animationTime = 1000
+    let timeSpent = 0
+    const timeIn = []
+    const low = []
+    instance.graph.nodes.forEach((n) => (timeIn[n.id] = -1))
+
+    async function dfs(u, p) {
+      timeIn[u] = low[u] = ++timeSpent
+
+      await instance.selector.highlightNode({ id: u })
+      await instance.selector.getNode({ id: u }).transition().attr('fill', 'black').end()
+
+      const adjacent = instance.graph.getAdjacentNodes({ id: u })
+      for (let i = 0; i < adjacent.length; i += 1) {
+        const v = adjacent[i].id
+
+        if (v === p) {
+          continue
+        }
+
+        if (timeIn[v] === -1) {
+          await instance.selector.traverseAllEdgesBetween({ source: u, target: v })
+          await dfs(v, u)
+          low[u] = Math.min(low[u], low[v])
+        } else if (timeIn[v] < timeIn[u]) {
+          // back edge
+          //console.log(++total);
+
+          await instance.selector.traverseAllEdgesBetween({ source: u, target: v }, { stroke: 'cyan' })
+          await instance.selector.traverseAllEdgesBetween({ source: u, target: v })
+          low[u] = Math.min(low[u], timeIn[v])
+
+          await instance.selector.highlightNode({ id: u })
+        }
+      }
+    }
+
+    await dfs(0, -1)
+
+    await updateText("there are 4 backedges in the graph! <br /> that's it! thanks for watching :)")
   })()
 
   //   // };

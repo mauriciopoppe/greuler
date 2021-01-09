@@ -36,19 +36,25 @@ const ApiExample = ({ exampleGetter, targetId }) => {
   return (
     <>
       <div className="flex" style={{ height: 500 }}>
-        <div className="w-6/12" id={targetId} />
-        <div className="w-6/12 text-xs">
+        <div className="w-full md:w-6/12" id={targetId} />
+        <div className="w-full md:w-6/12 text-xs">
           <pre>
             <code className="language-javascript" dangerouslySetInnerHTML={{ __html: graphExampleCode }} />
           </pre>
         </div>
       </div>
       <div className="text-center">{graphExampleTitle}</div>
-      <div className="flex justify-center">
+      <div className="flex justify-center space-x-4 my-4">
         {graphInstance &&
           graphInstance.fns.map((v, i) => {
             return (
-              <div className="text-center" onMouseEnter={() => highlightExample(v)} onClick={() => v.fn()} key={i}>
+              <div
+                className="text-center rounded-full h-12 w-12 flex items-center justify-center bg-blue-500 cursor-pointer text-white"
+                style={{ backgroundColor: '#2980B9' }}
+                onMouseEnter={() => highlightExample(v)}
+                onClick={() => v.fn()}
+                key={i}
+              >
                 {i + 1}
               </div>
             )
@@ -72,18 +78,18 @@ export const Api = (props) => {
       graph
       <hr />
       <div className="flex justify-center" dangerouslySetInnerHTML={{ __html: GraphSVG }} />
-      <p>
+      <p className="my-1">
         <code>instance.graph</code> holds utility methods to manipulate the graph like adding/removing nodes and edges
         and other utility methods like querying the adjacent nodes of some node, etc.
       </p>
-      <p>
+      <p className="my-1">
         The convention I used for the project is to{' '}
         <b>always use objects as the first parameter to describe a node or edge</b> (an array/function is needed in some
         cases of some methods of
         <code>instance.graph</code> but they describe multiple nodes/edges), also all the methods of{' '}
         <code>instance.graph</code> (but the ones who add nodes and edges) receive a single parameter
       </p>
-      <p>
+      <p className="my-1">
         Please take a look at all the methods of <code>instance.graph</code> which can be found
         <a href="https://github.com/mauriciopoppe/greuler/blob/master/src/Graph.js">here</a>
       </p>

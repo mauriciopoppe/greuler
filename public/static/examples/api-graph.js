@@ -90,9 +90,7 @@ window.apiGraph = function () {
         const order = instance.graph.nodes.length
         const size = instance.graph.edges.length
 
-        if (!order || size > 15) {
-          return
-        }
+        if (!order || size > 15) return
 
         const uIndex = Math.floor(Math.random() * order)
         const vIndex = Math.floor(Math.random() * order)

@@ -35,7 +35,7 @@ export class GreulerDefaultTransition extends ElementSelector {
    * @param {Object} options
    * @returns {d3_transition}
    */
-  async doTemporalHighlightNode(selection, options) {
+  doTemporalHighlightNode(selection, options) {
     return this.innerNodeSelector(selection)
       .transition(HIGHLIGHT)
       .duration(this.getAnimationTime() / 2)
@@ -58,7 +58,7 @@ export class GreulerDefaultTransition extends ElementSelector {
    * @param {Object} options
    * @returns {d3_transition}
    */
-  async doTemporalHighlightEdges(selection, options) {
+  doTemporalHighlightEdges(selection, options) {
     return this.innerEdgeSelector(selection)
       .transition(HIGHLIGHT)
       .duration(this.getAnimationTime() / 2)

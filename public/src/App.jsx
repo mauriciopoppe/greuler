@@ -6,11 +6,11 @@ import { Introduction } from './pages/Introduction/Introduction.jsx'
 import { Api } from './pages/Api/Api.jsx'
 import { Examples } from './pages/Examples/Examples.jsx'
 import GreulerSVG from './banner.svg'
+import './index.scss'
 
 const NavigationLink = ({ to, children, ...other } = props) => {
-  const cls = 'text-2xl font-bold flex-1 text-center'
   return (
-    <Link to={to} className={cls} {...other}>
+    <Link to={to} className="has-text-centered is-flex-grow-1" {...other}>
       {children}
     </Link>
   )
@@ -18,7 +18,7 @@ const NavigationLink = ({ to, children, ...other } = props) => {
 
 const Navigation = () => {
   return (
-    <div className="flex space-x-4">
+    <div className="is-flex">
       <NavigationLink to="/">introduction</NavigationLink>
       <NavigationLink to="/api">api</NavigationLink>
       <NavigationLink to="/examples">examples</NavigationLink>
@@ -33,8 +33,8 @@ const App = () => {
 
   return (
     <>
-      <div className="container mx-auto">
-        <div className="flex justify-center" dangerouslySetInnerHTML={{ __html: GreulerSVG }} />
+      <div className="container">
+        <div className="is-flex is-justify-content-center" dangerouslySetInnerHTML={{ __html: GreulerSVG }} />
         {/* TODO: github & twitter logos */}
         <hr />
         <Navigation />
@@ -47,7 +47,7 @@ const App = () => {
         <Examples path="/examples" />
       </Router>
 
-      <div className="container mx-auto text-center">
+      <div className="container">
         <hr />
         Made with ♥ by <a href="https://twitter.com/mauricio_poppe">Mauricio Poppe</a>
       </div>
