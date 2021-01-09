@@ -8,7 +8,6 @@
     "build": "NODE_ENV=production webpack && cp -r public/static dist"
   },
   "dependencies": {
-    "@mauriciopoppe/graph": "^0.3.0",
     "arrify": "^2.0.1",
     "compute-lcg": "^1.0.0",
     "d3-dispatch": "^1.0.3",
@@ -20,7 +19,6 @@
     "d3-timer": "^1.0.6",
     "d3-transition": "^1.1.0",
     "extend": "^3.0.2",
-    "prismjs": "^1.23.0",
     "webcola": "^3.4.0"
   },
   "devDependencies": {
@@ -45,6 +43,7 @@
     "mocha": "^4.0.1",
     "node-sass": "^5.0.0",
     "prettier": "^2.2.1",
+    "prismjs": "^1.23.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "sass-loader": "^10.1.0",
