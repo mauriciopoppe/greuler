@@ -31,9 +31,7 @@ crashlytics-build.properties
 node_modules
 .tmp
 .sass-cache
-bower_components
-test/bower_components
 .publish/
-sandbox/
 
 .DS_Store
+dist/

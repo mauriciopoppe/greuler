@@ -62,6 +62,7 @@
     "visualizations",
     "graph-theory"
   ],
+  "files": ["dist/greuler.js"],
   "author": "Mauricio Poppe",
   "license": "MIT",
   "bugs": {
