@@ -92,10 +92,13 @@ export class GraphRenderer {
    */
   defaultOptions(options) {
     // graph defaults
+    const target = select(options.target).node()
+    const dimensions = target.getBoundingClientRect()
+
     options = extend(
       {
-        width: 700,
-        height: 300,
+        width: dimensions.width,
+        height: dimensions.height,
         animationTime: 1000,
         labels: true,
         directed: false

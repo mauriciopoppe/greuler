@@ -5,8 +5,32 @@ import ApiSVG from './api.svg'
 import GraphSVG from './graph.svg'
 import SelectorSVG from './selector.svg'
 
-// import exampleGraph from 'apiGraph'
-// import exampleSelector from 'apiSelector'
+const EvalExample = ({ fnId, fn }) => {
+  const items = fn
+    .toString()
+    .split('\n')
+    .map(function (d) {
+      return d.replace(/^\s{2}/, '')
+    })
+  items.pop()
+  items.shift()
+  const fnString = Prism.highlight(items.join('\n'), Prism.languages.javascript, 'javascript')
+
+  useEffect(() => {
+    fn()
+  }, [])
+
+  return (
+    <div className="columns" style={{ fontSize: '0.9rem', lineHeight: 1 }}>
+      <div className="column" id={fnId} />
+      <div className="column">
+        <pre>
+          <code className="language-javascript" dangerouslySetInnerHTML={{ __html: fnString }} />
+        </pre>
+      </div>
+    </div>
+  )
+}
 
 const ApiExample = ({ exampleGetter, targetId }) => {
   const [graphInstance, setGraphInstance] = useState()
@@ -35,22 +59,33 @@ const ApiExample = ({ exampleGetter, targetId }) => {
 
   return (
     <>
-      <div className="flex" style={{ height: 500 }}>
-        <div className="w-full md:w-6/12" id={targetId} />
-        <div className="w-full md:w-6/12 text-xs">
+      <div className="columns" style={{ height: 600, fontSize: '0.9rem', lineHeight: 1 }}>
+        <div className="column" id={targetId} />
+        <div className="column">
           <pre>
             <code className="language-javascript" dangerouslySetInnerHTML={{ __html: graphExampleCode }} />
           </pre>
         </div>
       </div>
-      <div className="text-center">{graphExampleTitle}</div>
-      <div className="flex justify-center space-x-4 my-4">
+      <div className="has-text-centered">{graphExampleTitle}</div>
+      <div className="is-flex is-justify-content-center">
         {graphInstance &&
           graphInstance.fns.map((v, i) => {
             return (
               <div
-                className="text-center rounded-full h-12 w-12 flex items-center justify-center bg-blue-500 cursor-pointer text-white"
-                style={{ backgroundColor: '#2980B9' }}
+                className="has-text-centered"
+                style={{
+                  width: '3em',
+                  height: '3em',
+                  borderRadius: '1.5em',
+                  margin: 4,
+                  backgroundColor: '#2980B9',
+                  color: 'white',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
                 onMouseEnter={() => highlightExample(v)}
                 onClick={() => v.fn()}
                 key={i}
@@ -66,43 +101,73 @@ const ApiExample = ({ exampleGetter, targetId }) => {
 
 export const Api = (props) => {
   useEffect(() => {
-    // new window.Vivus('api-svg', {type: 'oneByOne', duration: 200});
-    // new window.Vivus('graph-svg', {type: 'oneByOne', duration: 200});
-    // new window.Vivus('selector-svg', {type: 'oneByOne', duration: 200});
+    new window.Vivus('api-svg', { type: 'oneByOne', duration: 200 })
+    new window.Vivus('graph-svg', { type: 'oneByOne', duration: 200 })
+    new window.Vivus('selector-svg', { type: 'oneByOne', duration: 200 })
   }, [])
 
   return (
-    <div className="container mx-auto">
-      <div className="flex justify-center" dangerouslySetInnerHTML={{ __html: ApiSVG }} />
-      Assuming that <code>instance = greuler(options).update()</code> is called there are two ways to interact with the
-      graph
+    <div className="container content">
+      <div className="is-flex is-justify-content-center" dangerouslySetInnerHTML={{ __html: ApiSVG }} />
+      <p>
+        The hello world program requires calling <code>greuler</code> with an object that has the following properties:
+      </p>
+      <ul>
+        <li>
+          <code>target</code> a selector to the DOM node to hold the graph
+        </li>
+        <li>
+          <code>data</code> a selector to the DOM node to hold the graph
+        </li>
+        <ul>
+          <li>
+            <code>data.nodes</code> The nodes of the graph, they need to have an <code>id</code>
+          </li>
+          <li>
+            <code>data.edges</code> The edges of the graph, they join two nodes by <code>id</code>
+          </li>
+        </ul>
+      </ul>
+      <EvalExample fn={window.apiHello} fnId={'hello-world'} />
+      <p>
+        Start with <code>instance = greuler(options)</code>
+      </p>
+      <ul>
+        <li>
+          Every time there's an update in the <b>structure</b> of the graph (new/deleted nodes or edges) call{' '}
+          <code>instance.update()</code>
+        </li>
+        <li>
+          Or if there were only changes on some visual properties of existing edges/nodes call{' '}
+          <code>{'instance.update({ skipLayout: true }})'}</code> to avoid recomputing the position of the edges/nodes
+        </li>
+      </ul>
       <hr />
-      <div className="flex justify-center" dangerouslySetInnerHTML={{ __html: GraphSVG }} />
-      <p className="my-1">
+      <div className="is-flex is-justify-content-center" dangerouslySetInnerHTML={{ __html: GraphSVG }} />
+      <p>
         <code>instance.graph</code> holds utility methods to manipulate the graph like adding/removing nodes and edges
         and other utility methods like querying the adjacent nodes of some node, etc.
       </p>
-      <p className="my-1">
+      <p>
         The convention I used for the project is to{' '}
         <b>always use objects as the first parameter to describe a node or edge</b> (an array/function is needed in some
         cases of some methods of
         <code>instance.graph</code> but they describe multiple nodes/edges), also all the methods of{' '}
         <code>instance.graph</code> (but the ones who add nodes and edges) receive a single parameter
       </p>
-      <p className="my-1">
-        Please take a look at all the methods of <code>instance.graph</code> which can be found
-        <a href="https://github.com/mauriciopoppe/greuler/blob/master/src/Graph.js">here</a>
-      </p>
       <ApiExample exampleGetter={() => window.apiGraph()} targetId={'graph-example'} />
       <hr />
-      <div className="flex justify-center" dangerouslySetInnerHTML={{ __html: SelectorSVG }} />
+      <div className="is-flex is-justify-content-center" dangerouslySetInnerHTML={{ __html: SelectorSVG }} />
       <p>
         <code>instance.selector</code> holds utility methods to animate existing nodes/edges of the graph, under the
-        hood it uses <code>instance.graph</code> and wraps the returning values inside d3 selections Just like{' '}
-        <code>instance.graph</code> the first method will always be an object describing a node / edge, the second
-        parameter is an override of the styles predefined to be used during the animation
+        hood it uses <code>instance.graph</code> and wraps the returning values inside d3 selections
+      </p>
+      <p>
+        Just like <code>instance.graph</code> the first method will always be an object describing a node / edge, the
+        second parameter is an override of the styles predefined to be used during the animation
       </p>
       <ApiExample exampleGetter={() => window.apiSelector()} targetId={'selector-example'} />
+      <hr />
     </div>
   )
 }

@@ -1,7 +1,5 @@
 # greuler 
 
-[![Build Status][travis-image]][travis-url] [![NPM][npm-image]][npm-url] <img src="https://github.com/mauriciopoppe/greuler/blob/master/badge%402x.png" width="130" height="30">
-
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
 <b>greuler</b> is graph theory visualization tool powered by <a href="http://d3js.org/">d3</a>
@@ -12,31 +10,14 @@ which allows the creation and manipulation of graphs with a simple api
 
 ## Installation
 
-### browser
-
-**greuler** works on top of d3.js and WebCola so include those first
-
-```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.js"></script>
-<script src="http://marvl.infotech.monash.edu/webcola/cola.v3.min.js"></script>
-```
-
-Install **greuler** with bower
-
 ```sh
-bower install greuler
+npm install greuler
 ```
 
-And then include it in your webpage
+or
 
 ```html
-<script src="bower_components/greuler/dist/greuler.js"></script>
-```
-
-or 
-    
-```html
-<script src="bower_components/greuler/dist/greuler.min.js"></script>
+<script src="TODO"></script>
 ```
 
 ## Usage
@@ -90,7 +71,7 @@ data: {
 }
 ```
 
-On runtime you can add/remove/update the properties through `instance.options.data`, make sure you don't modify
+On runtime, you can add/remove/update the properties through `instance.options.data`, make sure you don't modify
 `instance.options.data.nodes` or `instance.options.data.links` to avoid layout errors, after all this is the job of
 `instance.graph.*` methods :)
 
@@ -121,7 +102,7 @@ var selection = instance.selection.select(nodes);
 ## API
 
 ```javascript
-var greuler = require('greuler')
+import greuler from 'greuler'
 ```
 
 ### `instance = greuler(options)`
@@ -205,41 +186,9 @@ greuler.colors.BLUE
 greuler.colors.LIGHT_GREEN
 ```
 
-## Development
-
-After cloning the repo run
-
-```
-npm install
-bower install
-```
-
-And then
-
-```sh
-gulp serve
-```
-
-Open `http://localhost:9000` and that's it! 
-
-
-### Deploy
-
-To generate the dist files
-
-```bash
-$ gulp
-```
-
-To generate the site (fetching the latest version from the remote repo)
-
-```bash
-$ gulp deploy
-```
-
 ## License
 
-2015 MIT © Mauricio Poppe
+2021 MIT © Mauricio Poppe
 
 [npm-image]: https://img.shields.io/npm/v/greuler.svg?style=flat
 [npm-url]: https://npmjs.org/package/greuler

@@ -150,10 +150,10 @@ export default async function () {
         "is a back edge, <br /> it's found by checking if the both end vertices of a non traversed edge were visited before"
     )
 
-    instance.options.animationTime = 1000
     let timeSpent = 0
     const timeIn = []
     const low = []
+    instance.options.animationTime = 1000
     instance.graph.nodes.forEach((n) => (timeIn[n.id] = -1))
 
     async function dfs(u, p) {
@@ -175,13 +175,9 @@ export default async function () {
           await dfs(v, u)
           low[u] = Math.min(low[u], low[v])
         } else if (timeIn[v] < timeIn[u]) {
-          // back edge
-          //console.log(++total);
-
           await instance.selector.traverseAllEdgesBetween({ source: u, target: v }, { stroke: 'cyan' })
           await instance.selector.traverseAllEdgesBetween({ source: u, target: v })
           low[u] = Math.min(low[u], timeIn[v])
-
           await instance.selector.highlightNode({ id: u })
         }
       }
@@ -191,79 +187,4 @@ export default async function () {
 
     await updateText("there are 4 backedges in the graph! <br /> that's it! thanks for watching :)")
   })()
-
-  //   // };
-  //   //
-  //   // function *innerDfs(source) {
-  //   //   updateText('in the visualization an edge colored as ' +
-  //   //   '<span style="color: cyan">cyan</span> first and then <span style="color: red">red</span> ' +
-  //   //   'is a back edge, <br /> it\'s found by checking if the both end vertices of a non traversed edge were visited before');
-  //   //
-  //   //   instance.options.animationTime = 1000;
-  //   //   gen.speed = 1000;
-  //   //
-  //   //   var timeSpent = 0;
-  //   //   var timeIn = [];
-  //   //   var low = [];
-  //   //
-  //   //   instance.graph.nodes.forEach(function (n) {
-  //   //     timeIn[n.id] = -1;
-  //   //   });
-  //   //
-  //   //   function *dfs(u, p) {
-  //   //     timeIn[u] = low[u] = ++timeSpent;
-  //   //
-  //   //     yield function () {
-  //   //       //instance.graph.getNode({ id: u }).topRightLabel = timeIn[u] + '/' + low[u];
-  //   //       instance.selector.highlightNode({ id: u });
-  //   //       instance.selector.getNode({ id: u })
-  //   //         .transition()
-  //   //         .attr('fill', 'black');
-  //   //       //instance.update({ skipLayout: true });
-  //   //     };
-  //   //
-  //   //     var adjacent = instance.graph.getAdjacentNodes({ id: u });
-  //   //     for (var i = 0; i < adjacent.length; i += 1) {
-  //   //       var v = adjacent[i].id;
-  //   //
-  //   //       if (v === p) { continue; }
-  //   //
-  //   //       if (timeIn[v] === -1) {
-  //   //         yield function () {
-  //   //           instance.selector.traverseAllEdgesBetween({ source: u, target: v });
-  //   //         };
-  //   //         yield *dfs(v, u);
-  //   //         low[u] = Math.min(low[u], low[v]);
-  //   //       } else if (timeIn[v] < timeIn[u]) {
-  //   //         // back edge
-  //   //         //console.log(++total);
-  //   //
-  //   //         yield function () {
-  //   //           instance.selector.traverseAllEdgesBetween({ source: u, target: v }, {stroke: 'cyan'});
-  //   //         };
-  //   //
-  //   //         yield function () {
-  //   //           instance.selector.traverseAllEdgesBetween({ source: u, target: v });
-  //   //         };
-  //   //         low[u] = Math.min(low[u], timeIn[v]);
-  //   //
-  //   //         yield function () {
-  //   //           //instance.graph.getNode({ id: u }).topRightLabel = timeIn[u] + '/' + low[u];
-  //   //           instance.selector.highlightNode({ id: u });
-  //   //           //instance.update({ skipLayout: true });
-  //   //         };
-  //   //       }
-  //   //     }
-  //   //   }
-  //   //
-  //   //   yield *dfs(source, -1);
-  //   //
-  //   // }
-  //   //
-  //   // yield *innerDfs(0);
-  //   //
-  //   // yield function () {
-  //   //   updateText('there are 4 backedges in the graph! <br /> that\'s it! thanks for watching :)');
-  //   // };
-  // });
 }
