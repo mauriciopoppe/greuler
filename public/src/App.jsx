@@ -67,15 +67,15 @@ const App = () => {
           </a>
         </div>
         <hr />
-        <Navigation />
-        <hr />
+        {/*<Navigation />*/}
+        {/*<hr />*/}
       </div>
 
-      <Router>
-        <Introduction path="/" />
-        <Api path="/api" />
-        <Examples path="/examples" />
-      </Router>
+      {/*<Router>*/}
+      <Introduction path="/" />
+      <Api path="/api" />
+      {/*<Examples path="/examples" />*/}
+      {/*</Router>*/}
 
       <footer className="container has-text-centered">
         <hr />
