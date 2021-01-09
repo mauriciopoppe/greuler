@@ -1,14 +1,14 @@
 const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: {
-    site: './public/scripts/App.jsx',
-    greuler: './src/index.js'
+    greuler: './src/index.js',
+    site: './public/src/App.jsx'
   },
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
-  // devtool: process.env.NODE_ENV === 'production' ? 'nosources-source-map' : 'inline-source-map',
-  devtool: 'inline-source-map',
+  devtool: process.env.NODE_ENV === 'production' ? 'nosources-source-map' : 'inline-source-map',
   devServer: {
     contentBase: './public',
     historyApiFallback: true,
@@ -40,9 +40,12 @@ module.exports = {
       }
     ]
   },
-  resolve: {
-    modules: [path.resolve('./node_modules'), path.resolve('./src')],
-    extensions: ['.json', '.js']
-  },
-  plugins: [new CleanWebpackPlugin()]
+  // prettier-ignore
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'Greuler',
+      template: 'public/index.html'
+    })
+  ]
 }

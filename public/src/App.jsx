@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
-import { Router, Link } from "@reach/router"
+import { Router, Link } from '@reach/router'
 
 import { Introduction } from './pages/Introduction/Introduction.jsx'
 import { Api } from './pages/Api/Api.jsx'
-import GreulerSVG from '../svg/banner.svg'
+import { Examples } from './pages/Examples/Examples.jsx'
+import GreulerSVG from './banner.svg'
 
-const NavigationLink = ({to, children, ...other} = props) => {
+const NavigationLink = ({ to, children, ...other } = props) => {
   const cls = 'text-2xl font-bold flex-1 text-center'
   return (
     <Link to={to} className={cls} {...other}>
@@ -20,6 +21,7 @@ const Navigation = () => {
     <div className="flex space-x-4">
       <NavigationLink to="/">introduction</NavigationLink>
       <NavigationLink to="/api">api</NavigationLink>
+      <NavigationLink to="/examples">examples</NavigationLink>
     </div>
   )
 }
@@ -42,18 +44,15 @@ const App = () => {
       <Router>
         <Introduction path="/" />
         <Api path="/api" />
+        <Examples path="/examples" />
       </Router>
 
       <div className="container mx-auto text-center">
-        <hr/>
+        <hr />
         Made with ♥ by <a href="https://twitter.com/mauricio_poppe">Mauricio Poppe</a>
       </div>
     </>
   )
 }
 
-ReactDOM.render(
-  <App />,
-  document.querySelector('#root')
-)
-
+ReactDOM.render(<App />, document.querySelector('#root'))

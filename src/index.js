@@ -2,9 +2,8 @@ import './polyfills'
 import 'd3-transition'
 import { select } from 'd3-selection'
 
-import { GraphManager } from './Graph'
+import { GraphManager } from './GraphManager'
 import { colors } from './const'
-import { Generator } from './player/'
 import { GraphRenderer } from './GraphRenderer'
 import { createId } from './utils'
 
@@ -23,6 +22,5 @@ function greuler(options) {
 
 greuler.Graph = GraphManager
 greuler.colors = colors
-greuler.Generator = Generator
 
 export default greuler

@@ -8,7 +8,7 @@ import { drag } from 'd3-drag'
 
 import { Node } from './elements/node'
 import { Edge } from './elements/edge'
-import { GraphManager } from './Graph'
+import { GraphManager } from './GraphManager'
 import { GreulerDefaultTransition } from './selector/GreulerDefaultTransition'
 
 export class GraphRenderer {

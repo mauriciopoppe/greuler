@@ -1,4 +1,4 @@
-export default function () {
+window.apiSelector = function () {
   const target = document.querySelector('#selector-example')
 
   const instance = greuler({

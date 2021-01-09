@@ -5,8 +5,8 @@ import ApiSVG from './api.svg'
 import GraphSVG from './graph.svg'
 import SelectorSVG from './selector.svg'
 
-import exampleGraph from './exampleGraph'
-import exampleSelector from './exampleSelector'
+// import exampleGraph from 'apiGraph'
+// import exampleSelector from 'apiSelector'
 
 const ApiExample = ({ exampleGetter, targetId }) => {
   const [graphInstance, setGraphInstance] = useState()
@@ -35,25 +35,20 @@ const ApiExample = ({ exampleGetter, targetId }) => {
 
   return (
     <>
-      <div className="flex" style={{ height: 700 }}>
+      <div className="flex" style={{ height: 500 }}>
         <div className="w-6/12" id={targetId} />
-        <div className="w-6/12 text-sm">
+        <div className="w-6/12 text-xs">
           <pre>
             <code className="language-javascript" dangerouslySetInnerHTML={{ __html: graphExampleCode }} />
           </pre>
         </div>
       </div>
       <div className="text-center">{graphExampleTitle}</div>
-      <div className="flex">
+      <div className="flex justify-center">
         {graphInstance &&
           graphInstance.fns.map((v, i) => {
             return (
-              <div
-                className="flex-1 text-center"
-                onMouseEnter={() => highlightExample(v)}
-                onClick={() => v.fn()}
-                key={i}
-              >
+              <div className="text-center" onMouseEnter={() => highlightExample(v)} onClick={() => v.fn()} key={i}>
                 {i + 1}
               </div>
             )
@@ -92,7 +87,7 @@ export const Api = (props) => {
         Please take a look at all the methods of <code>instance.graph</code> which can be found
         <a href="https://github.com/mauriciopoppe/greuler/blob/master/src/Graph.js">here</a>
       </p>
-      <ApiExample exampleGetter={exampleGraph} targetId={'graph-example'} />
+      <ApiExample exampleGetter={() => window.apiGraph()} targetId={'graph-example'} />
       <hr />
       <div className="flex justify-center" dangerouslySetInnerHTML={{ __html: SelectorSVG }} />
       <p>
@@ -101,7 +96,7 @@ export const Api = (props) => {
         <code>instance.graph</code> the first method will always be an object describing a node / edge, the second
         parameter is an override of the styles predefined to be used during the animation
       </p>
-      <ApiExample exampleGetter={exampleSelector} targetId={'selector-example'} />
+      <ApiExample exampleGetter={() => window.apiSelector()} targetId={'selector-example'} />
     </div>
   )
 }
