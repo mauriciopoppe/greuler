@@ -3,6 +3,7 @@ import Prism from 'prismjs'
 import ReactMarkdown from 'react-markdown'
 
 import ApiSVG from './api.svg'
+import UsageSVG from './usage.svg'
 import GraphSVG from './graph.svg'
 import SelectorSVG from './selector.svg'
 
@@ -131,11 +132,12 @@ The required properties of \`data\` are:
   * \`node.topRightLabel=''\` Label to be shown on the top right of the node, useful for additional
   annotations
 
-* \`links=[]\` An array of objects, each object describes the properties of an edge
-  * \`link.source\` The id of the source node
-  * \`link.target\` The id of the target node
+* \`edges=[]\` An array of objects, each object describes the properties of an edge
+  * \`edge.source\` The id of the source node
+  * \`edge.target\` The id of the target node
   (style properties)
-  * \`link.directed=false\` True to make the edge directed
+  * \`edge.directed=false\` True to make the edge directed
+  * \`edge.weight=n\` If set, it's added as an annotation to the center of the edge
 
 Additional options
 
@@ -177,7 +179,12 @@ Check out [the Selector class](https://github.com/mauriciopoppe/greuler/blob/mas
 
   `
 
-  return <ReactMarkdown children={markdown} />
+  return (
+    <div>
+      <div className="is-flex is-justify-content-center" dangerouslySetInnerHTML={{ __html: ApiSVG }} />
+      <ReactMarkdown children={markdown} />
+    </div>
+  )
 }
 
 function UsageNotes() {
@@ -251,13 +258,14 @@ function UsageNotes() {
 export const Api = (props) => {
   useEffect(() => {
     new window.Vivus('api-svg', { type: 'oneByOne', duration: 200 })
+    new window.Vivus('usage-svg', { type: 'oneByOne', duration: 200 })
     new window.Vivus('graph-svg', { type: 'oneByOne', duration: 200 })
     new window.Vivus('selector-svg', { type: 'oneByOne', duration: 200 })
   }, [])
 
   return (
     <div className="container content">
-      <div className="is-flex is-justify-content-center" dangerouslySetInnerHTML={{ __html: ApiSVG }} />
+      <div className="is-flex is-justify-content-center" dangerouslySetInnerHTML={{ __html: UsageSVG }} />
       <p>
         The hello world program requires calling <code>greuler</code> with an object that has the following properties:
       </p>

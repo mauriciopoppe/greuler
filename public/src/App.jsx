@@ -73,12 +73,13 @@ const App = () => {
 
       {/*<Router>*/}
       <Introduction path="/" />
+      <hr />
       <Api path="/api" />
+      <hr />
       {/*<Examples path="/examples" />*/}
       {/*</Router>*/}
 
       <footer className="container has-text-centered">
-        <hr />
         Made with ♥ by <a href="https://twitter.com/mauricio_poppe">Mauricio Poppe</a>
       </footer>
     </div>
