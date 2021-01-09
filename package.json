@@ -2,7 +2,7 @@
   "name": "greuler",
   "description": "graph theory visualizations powered by d3 & webcola",
   "main": "dist/greuler.js",
-  "version": "1.0.0-alpha1",
+  "version": "1.0.0-alpha2",
   "scripts": {
     "start": "webpack serve",
     "build": "NODE_ENV=production webpack && cp -r public/static dist"
@@ -62,7 +62,9 @@
     "visualizations",
     "graph-theory"
   ],
-  "files": ["dist/greuler.js"],
+  "files": [
+    "dist/greuler.js"
+  ],
   "author": "Mauricio Poppe",
   "license": "MIT",
   "bugs": {
