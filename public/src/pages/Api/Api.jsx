@@ -24,7 +24,7 @@ const EvalExample = ({ fnId, fn }) => {
   }, [])
 
   return (
-    <div className="columns" style={{ fontSize: '0.9rem', lineHeight: 1 }}>
+    <div className="columns" style={{ fontSize: '1.1rem', lineHeight: 1 }}>
       <div className="column" id={fnId} />
       <div className="column">
         <pre>
@@ -62,7 +62,7 @@ const ApiExample = ({ exampleGetter, targetId }) => {
 
   return (
     <>
-      <div className="columns" style={{ height: 600, fontSize: '0.9rem', lineHeight: 1 }}>
+      <div className="columns" style={{ height: 600, fontSize: '1.1rem', lineHeight: 1 }}>
         <div className="column" id={targetId} />
         <div className="column">
           <pre>
@@ -70,13 +70,13 @@ const ApiExample = ({ exampleGetter, targetId }) => {
           </pre>
         </div>
       </div>
-      <div className="has-text-centered">{graphExampleTitle}</div>
+      <div className="has-text-centered is-italic">{graphExampleTitle}</div>
       <div className="is-flex is-justify-content-center">
         {graphInstance &&
           graphInstance.fns.map((v, i) => {
             return (
               <button
-                className="button is-rounded is-link m-1"
+                className="button is-rounded is-link is-light m-1"
                 style={{
                   width: '3em',
                   height: '3em'

@@ -43,11 +43,11 @@ The required properties of \`data\` are:
 
 Additional options
 
-* \`options.width=700\` Width of the graph
-* \`options.height=300\` Height of the graph
-* \`options.directed=false\` True to make the graph directed
+* \`options.width=computed\` Width of the graph (defaults to the container width)
+* \`options.height=computed\` Height of the graph (defaults to the container height)
+* \`options.directed=false {bool}\` True to make the graph directed (defaults to false)
 * \`options.animationTime=1000\` Time in ms used for the transitions done with \`instance.selector.*\`
-* \`options.labels=true\` False to hide the labels on the nodes
+* \`options.labels=true\` False to hide the labels on the nodes (defaults to true)
 
 **returns**
 

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import Prism from 'prismjs'
 
 import InstallationSVG from './installation.svg'
 

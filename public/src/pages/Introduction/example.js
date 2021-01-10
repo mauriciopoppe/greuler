@@ -3,7 +3,7 @@ export default async function () {
   const instance = window
     .greuler({
       target: '#intro',
-      width: 960,
+      // width: 960,
       height: 400,
       animationTime: 3000,
       data: {
