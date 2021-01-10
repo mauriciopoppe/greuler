@@ -5,9 +5,7 @@ import extend from 'extend'
 import { Vector } from '../Vector'
 import { transform, ns } from '../utils'
 
-export function Edge() {
-  let owner
-
+export function Edge({ owner }) {
   function moveTowardsPoint(point, middle) {
     const margin = point.r
     const unit = Vector.unit(Vector.sub(middle, point))
@@ -187,19 +185,19 @@ export function Edge() {
   // .interpolate('linear')
 
   function inner(selection) {
-    const links = selection.selectAll('g.edge').data(
+    const edges = selection.selectAll('g.edge').data(
       (d) => d.edges,
       (d) => d.id
     )
 
-    const linksEnter = links.enter().append('g')
-    linksEnter
+    const edgesEnter = edges.enter().append('g')
+    edgesEnter
       .attr('class', 'edge')
       // .attr('opacity', 0)
       .attr('id', (d) => ns(d.id))
       // .transition('enter')
       .attr('opacity', 1)
-      .merge(links)
+      .merge(edges)
       .each(function (d) {
         const self = select(this)
         self.classed(`source-${d.source.id}`, true)
@@ -207,15 +205,15 @@ export function Edge() {
         self.classed('directed', 'directed' in d ? d.directed : owner.options.directed)
       })
 
-    const linksAll = linksEnter.merge(links)
+    const edgesAll = edgesEnter.merge(edges)
 
     const meta = {}
-    linksAll.each(function (d) {
+    edgesAll.each(function (d) {
       createPath(d, meta, 17)
     })
 
     // path enter
-    const paths = linksAll.selectAll('path').data(function (d) {
+    const paths = edgesAll.selectAll('path').data(function (d) {
       // 1. real path
       // 2. stroke-dasharray helper
       return [d, d]
@@ -252,35 +250,23 @@ export function Edge() {
       }
     })
 
-    const weights = linksAll.selectAll('text').data((d) => [d])
+    const weights = edgesAll.selectAll('text').data((d) => [d])
 
     // weights enter
     const weightsEnter = weights.enter().append('text')
-    weightsEnter
-      .attr('font-size', '9px')
-      .attr('dominant-baseline', 'text-after-edge')
-      .attr('text-anchor', 'middle')
-      .call(weightPosition)
+    weightsEnter.attr('font-size', '9px').attr('dominant-baseline', 'text-after-edge').attr('text-anchor', 'middle')
 
     const weightsAll = weightsEnter.merge(weights)
 
     // weights update
     // utils.conditionalTransition(weightsAll, !owner.nodeDragging)
-    weightsAll.text((d) => d.weight).call(weightPosition)
+    weightsAll.text((d) => d.displayWeight).call(weightPosition)
 
     // weight exit
     weights.exit().remove()
 
     // exit
-    links.exit().remove()
-  }
-
-  inner.owner = function (value) {
-    if (!arguments.length) {
-      return owner
-    }
-    owner = value
-    return inner
+    edges.exit().remove()
   }
 
   return inner

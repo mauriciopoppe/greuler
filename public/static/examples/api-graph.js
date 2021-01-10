@@ -99,7 +99,7 @@ window.apiGraph = function () {
 
         // random edges have weight & become directed
         if (Math.random() > 0.5) {
-          edge.weight = Math.floor(Math.random() * 10)
+          edge.displayWeight = Math.floor(Math.random() * 10)
           edge.directed = true
         }
 
@@ -147,7 +147,7 @@ window.apiGraph = function () {
         const edge = instance.graph.edges[edgeIndex]
 
         const update = instance.graph.getEdge({ id: edge.id })
-        update.weight = '∞'
+        update.displayWeight = '∞'
         update.directed = !update.directed
 
         // note that this time the structure of the graph wasn't changed

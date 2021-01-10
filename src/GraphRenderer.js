@@ -6,8 +6,8 @@ import { dispatch } from 'd3-dispatch'
 import { timer } from 'd3-timer'
 import { drag } from 'd3-drag'
 
-import { Node } from './elements/node'
-import { Edge } from './elements/edge'
+import { Node } from './elements/Node'
+import { Edge } from './elements/Edge'
 import { GraphManager } from './GraphManager'
 import { GreulerDefaultTransition } from './selector/GreulerDefaultTransition'
 
@@ -28,8 +28,8 @@ export class GraphRenderer {
     this.selector = new GreulerDefaultTransition(this)
 
     // sub-elements that draw stuff
-    this.nodeDrawer = Node().owner(this)
-    this.edgeDrawer = Edge().owner(this)
+    this.nodeDrawer = Node({ owner: this })
+    this.edgeDrawer = Edge({ owner: this })
 
     // layout engine
     this.layout = d3adaptor({
@@ -42,10 +42,11 @@ export class GraphRenderer {
       }
     })
 
+    // https://github.com/tgdwyer/WebCola/blob/78a24fc0dbf0b4eb4a12386db9c09b087633267d/src/layout.ts#L8
+    this.layout.on('start', () => {})
     this.layout.on('tick', function () {
       self.tick()
     })
-
     let firstEnd = true
     this.layout.on('end', function () {
       if (firstEnd) {
@@ -160,7 +161,8 @@ export class GraphRenderer {
       }
     })
 
-    this.layout.start.apply(this.layout, updateOptions.iterations)
+    // this.layout.start.apply(this.layout, updateOptions.iterations)
+    this.layout.start()
   }
 
   tick() {
@@ -179,7 +181,7 @@ export class GraphRenderer {
     )
 
     this.initLayout(updateOptions)
-    this.build(updateOptions)
+    this.build()
 
     // update nodes/edges if layout.tick wasn't run
     if (updateOptions.skipLayout) {
@@ -219,17 +221,11 @@ export class GraphRenderer {
     const svg = (this.root = svgEnter.merge(mount))
 
     // wrapper for the edges
-    const edges = svg.selectAll('g.edges').data(function (d) {
-      return [d.data]
-    })
-
+    const edges = svg.selectAll('g.edges').data((d) => [d.data])
     this.edgeGroup = edges.enter().append('g').attr('class', 'edges').merge(edges)
 
     // wrapper for the nodes
-    const nodes = svg.selectAll('g.nodes').data(function (d) {
-      return [d.data]
-    })
-
+    const nodes = svg.selectAll('g.nodes').data((d) => [d.data])
     this.nodeGroup = nodes.enter().append('g').attr('class', 'nodes').merge(nodes)
   }
 }

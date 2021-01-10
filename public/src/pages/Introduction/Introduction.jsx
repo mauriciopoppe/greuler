@@ -2,11 +2,9 @@ import React, { useEffect } from 'react'
 
 import InstallationSVG from './installation.svg'
 
-import example from './example'
-
 export const Introduction = (props) => {
   useEffect(() => {
-    example()
+    window.presentationExample()
     new window.Vivus('installation-svg', { type: 'oneByOne', duration: 200 })
   }, [])
 

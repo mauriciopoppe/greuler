@@ -1,4 +1,4 @@
-export default async function () {
+window.presentationExample = async function () {
   const instruction = d3.select('#intro-description')
   const instance = window
     .greuler({
@@ -102,7 +102,7 @@ export default async function () {
 
     await updateText('and add a weight to each edge')
     instance.graph.edges.forEach(function (e) {
-      e.weight = Math.floor(Math.random() * 100)
+      e.displayWeight = Math.floor(Math.random() * 100)
     })
     instance.update({ skipLayout: true })
 
@@ -124,7 +124,7 @@ export default async function () {
 
     await updateText('removing the weights')
     instance.graph.edges.forEach(function (e) {
-      delete e.weight
+      delete e.displayWeight
     })
     instance.update({ skipLayout: true })
 

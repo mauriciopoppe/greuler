@@ -39,7 +39,8 @@ The required properties of \`data\` are:
   * \`edge.target\` The id of the target node
   (style properties)
   * \`edge.directed=false\` True to make the edge directed
-  * \`edge.weight=n\` If set, it's added as an annotation to the center of the edge
+  * \`edge.displayWeight=n\` If set, it's added as an annotation to the center of the edge (NOTE: \`weight\` is a
+   control property in webcola)
 
 Additional options
 

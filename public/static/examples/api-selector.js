@@ -18,14 +18,14 @@ window.apiSelector = function () {
     }
   }).update()
 
+  // prettier-ignore
   instance.fns = [
     {
       title: 'highlighting a random node and edge',
       fn: function () {
-        var order = instance.graph.nodes.length
-        var size = instance.graph.edges.length
-
-        var id = Math.floor(Math.random() * order)
+        const order = instance.graph.nodes.length
+        const size = instance.graph.edges.length
+        const id = Math.floor(Math.random() * order)
 
         // highlight the node whose id is `id`, the highlight
         // animation is predefined but the user can easily define a
@@ -37,15 +37,15 @@ window.apiSelector = function () {
         // however let's assume that we don't have it, we can pass the edge itself
         // and the selector will automatically get the d3 selection and perform the
         // highlight animation
-        var edgeIndex = Math.floor(Math.random() * size)
+        const edgeIndex = Math.floor(Math.random() * size)
         instance.selector.highlightEdge(instance.graph.edges[edgeIndex])
       }
     },
     {
       title: 'highlighting the incident edges of a node',
       fn: function () {
-        var order = instance.graph.nodes.length
-        var id = Math.floor(Math.random() * order)
+        const order = instance.graph.nodes.length
+        const id = Math.floor(Math.random() * order)
         instance.selector.highlightNode({ id: id })
 
         // a utility method that changes the color of all the incident
@@ -61,14 +61,13 @@ window.apiSelector = function () {
     {
       title: 'traversing through the outgoing edges of a node',
       fn: function () {
-        var order = instance.graph.nodes.length
-        var id = Math.floor(Math.random() * order)
+        const order = instance.graph.nodes.length
+        const id = Math.floor(Math.random() * order)
 
         // get all the edges and reset their stroke style
         // with the `stroke` property stored in the edge datum
-        instance.selector.getEdges().attr('stroke', function (d) {
-          return d.stroke
-        })
+        instance.selector.getEdges()
+          .attr('stroke', d => d.stroke)
 
         instance.selector.highlightNode({ id: id })
 
@@ -85,12 +84,11 @@ window.apiSelector = function () {
     {
       title: 'traversing through the incoming edges using additional options',
       fn: function () {
-        var order = instance.graph.nodes.length
-        var id = Math.floor(Math.random() * order)
+        const order = instance.graph.nodes.length
+        const id = Math.floor(Math.random() * order)
 
-        instance.selector.getEdges().attr('stroke', function (d) {
-          return d.stroke
-        })
+        instance.selector.getEdges()
+          .attr('stroke', d => d.stroke)
 
         instance.selector.highlightNode({ id: id })
 
@@ -102,13 +100,12 @@ window.apiSelector = function () {
     {
       title: 'traversing the edges between a source node and a target node',
       fn: function () {
-        var order = instance.graph.nodes.length
-        var u = Math.floor(Math.random() * order)
-        var v = Math.floor(Math.random() * order)
+        const order = instance.graph.nodes.length
+        const u = Math.floor(Math.random() * order)
+        const v = Math.floor(Math.random() * order)
 
-        instance.selector.getEdges().attr('stroke', function (d) {
-          return d.stroke
-        })
+        instance.selector.getEdges()
+          .attr('stroke', d => d.stroke)
 
         instance.selector.highlightNode({ id: u })
         instance.selector.highlightNode({ id: v })
@@ -121,8 +118,8 @@ window.apiSelector = function () {
     {
       title: 'custom transitions on nodes',
       fn: function () {
-        var order = instance.graph.nodes.length
-        var id = Math.floor(Math.random() * order)
+        const order = instance.graph.nodes.length
+        const id = Math.floor(Math.random() * order)
 
         // you can always create your custom transition if you want
         // here a random node is colored with a random color from
@@ -139,9 +136,9 @@ window.apiSelector = function () {
     {
       title: 'custom transitions on edges',
       fn: function () {
-        var size = instance.graph.edges.length
-        var edgeIndex = Math.floor(Math.random() * size)
-        var edge = instance.graph.edges[edgeIndex]
+        const size = instance.graph.edges.length
+        const edgeIndex = Math.floor(Math.random() * size)
+        const edge = instance.graph.edges[edgeIndex]
 
         // you can always create your custom transition if you want
         // here a random node is colored with a random color from
