@@ -1,4 +1,8 @@
-[![image](./public/src/banner.svg)](http://mauriciopoppe.github.io/greuler/)
+<p align="center">
+  <a href="http://mauriciopoppe.github.io/greuler/">
+    <img src="./public/src/banner.svg" alt="greuler logo">
+  </a>
+</p>
 
 <b>greuler</b> is graph theory visualization tool powered by <a href="http://d3js.org/">d3</a>
 and on top of <a href="http://marvl.infotech.monash.edu/webcola/">WebCola</a>
