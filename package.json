@@ -2,7 +2,7 @@
   "name": "greuler",
   "description": "graph theory visualizations powered by d3 & webcola",
   "main": "dist/greuler.js",
-  "version": "1.0.0-alpha3",
+  "version": "1.0.0-alpha4",
   "scripts": {
     "start": "webpack serve",
     "build": "webpack --env production && cp -r public/static dist && cp public/favicon.* dist",
