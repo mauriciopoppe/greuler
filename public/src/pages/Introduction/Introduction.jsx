@@ -40,9 +40,15 @@ export const Introduction = (props) => {
         <pre>
           <code>&lt;script src="https://unpkg.com/greuler@alpha"&gt;&lt;/script&gt;</code>
         </pre>
+        <p>Try it now on Codesandbox!</p>
+        <iframe
+          src="https://codesandbox.io/embed/greuler-ujl3e?fontsize=14&hidenavigation=1&theme=light"
+          style={{ width: '100%', height: 500, border: 0, borderRadius: 4, overflow: 'hidden' }}
+          title="greuler"
+          allow="accelerometer; camera; encrypted-media; geolocation; gyroscope; microphone; midi; payment; usb; xr-spatial-tracking"
+          sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+        />
       </div>
-
-      {/* TODO: add sandbox */}
     </div>
   )
 }
