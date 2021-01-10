@@ -5,7 +5,7 @@
   "version": "1.0.0-alpha2",
   "scripts": {
     "start": "webpack serve",
-    "build": "NODE_ENV=production webpack && cp -r public/static dist"
+    "build": "NODE_ENV=production webpack && cp -r public/static dist && cp public/favicon.* dist"
   },
   "dependencies": {
     "arrify": "^2.0.1",

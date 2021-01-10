@@ -80,7 +80,7 @@ const App = () => {
       {/*</Router>*/}
 
       <footer className="container has-text-centered">
-        Made with ♥ by <a href="https://twitter.com/mauricio_poppe">Mauricio Poppe</a>
+        Made with ♥ by <a href="https://mauriciopoppe.com">Mauricio Poppe</a>
       </footer>
     </div>
   )
