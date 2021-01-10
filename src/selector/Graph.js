@@ -1,4 +1,5 @@
 import { ns } from '../utils'
+import { selection } from 'd3-selection'
 import extend from 'extend'
 
 export class ElementSelector {
@@ -28,7 +29,7 @@ export class ElementSelector {
    * the d3 selection that for all those objects
    *
    * @param {Object[]|Object} els An array of edges/nodes or a single edge/node
-   * @return {d3_selection}
+   * @return {selection}
    */
   select (els) {
     if (!Array.isArray(els)) {
@@ -48,7 +49,7 @@ export class ElementSelector {
   /**
    * Selects the path inside the tag <g> that represents an edge
    *
-   * @param {d3_selection} selection
+   * @param {selection} selection
    */
   innerEdgeSelector (selection) {
     return selection
@@ -58,7 +59,7 @@ export class ElementSelector {
   /**
    * Selects the circle inside the tag <g> that represents a node
    *
-   * @param {d3_selection} selection
+   * @param {selection} selection
    */
   innerNodeSelector (selection) {
     return selection

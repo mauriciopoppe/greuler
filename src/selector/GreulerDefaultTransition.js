@@ -1,4 +1,4 @@
-import { select } from 'd3-selection'
+import { select, selection } from 'd3-selection'
 import extend from 'extend'
 
 import { ElementSelector } from './Graph'
@@ -9,7 +9,7 @@ export class GreulerDefaultTransition extends ElementSelector {
   /**
    * Gets all the edges of the graph
    *
-   * @returns {d3_selection}
+   * @returns {selection}
    */
   getEdges() {
     return this.innerEdgeSelector(this.select(this.graph.edges))
@@ -18,7 +18,7 @@ export class GreulerDefaultTransition extends ElementSelector {
   /**
    * Gets all the nodes of the graph
    *
-   * @returns {d3_selection}
+   * @returns {selection}
    */
   getNodes() {
     return this.innerNodeSelector(this.select(this.graph.nodes))
@@ -31,9 +31,9 @@ export class GreulerDefaultTransition extends ElementSelector {
    * - increase the radius to 1.5x the original `r` value
    * - decrease the radius to the original `r` value
    *
-   * @param {d3_selection} selection
+   * @param {selection} selection
    * @param {Object} options
-   * @returns {d3_transition}
+   * @returns {Promise<selection>}
    */
   doTemporalHighlightNode(selection, options) {
     return this.innerNodeSelector(selection)
@@ -54,9 +54,9 @@ export class GreulerDefaultTransition extends ElementSelector {
    * `options.stroke`
    * - change the stroke to the original value
    *
-   * @param {d3_selection} selection
+   * @param {selection} selection
    * @param {Object} options
-   * @returns {d3_transition}
+   * @returns {Promise<selection>}
    */
   doTemporalHighlightEdges(selection, options) {
     return this.innerEdgeSelector(selection)
@@ -74,10 +74,10 @@ export class GreulerDefaultTransition extends ElementSelector {
    * of movement, if source is given then it will always start the animation
    * from the node `source` even if the edge is an incoming edge
    *
-   * @param {d3_selection} selection
+   * @param {selection} selection
    * @param {config} options
    * @param {number} [source=-1]
-   * @returns {d3_transition}
+   * @returns {Promise<selection>}
    */
   async traverseEdgeWithDirection(selection, options, source = -1) {
     const paths = selection.selectAll('path.traversal')
