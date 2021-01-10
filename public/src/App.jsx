@@ -5,6 +5,8 @@ import { Router, Link } from '@reach/router'
 import { Introduction } from './pages/Introduction/Introduction.jsx'
 import { Api } from './pages/Api/Api.jsx'
 import { Examples } from './pages/Examples/Examples.jsx'
+import { Heart } from './Heart.jsx'
+
 import GreulerSVG from './banner.svg'
 import './index.scss'
 
@@ -80,7 +82,7 @@ const App = () => {
       {/*</Router>*/}
 
       <footer className="container has-text-centered">
-        Made with ♥ by <a href="https://mauriciopoppe.com">Mauricio Poppe</a>
+        Made with <Heart>♥</Heart> by <a href="https://mauriciopoppe.com">Mauricio Poppe</a>
       </footer>
     </div>
   )
