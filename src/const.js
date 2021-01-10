@@ -12,7 +12,7 @@ colorLiterals.forEach(function (c, i) {
 })
 
 colors.randomFromPalette = function () {
-  return colorScale.range()[Math.floor(Math.random() * 20)]
+  return colorScale.range()[Math.floor(Math.random() * 10)]
 }
 
 colors.DEFAULT_NODE = '#2980B9'

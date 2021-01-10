@@ -69,7 +69,6 @@ export class GraphRenderer {
   }
 
   /**
-   *
    * @param {Object} options
    *
    * options

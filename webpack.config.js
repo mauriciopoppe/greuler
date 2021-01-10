@@ -1,15 +1,16 @@
 const path = require('path')
+const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-module.exports = {
+module.exports = (env) => ({
   entry: {
     greuler: './src/index.js',
     site: './public/src/App.jsx'
   },
-  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
-  devtool: process.env.NODE_ENV === 'production' ? 'nosources-source-map' : 'inline-source-map',
+  mode: env.production ? 'production' : 'development',
+  devtool: env.production ? 'nosources-source-map' : 'inline-source-map',
   devServer: {
     contentBase: './public',
     historyApiFallback: true,
@@ -56,6 +57,9 @@ module.exports = {
   // prettier-ignore
   plugins: [
     new CleanWebpackPlugin(),
+    new webpack.DefinePlugin({
+      PRODUCTION: env.production
+    }),
     new MiniCssExtractPlugin({
       filename: 'css/styles.css'
     }),
@@ -64,4 +68,4 @@ module.exports = {
       template: 'public/index.html'
     })
   ]
-}
+})
