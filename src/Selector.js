@@ -149,6 +149,7 @@ export class Selector {
    */
   async traverseEdgeWithDirection(selection, options, source = -1) {
     const paths = selection.selectAll('path.traversal')
+
     await paths
       .each(function () {
         const el = select(this)
@@ -197,14 +198,20 @@ export class Selector {
       options
     )
 
-    selection.call(this.traverseEdgeWithDirection, options, source)
+    const animations = []
+    // schedule the overlay path transition
+    animations.push(this.traverseEdgeWithDirection(selection, options, source))
     if (options.keepStroke) {
-      await this.innerEdgeSelector(selection)
+      // conditionally schedule the base path transition
+      const basePathTransition = this.innerEdgeSelector(selection)
         .transition('update')
         .duration(options.duration)
         .attr('stroke', options.stroke)
         .end()
+      animations.push(basePathTransition)
     }
+    await Promise.all(animations)
+
     return this.innerEdgeSelector(selection)
   }
 
