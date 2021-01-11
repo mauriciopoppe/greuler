@@ -6,7 +6,7 @@
       "@babel/preset-env",
       {
         "targets": {
-          "browsers": "last 2 chrome versions, last 2 safari versions, last 2 firefox versions, last 2 edge versions"
+          "browsers": "> 1%, not ie <= 11, not op_mini all"
         }
       }
     ],
