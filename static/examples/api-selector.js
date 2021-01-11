@@ -23,20 +23,17 @@ window.apiSelector = function () {
     {
       title: 'highlighting a random node and edge',
       fn: function () {
+        // highlights a random node in the graph
+        // the default animation modifies the `r` attribute of the circle that represents the node
         const order = instance.graph.nodes.length
-        const size = instance.graph.edges.length
-        const id = Math.floor(Math.random() * order)
-
-        // highlight the node whose id is `id`, the highlight
-        // animation is predefined but the user can easily define a
-        // custom animation, the default animation works by modifying
-        // the `r` attribute of the circle that represents the node
-        instance.selector.highlightNode({ id: id })
+        const nodeIndex = Math.floor(Math.random() * order)
+        instance.selector.highlightNode(instance.graph.nodes[nodeIndex])
 
         // if we have the edge we can pass that object to the highlight edge method
         // however let's assume that we don't have it, we can pass the edge itself
         // and the selector will automatically get the d3 selection and perform the
         // highlight animation
+        const size = instance.graph.edges.length
         const edgeIndex = Math.floor(Math.random() * size)
         instance.selector.highlightEdge(instance.graph.edges[edgeIndex])
       }
