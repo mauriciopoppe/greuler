@@ -34,7 +34,7 @@ export function UsageNotes() {
   \`\`\`javascript
   data: {
     // ...
-    symmetricDiffLinkLengths: ['y', 50]
+    flowLayout: ['y', 50]
   }
   \`\`\`
 

@@ -53,7 +53,7 @@ const ApiExample = ({ exampleGetter, targetId }) => {
       .toString()
       .split('\n')
       .map(function (d) {
-        return d.replace(/^\s{6}/, '')
+        return d.replace(/^\s{8}/, '')
       })
     items.pop()
     items.shift()
