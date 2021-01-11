@@ -6,6 +6,7 @@
   "scripts": {
     "start": "webpack serve",
     "build": "webpack --env production && cp -r public/static dist && cp public/favicon.* dist",
+    "prepare": "npm run build",
     "test": "jest"
   },
   "dependencies": {
