@@ -113,40 +113,44 @@ window.apiSelector = function () {
       }
     },
     {
-      title: 'custom transitions on nodes',
+      title: 'custom transitions on nodes and edges',
       fn: function () {
-        const order = instance.graph.nodes.length
-        const id = Math.floor(Math.random() * order)
-
         // you can always create your custom transition if you want
         // here a random node is colored with a random color from
         // a predefined d3 palette
+        const order = instance.graph.nodes.length
+        const id = Math.floor(Math.random() * order)
         instance.selector
           .getNode({ id: id })
           .transition('custom')
           .duration(1000)
           .attr('fill', greuler.colors.randomFromPalette())
 
-        // check out `greuler.colors` for the palette
-      }
-    },
-    {
-      title: 'custom transitions on edges',
-      fn: function () {
         const size = instance.graph.edges.length
         const edgeIndex = Math.floor(Math.random() * size)
         const edge = instance.graph.edges[edgeIndex]
-
-        // you can always create your custom transition if you want
-        // here a random node is colored with a random color from
-        // a predefined d3 palette
         instance.selector
           .getEdge({ id: edge.id })
           .transition('custom')
           .duration(1000)
           .attr('stroke', greuler.colors.randomFromPalette())
       }
-    }
+    },
+    {
+      title: 'chaining transitions',
+      fn: function () {
+        (async function () {
+          // most of the transition methods return a d3 selection wrapped inside a Promise
+          // using async/await we can easily wait for a transition to finish before
+          // continuing with the next one
+          //
+          // in this example we highlight all of the nodes in increasing order
+          for (let node of instance.graph.nodes) {
+            await instance.selector.highlightNode(node)
+          }
+        })()
+      }
+    },
   ]
 
   return instance
