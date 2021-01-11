@@ -11,6 +11,7 @@
   <a href="https://github.com/mauriciopoppe/greuler/workflows/CI">
     <img src="https://github.com/mauriciopoppe/greuler/workflows/CI/badge.svg" />
   </a>
+<a href="https://app.fossa.com/projects/git%2Bgithub.com%2Fmauriciopoppe%2Fgreuler?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmauriciopoppe%2Fgreuler.svg?type=shield"/></a>
   <a href="https://github.com/feross/standard">
     <img src="https://img.shields.io/badge/code%20style-standard-blue" alt="js-standard-style">
   </a>
@@ -53,3 +54,6 @@ Check out the examples at the [`homepage`](http://mauriciopoppe.github.io/greule
 
 [npm-image]: https://img.shields.io/npm/v/greuler.svg?style=flat
 [npm-url]: https://npmjs.org/package/greuler
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmauriciopoppe%2Fgreuler.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmauriciopoppe%2Fgreuler?ref=badge_large)
