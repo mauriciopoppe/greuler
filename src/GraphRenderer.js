@@ -14,7 +14,7 @@ import { GreulerDefaultTransition } from './selector/GreulerDefaultTransition'
 export class GraphRenderer {
   constructor(id, options) {
     const self = this
-    this.events = dispatch('layout', 'firstLayoutEnd')
+    this.events = dispatch('layoutStart', 'layoutEnd')
 
     this.markerId = 'marker-' + id
 
@@ -43,16 +43,14 @@ export class GraphRenderer {
     })
 
     // https://github.com/tgdwyer/WebCola/blob/78a24fc0dbf0b4eb4a12386db9c09b087633267d/src/layout.ts#L8
-    this.layout.on('start', () => {})
+    this.layout.on('start', () => {
+      self.events.call('layoutStart')
+    })
     this.layout.on('tick', function () {
       self.tick()
     })
-    let firstEnd = true
     this.layout.on('end', function () {
-      if (firstEnd) {
-        self.events.call('firstLayoutEnd')
-        firstEnd = false
-      }
+      self.events.call('layoutEnd')
     })
   }
 
@@ -161,8 +159,7 @@ export class GraphRenderer {
       }
     })
 
-    // this.layout.start.apply(this.layout, updateOptions.iterations)
-    this.layout.start()
+    this.layout.start.apply(this.layout, updateOptions.layoutStartOptions)
   }
 
   tick() {
@@ -175,7 +172,8 @@ export class GraphRenderer {
       true,
       {
         skipLayout: false,
-        iterations: []
+        // all the args in https://github.com/tgdwyer/WebCola/blob/78a24fc0dbf0b4eb4a12386db9c09b087633267d/src/layout.ts#L488-L496
+        layoutStartOptions: []
       },
       updateOptions
     )
@@ -203,8 +201,10 @@ export class GraphRenderer {
       .attr('height', (d) => d.height)
 
     // marker def
-    svgEnter
-      .append('svg:defs')
+    const svgDefs = svgEnter.append('svg:defs')
+
+    // directed edge arrow
+    svgDefs
       .append('svg:marker')
       .attr('id', this.markerId)
       .attr('viewBox', '0 -5 10 10')

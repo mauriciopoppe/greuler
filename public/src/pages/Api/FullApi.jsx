@@ -56,11 +56,12 @@ A greuler instance used to interact with the graph
 
 #### \`instance.events\`
 
-All the events are exposed through this object
+All the events are exposed through this object, register to them using with this api [d3-dispatch](https://github.com/d3/d3-dispatch)
 
 **events**
 
-* \`firstLayoutEnd\` fired when the initial layout has finished, it's fired only once
+* \`layoutStart\` fired on layout start
+* \`layoutEnd\` fired on layout end
 
 #### \`instance.update([options])\`
 
@@ -70,7 +71,8 @@ All the events are exposed through this object
   * \`options.skipLayout=false\` True to skip layout and only bind the data to the svg elements (a layout
   operations needs to be done only when nodes/edges are added/removed to the graph, any other operation
   that modifies existing properties of the nodes/edges don't need a layout)
-  * \`options.iterations=[]\` The number of iterations run by WebCola see [layout.start](http://marvl.infotech.monash.edu/webcola/doc/classes/cola.layout.html#start)
+  * \`options.layoutStartOptions=[]\` Additional options sent to \`layout.start\`, see
+  [layout.start](https://github.com/tgdwyer/WebCola/blob/78a24fc0dbf0b4eb4a12386db9c09b087633267d/src/layout.ts#L488-L496)
 
 #### \`instance.graph\`
 
@@ -79,7 +81,6 @@ Check out [the GraphManager class](https://github.com/mauriciopoppe/greuler/blob
 #### \`instance.selector\`
 
 Check out [the Selector class](https://github.com/mauriciopoppe/greuler/blob/master/src/selector/GreulerDefaultTransition.js)
-
   `
 
   return (

@@ -1,4 +1,4 @@
-import { CustomShape, ShapeSwirl } from '@mojs/core'
+import mojs, { CustomShape, ShapeSwirl } from '@mojs/core'
 import React, { useEffect, useState, useRef } from 'react'
 
 class MoHeart extends CustomShape {
@@ -9,17 +9,15 @@ class MoHeart extends CustomShape {
     return 292.110107421875
   }
 }
-mojs.addShape('heart', MoHeart) // passing name and Bubble class
+mojs.addShape('heart', MoHeart)
 
 export function Heart({ children }) {
   const heartRef = useRef()
   const [hearts, setHearts] = useState([])
 
   useEffect(() => {
-    /* USE CUSTOM SHAPE */
-    // now it is available on mojs.Shape constructor as usual
     for (let i = 0; i < 10; i++) {
-      const heart = new mojs.ShapeSwirl({
+      const heart = new ShapeSwirl({
         parent: heartRef.current,
         shape: 'heart',
         fill: { white: 'deeppink' },
@@ -34,8 +32,6 @@ export function Heart({ children }) {
     }
     setHearts(hearts)
   }, [])
-
-  useEffect(() => {}, [])
 
   const animateHearts = () => {
     hearts.forEach((heart) => {

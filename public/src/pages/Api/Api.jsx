@@ -62,9 +62,9 @@ const ApiExample = ({ exampleGetter, targetId }) => {
 
   return (
     <>
-      <div className="columns" style={{ minHeight: 600, fontSize: '1.1rem', lineHeight: 1 }}>
+      <div className="columns" style={{ fontSize: '1.1rem', lineHeight: 1 }}>
         <div className="column" id={targetId} />
-        <div className="column" style={{ minHeight: 600 }}>
+        <div className="column" style={{ minHeight: 550 }}>
           <pre>
             <code className="language-javascript" dangerouslySetInnerHTML={{ __html: graphExampleCode }} />
           </pre>
