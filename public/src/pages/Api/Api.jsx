@@ -71,7 +71,7 @@ const ApiExample = ({ exampleGetter, targetId }) => {
         </div>
       </div>
       <div className="has-text-centered is-italic">{graphExampleTitle}</div>
-      <div className="is-flex is-justify-content-center">
+      <div className="is-flex is-justify-content-center" style={{ overflowX: 'scroll' }}>
         {graphInstance &&
           graphInstance.fns.map((v, i) => {
             return (
