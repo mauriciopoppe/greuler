@@ -9,7 +9,7 @@ import { drag } from 'd3-drag'
 import { Node } from './elements/Node'
 import { Edge } from './elements/Edge'
 import { GraphManager } from './GraphManager'
-import { GreulerDefaultTransition } from './selector/GreulerDefaultTransition'
+import { Selector } from './Selector'
 
 export class GraphRenderer {
   constructor(id, options) {
@@ -25,7 +25,7 @@ export class GraphRenderer {
     this.createGraph()
 
     // selector animates the nodes/edges
-    this.selector = new GreulerDefaultTransition(this)
+    this.selector = new Selector({ owner: this, graph: this.graph })
 
     // sub-elements that draw stuff
     this.nodeDrawer = Node({ owner: this })

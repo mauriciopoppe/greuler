@@ -1,11 +1,79 @@
 import { select, selection } from 'd3-selection'
 import extend from 'extend'
 
-import { ElementSelector } from './Graph'
+import { ns } from './utils'
 
 const HIGHLIGHT = 'highlight'
 
-export class GreulerDefaultTransition extends ElementSelector {
+export class Selector {
+  constructor({ owner, graph }) {
+    this.owner = owner
+    this.graph = graph
+  }
+
+  getEdgeStyleOptions(options) {
+    return extend(
+      {
+        duration: this.getAnimationTime(),
+        stroke: '#E74C3C'
+      },
+      options
+    )
+  }
+
+  getNodeStyleOptions(options) {
+    return extend(
+      {
+        duration: this.getAnimationTime()
+      },
+      options
+    )
+  }
+
+  getAnimationTime() {
+    return this.owner.options.animationTime
+  }
+
+  /**
+   * Selects all the elements identified by `elements`, these elements
+   * must have the `id` property
+   *
+   * @param {Object[]|Object} elements An array of edges/nodes or a single edge/node
+   * @return {selection}
+   */
+  select(elements) {
+    if (!Array.isArray(elements)) {
+      elements = [elements]
+    }
+    if (!elements.length) {
+      elements.push({ id: -1 })
+    }
+    return this.owner.root.selectAll(
+      elements
+        .filter(Boolean)
+        .map((el) => `#${ns(el.id)}`)
+        .join(',')
+    )
+  }
+
+  /**
+   * Selects the path inside the tag <g> that represents an edge
+   *
+   * @param {selection} selection
+   */
+  innerEdgeSelector(selection) {
+    return selection.selectAll('path.base')
+  }
+
+  /**
+   * Selects the circle inside the tag <g> that represents a node
+   *
+   * @param {selection} selection
+   */
+  innerNodeSelector(selection) {
+    return selection.selectAll('circle')
+  }
+
   /**
    * Gets all the edges of the graph
    *
@@ -125,7 +193,7 @@ export class GreulerDefaultTransition extends ElementSelector {
         keepStroke: true,
         reverse: false
       },
-      this.getStyleOptions(),
+      this.getEdgeStyleOptions(),
       options
     )
 
@@ -151,49 +219,62 @@ export class GreulerDefaultTransition extends ElementSelector {
   // temporal highlight
 
   highlightNode(node, options) {
-    return this.doTemporalHighlightNode(this.select(this.graph.getNode(node)), this.getStyleOptions(options))
+    return this.doTemporalHighlightNode(this.select(this.graph.getNode(node)), this.getNodeStyleOptions(options))
   }
 
   highlightEdge(edge, options) {
-    return this.doTemporalHighlightEdges(this.select(this.graph.getEdge(edge)), this.getStyleOptions(options))
+    return this.doTemporalHighlightEdges(this.select(this.graph.getEdge(edge)), this.getEdgeStyleOptions(options))
   }
 
   highlightIncidentEdges(node, options) {
-    return this.doTemporalHighlightEdges(this.select(this.graph.getIncidentEdges(node)), this.getStyleOptions(options))
+    return this.doTemporalHighlightEdges(
+      this.select(this.graph.getIncidentEdges(node)),
+      this.getEdgeStyleOptions(options)
+    )
   }
 
   highlightOutgoingEdges(node, options) {
-    return this.doTemporalHighlightEdges(this.select(this.graph.getOutgoingEdges(node)), this.getStyleOptions(options))
+    return this.doTemporalHighlightEdges(
+      this.select(this.graph.getOutgoingEdges(node)),
+      this.getEdgeStyleOptions(options)
+    )
   }
 
   highlightIncomingEdges(node, options) {
-    return this.doTemporalHighlightEdges(this.select(this.graph.getIncomingEdges(node)), this.getStyleOptions(options))
+    return this.doTemporalHighlightEdges(
+      this.select(this.graph.getIncomingEdges(node)),
+      this.getEdgeStyleOptions(options)
+    )
   }
 
   // traversal of an edge given a node
 
   traverseOutgoingEdges(node, options) {
-    return this.traverseEdges(this.select(this.graph.getOutgoingEdges(node)), this.getStyleOptions(options))
+    return this.traverseEdges(this.select(this.graph.getOutgoingEdges(node)), this.getEdgeStyleOptions(options))
   }
 
   traverseIncomingEdges(node, options) {
-    return this.traverseEdges(this.select(this.graph.getIncomingEdges(node)), this.getStyleOptions(options))
+    return this.traverseEdges(this.select(this.graph.getIncomingEdges(node)), this.getEdgeStyleOptions(options))
   }
 
   traverseIncidentEdges(node, options) {
-    return this.traverseEdges(this.select(this.graph.getIncidentEdges(node)), this.getStyleOptions(options))
+    return this.traverseEdges(this.select(this.graph.getIncidentEdges(node)), this.getEdgeStyleOptions(options))
   }
 
   // traversal of an edge between two nodes
 
   traverseEdgesBetween(edge, options) {
-    return this.traverseEdges(this.select(this.graph.getEdgesBetween(edge)), this.getStyleOptions(options), edge.source)
+    return this.traverseEdges(
+      this.select(this.graph.getEdgesBetween(edge)),
+      this.getEdgeStyleOptions(options),
+      edge.source
+    )
   }
 
   traverseAllEdgesBetween(edge, options) {
     return this.traverseEdges(
       this.select(this.graph.getAllEdgesBetween(edge)),
-      this.getStyleOptions(options),
+      this.getEdgeStyleOptions(options),
       edge.source
     )
   }

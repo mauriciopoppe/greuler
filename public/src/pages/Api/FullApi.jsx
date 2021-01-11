@@ -80,7 +80,7 @@ Check out [the GraphManager class](https://github.com/mauriciopoppe/greuler/blob
 
 #### \`instance.selector\`
 
-Check out [the Selector class](https://github.com/mauriciopoppe/greuler/blob/master/src/selector/GreulerDefaultTransition.js)
+Check out [the Selector class](https://github.com/mauriciopoppe/greuler/blob/master/src/Selector.js)
   `
 
   return (
