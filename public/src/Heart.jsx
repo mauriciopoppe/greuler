@@ -37,7 +37,7 @@ export function Heart({ children }) {
 
   useEffect(() => {}, [])
 
-  const onMouseEnter = () => {
+  const animateHearts = () => {
     hearts.forEach((heart) => {
       heart
         .tune({ x: 0, y: { 0: 'rand(-75, -50)' } })
@@ -50,7 +50,8 @@ export function Heart({ children }) {
     <span
       ref={heartRef}
       style={{ fontSize: '1.5em', color: 'deeppink', position: 'relative' }}
-      onMouseEnter={onMouseEnter}
+      onMouseEnter={animateHearts}
+      onClick={animateHearts}
     >
       {children}
     </span>

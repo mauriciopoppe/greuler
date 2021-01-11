@@ -98,7 +98,7 @@ export class GraphRenderer {
     options = extend(
       {
         width: dimensions.width,
-        height: Math.max(dimensions.height, 500),
+        height: Math.max(dimensions.height, 400),
         animationTime: 1000,
         labels: true,
         directed: false

@@ -3,8 +3,6 @@ window.presentationExample = async function () {
   const instance = window
     .greuler({
       target: '#intro',
-      // width: 960,
-      height: 400,
       animationTime: 3000,
       data: {
         nodes: [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }],
