@@ -69,17 +69,14 @@ const App = () => {
           </a>
         </div>
         <hr />
-        {/*<Navigation />*/}
-        {/*<hr />*/}
       </div>
 
-      {/*<Router>*/}
-      <Introduction path="/" />
-      <hr />
-      <Api path="/api" />
-      <hr />
-      {/*<Examples path="/examples" />*/}
-      {/*</Router>*/}
+      <div className="container">
+        <Introduction path="/" />
+        <hr />
+        <Api path="/api" />
+        <hr />
+      </div>
 
       <footer className="container has-text-centered">
         Made with <Heart>♥</Heart> by <a href="https://mauriciopoppe.com">Mauricio Poppe</a>
