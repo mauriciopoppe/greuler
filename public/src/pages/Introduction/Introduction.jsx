@@ -31,11 +31,11 @@ export const Introduction = (props) => {
       <div className="is-flex is-justify-content-center" dangerouslySetInnerHTML={{ __html: InstallationSVG }} />
       <div>
         <pre>
-          <code>npm install greuler@alpha</code>
+          <code>npm install greuler</code>
         </pre>
         <p>Or as a script</p>
         <pre>
-          <code>&lt;script src="https://unpkg.com/greuler@alpha"&gt;&lt;/script&gt;</code>
+          <code>&lt;script src="https://unpkg.com/greuler"&gt;&lt;/script&gt;</code>
         </pre>
         <p>Try it now on Codesandbox!</p>
         {PRODUCTION && (

@@ -25,13 +25,13 @@ which allows the creation and manipulation of graphs with a simple API.
 ## Installation
 
 ```sh
-npm install greuler@alpha
+npm install greuler
 ```
 
 or
 
 ```html
-<script src="https://unpkg.com/greuler@alpha"></script>
+<script src="https://unpkg.com/greuler"></script>
 ```
 
 ## Usage
