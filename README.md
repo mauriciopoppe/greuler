@@ -9,8 +9,8 @@
   <a href="https://npmjs.org/package/greuler">
     <img src="https://img.shields.io/npm/v/greuler.svg?style=flat" alt="NPM">
   </a>
-  <a href="https://github.com/mauriciopoppe/greuler/workflows/CI">
-    <img src="https://github.com/mauriciopoppe/greuler/workflows/CI/badge.svg" />
+  <a href="https://github.com/mauriciopoppe/greuler/workflows/main.yml">
+    <img src="https://github.com/mauriciopoppe/greuler/workflows/main.yml/badge.svg" />
   </a>
   <a href="https://github.com/feross/standard">
     <img src="https://img.shields.io/badge/code%20style-standard-blue" alt="js-standard-style">
