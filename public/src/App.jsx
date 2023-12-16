@@ -1,34 +1,14 @@
 import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
-import { Router, Link } from '@reach/router'
 
 import { Introduction } from './pages/Introduction/Introduction.jsx'
 import { Api } from './pages/Api/Api.jsx'
-import { Examples } from './pages/Examples/Examples.jsx'
 import { Heart } from './Heart.jsx'
 
 import GreulerSVG from './banner.svg'
 import './index.scss'
 
-const NavigationLink = ({ to, children, ...other } = props) => {
-  return (
-    <Link to={to} className="has-text-centered is-flex-grow-1" {...other}>
-      {children}
-    </Link>
-  )
-}
-
-const Navigation = () => {
-  return (
-    <div className="is-flex">
-      <NavigationLink to="/">introduction</NavigationLink>
-      <NavigationLink to="/api">api</NavigationLink>
-      {/*<NavigationLink to="/examples">examples</NavigationLink>*/}
-    </div>
-  )
-}
-
-// twitter fragment
+// eslint-ignore
 !(function (d, s, id) {
   var js,
     fjs = d.getElementsByTagName(s)[0],
@@ -53,9 +33,6 @@ const App = () => {
         <div className="has-text-centered">
           <iframe
             src="https://ghbtns.com/github-btn.html?user=mauriciopoppe&repo=greuler&type=star&count=true"
-            frameBorder="0"
-            scrolling="0"
-            width="90px"
             height="20px"
           />
           <a
@@ -85,4 +62,9 @@ const App = () => {
   )
 }
 
-ReactDOM.render(<App />, document.querySelector('#root'))
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.querySelector('#root')
+)
