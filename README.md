@@ -1,6 +1,7 @@
 <p align="center">
   <a href="http://mauriciopoppe.github.io/greuler/">
     <img src="./public/src/banner.svg" alt="greuler logo">
+    <img src="./public/src/animation.gif" alt="greuler logo">
   </a>
 </p>
 
@@ -39,17 +40,33 @@ or
 ```js
 import greuler from 'greuler'
 greuler({
-  // options in the homepage
-})
+  nodes: [
+    { id: 0 },
+    { id: 1 },
+    { id: 2 },
+    { id: 3 },
+    { id: 4 },
+    { id: 5 }
+  ],
+  edges: [
+    { source: 0, target: 1 },
+    { source: 0, target: 2, directed: true },
+    { source: 0, target: 3 },
+    { source: 1, target: 2, directed: true },
+    { source: 4, target: 0 },
+    { source: 5, target: 0, directed: true },
+    { source: 4, target: 5 }
+  ]
+}).update()
 ```
 
-## Examples
+## API and Examples
 
-Check out the examples at the [`homepage`](http://mauriciopoppe.github.io/greuler/)
+Check out the examples and API at the [`homepage`](http://mauriciopoppe.github.io/greuler/)
 
 ## License
 
-2021 MIT © Mauricio Poppe
+2023 MIT © Mauricio Poppe
 
 [npm-image]: https://img.shields.io/npm/v/greuler.svg?style=flat
 [npm-url]: https://npmjs.org/package/greuler
