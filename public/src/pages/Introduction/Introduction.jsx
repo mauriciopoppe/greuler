@@ -2,9 +2,11 @@ import React, { useEffect } from 'react'
 
 import InstallationSVG from './installation.svg'
 
-export const Introduction = (props) => {
+export const Introduction = () => {
   useEffect(() => {
-    window.presentationExample()
+    ;(async () => {
+      await window.presentationExample()
+    })()
     new window.Vivus('installation-svg', { type: 'oneByOne', duration: 200 })
   }, [])
 

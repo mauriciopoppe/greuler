@@ -12,10 +12,11 @@ module.exports = (env) => ({
   mode: env.production ? 'production' : 'development',
   devtool: env.production ? 'nosources-source-map' : 'inline-source-map',
   devServer: {
-    contentBase: './public',
-    historyApiFallback: true,
-    // https://github.com/webpack/webpack-dev-server/issues/2484
-    injectClient: false
+    static: {
+      directory: path.join(__dirname, 'public')
+    },
+    compress: true,
+    port: 9000
   },
   output: {
     path: __dirname + '/dist',

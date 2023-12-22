@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 
 import { Introduction } from './pages/Introduction/Introduction.jsx'
 import { Api } from './pages/Api/Api.jsx'
@@ -10,6 +10,7 @@ import './index.scss'
 
 // eslint-ignore
 !(function (d, s, id) {
+  // eslint-ignore
   var js,
     fjs = d.getElementsByTagName(s)[0],
     p = /^http:/.test(d.location) ? 'http' : 'https'
@@ -32,6 +33,7 @@ const App = () => {
         <div className="is-flex is-justify-content-center" dangerouslySetInnerHTML={{ __html: GreulerSVG }} />
         <div className="has-text-centered">
           <iframe
+            title="foo"
             src="https://ghbtns.com/github-btn.html?user=mauriciopoppe&repo=greuler&type=star&count=true"
             height="20px"
           />
@@ -49,9 +51,9 @@ const App = () => {
       </div>
 
       <div className="container">
-        <Introduction path="/" />
+        <Introduction />
         <hr />
-        <Api path="/api" />
+        <Api />
         <hr />
       </div>
 
@@ -62,9 +64,5 @@ const App = () => {
   )
 }
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.querySelector('#root')
-)
+const root = createRoot(document.getElementById('root'))
+root.render(<App />)
