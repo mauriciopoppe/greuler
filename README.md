@@ -1,7 +1,6 @@
 <p align="center">
   <a href="http://mauriciopoppe.github.io/greuler/">
     <img src="./public/src/banner.svg" alt="greuler logo">
-    <img src="./public/src/animation.gif" alt="greuler logo">
   </a>
 </p>
 
@@ -22,6 +21,10 @@
 <b>greuler</b> is graph theory visualization tool powered by <a href="http://d3js.org/">d3</a>
 and on top of <a href="http://marvl.infotech.monash.edu/webcola/">WebCola</a>
 which allows the creation and manipulation of graphs with a simple API.
+
+<p align="center">
+  <img src="https://github.com/mauriciopoppe/greuler/assets/1616682/813d8fa8-9f98-4493-86af-aa0f6dd5d945" alt="greuler" width="500">
+</p>
 
 ## Installation
 
